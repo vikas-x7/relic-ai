@@ -1,1 +1,15 @@
 @import 'tailwindcss';
+
+@font-face {
+  font-family: 'Larken Light';
+  src: url('/fonts/larken-light/larken-light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-bricolage: var(--font-bricolage), sans-serif;
+  --font-cabin: var(--font-cabin), sans-serif;
+  --font-larken: 'Larken Light', serif;
+}
