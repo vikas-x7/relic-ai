@@ -64,7 +64,7 @@ export default function Ather() {
               without ever losing context or starting over.
             </p> */}
 
-            <div className="mx-auto mt-4 flex w-full items-center justify-center md:mt-8 md:w-4xl">
+            {/* <div className="mx-auto mt-4 flex w-full items-center justify-center md:mt-8 md:w-4xl">
               <button
                 onClick={() =>
                   document
@@ -82,9 +82,9 @@ export default function Ather() {
               >
                 Get started now <MdArrowForward />
               </Link>
-            </div>
+            </div> */}
 
-            <div className="relative mx-auto mt-5 inline-block w-[330px] p-0.5 md:w-full md:max-w-2xl">
+            {/* <div className="relative mx-auto mt-5 inline-block w-[330px] p-0.5 md:w-full md:max-w-2xl">
               <span className="absolute top-0 left-0 h-2 w-2 border-t-2 border-l-2 border-white/70 md:h-4 md:w-4" />
               <span className="absolute top-0 right-0 h-2 w-2 border-t-2 border-r-2 border-white/70 md:h-4 md:w-4" />
               <span className="absolute bottom-0 left-0 h-2 w-2 border-b-2 border-l-2 border-white/70 md:h-4 md:w-4" />
@@ -129,7 +129,7 @@ export default function Ather() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

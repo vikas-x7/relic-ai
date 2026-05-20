@@ -1,15 +1,7 @@
-// 'use client';
-
-
-// import Approach from './Approach';
-// import Articles from './Articles';
-// import CTASection from './CTASection';
-// import FAQ from './FAQ';
-// import Footer from './Footer';
-// import TeamsThrive from './TeamsThrive';
-
 import Ather from './Ather';
 import Highlights from './Highlights';
+import Integrations from './Integrations';
+import Working from './Working';
 
 export default function Feature() {
   const stats = [
@@ -50,7 +42,7 @@ export default function Feature() {
         </svg>
       </div>
 
-      <div className="relative z-10 w-full bg-white h-30 rounded-b-[10px] mb-20"></div>
+      <div className="relative z-10 w-full bg-white h-30 rounded-b-[40px] mb-20"></div>
       {/* Top Header / Nav Area */}
       <div className="relative z-10 flex items-start justify-between mt-10 px-10">
         {/* Logo & Label */}
@@ -77,7 +69,6 @@ export default function Feature() {
         </button>
       </div>
 
-      {/* Statistics Grid */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 border-y border-white/10 border-dashed w-full mt-auto ">
         {stats.map((stat, index) => (
           <div key={index} className="relative min-h-[220px] font-bricolage flex flex-col p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10 border-dashed ">
@@ -94,15 +85,9 @@ export default function Feature() {
         ))}
       </div>
 
-
-
-      <Ather />
       <Highlights />
-      
-      {/* <EngineeredForAutonomy />
-      <Articles />
-      <FAQ />
-      <CTASection /> */}
+      <Working />
+      <Integrations />
     </section>
   );
 }
