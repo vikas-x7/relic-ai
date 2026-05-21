@@ -43,18 +43,16 @@ export default function Feature() {
       </div>
 
       <div className="relative z-10 w-full bg-white h-30 rounded-b-[40px] mb-20"></div>
-      {/* Top Header / Nav Area */}
+
       <div className="relative z-10 flex items-start justify-between mt-10 px-10">
-        {/* Logo & Label */}
         <div className="flex items-center gap-3 text-white/70">
           <span className="text-[14px] tracking-[-0.05px] uppercase text-white">Statistics</span>
         </div>
       </div>
 
-      {/* Hero Content */}
-      <div className="relative z-10 px-6 md:px-10 pt-10 pb-20 max-w-4xl flex-1 flex flex-col justify-center">
+      <div className="relative z-10 px-6 md:px-10 pt-10 pb-20 max-w-4xl flex-1 flex flex-col justify-center  ">
         <h2 className="text-2xl md:text-[32px] text-white leading-relaxed md:leading-[30px] mb-10 font-cabin tracking-[-1.5px]">
-          Build a connected knowledge graph of your conversations. Track every single thought visually on an infinite canvas.
+          Build a connected knowledge graph of your conversations. Track every single thought visually on an infinite canvas.asdfasdfasdfp
         </h2>
 
         {/* View Report Button */}
@@ -69,7 +67,7 @@ export default function Feature() {
         </button>
       </div>
 
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 border-y border-white/10 border-dashed w-full mt-auto ">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 border-y border-white/10 border-dashed w-full mt-auto ">
         {stats.map((stat, index) => (
           <div key={index} className="relative min-h-[220px] font-bricolage flex flex-col p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10 border-dashed ">
             {/* Top Right Bracket Icon ( ┐ ) */}
