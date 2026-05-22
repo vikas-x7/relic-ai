@@ -1,4 +1,5 @@
 import React from 'react'
+import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Feature from './components/Feature'
 import Faq from './components/Faq'
@@ -7,14 +8,14 @@ import Footer from './components/Footer'
 
 function Landing() {
   return (
- <>
- <Hero />
- <Feature />
- <Faq />
- <Getstart />
- <Footer />
- 
- </>
+    <>
+      <Navbar />
+      <Hero />
+      <Feature />
+      <Faq />
+      <Getstart />
+      <Footer />
+    </>
   )
 }
 
