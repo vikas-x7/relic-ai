@@ -2,6 +2,7 @@
 import { SiOpenid, SiFigma, SiMeta, SiGithub } from 'react-icons/si';
 import { FaBolt, FaBrain, FaStar } from 'react-icons/fa';
 import { TbHexagon } from 'react-icons/tb';
+import { BsAsterisk } from 'react-icons/bs';
 
 export default function Integrations() {
   // Array mein components ko import karke rakha hai
@@ -24,16 +25,19 @@ export default function Integrations() {
   ];
 
   return (
-    <section className="text-white py-24">
+    <section className="text-white pb-54">
       {/* Header */}
-      <div className="max-w-2xl px-6 md:px-12 mb-20 ml-70">
-        <div className="text-[10px] uppercase tracking-widest text-white/50 mb-6 flex items-center gap-2">
-          <span className="w-4 h-1 bg-white"></span> INTEGRATIONS
+      <div className="px-6 md:px-12 mb-20 flex items-end justify-end ">
+        <div className='w-4xl text-end'>
+
+        <div className="text-[15px] uppercase ml-7 text-white/50 mb-6 flex items-center gap-2">
+          <span><BsAsterisk /></span> INTEGRATIONS
         </div>
-        <h2 className="text-4xl md:text-3xl font-medium leading-[1.1] tracking-tighter">
+        <h2 className="text-4xl md:text-3xl font-medium leading-[1.1] text-[#FAFAFA] tracking-tighter">
           Armory bridges the gap between your data and your tools.
-          <span className="text-white/40"> Deploy agents that live where you work, from Slack to GitHub and beyond.</span>
+          <span > Deploy agents that live where you work, from Slack to GitHub and beyond.</span>
         </h2>
+        </div>
       </div>
 
       {/* Logo Grid */}

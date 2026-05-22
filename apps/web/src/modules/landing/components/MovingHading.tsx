@@ -4,13 +4,13 @@ import { PiDotOutlineFill } from 'react-icons/pi';
 
 const marqueeItemsData = [
   { name: 'Explore complex ideas on an infinite canvas  ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Explore complex ideas on an infinite canvas ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Explore complex ideas on an infinite canvas ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Explore complex ideas on an infinite canvas ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Explore complex ideas on an infinite canvas ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Explore complex ideas on an infinite canvas ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Explore complex ideas on an infinite canvas ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Explore complex ideas on an infinite canvas ', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Branch any conversation without losing parent context ', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Build connected knowledge graphs of your thoughts ', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Organize all your research and learning paths ', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'No more cluttered threads in chat history ', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Ask follow up questions from any node ', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Visual nodes keep your ideas fully connected ', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Explore endless possibilities with visual AI canvas ', src: 'https://thesvg.org/icons/gemini/default.svg' },
 ];
 
 export default function MovingHanding() {

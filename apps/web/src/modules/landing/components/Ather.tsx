@@ -46,61 +46,29 @@ export default function Ather() {
   }, [charIndex, isDeleting, placeholderIndex]);
 
   return (
-    <section className="relative">
-      <div className="md:mt z-10 mt-30 flex items-start justify-center text-center md:mt-0">
-        <div className="relative flex w-full items-center justify-center overflow-hidden border-dashed border-white/10 md:h-screen md:w-[90vw] md:border-x">
+    <section className="relative ">
+      <div className="md:mt z-10  flex items-start justify-center text-center ">
+        <div className="relative flex w-full items-center justify-center overflow-hidden border-dashed border-white/10 md:w-[90vw] md:border-x">
           <div className="w-full flex-col items-center justify-center">
-            {/* <p className="mb-2 inline-block rounded-4xl border border-white/10 px-4 py-1 text-[10px] tracking-[0] backdrop-blur-md md:mb-6 md:px-4 md:py-1.5 md:text-[12px] md:-tracking-[0.1px]">
-              A canvas where every thought gets its own space to grow
-            </p> */}
+   
 
-            <h1 className="text-[23px] leading-7 font-medium -tracking-[1px] text-white/95 md:text-3xl md:text-[54px] md:leading-14 md:-tracking-[3px]">
-              Conversations are not linear and <br /> your AI chat workspace should not be either.
-            </h1>
-
-            {/* <p className="mt-3 text-[9px] text-white/80 md:text-[15px] md:-tracking-[0.5px]">
-              Relic AI gives your ideas a canvas. Start a conversation, branch
-              mid-thought, and build a living <br /> map of your thinking
-              without ever losing context or starting over.
-            </p> */}
-
-            {/* <div className="mx-auto mt-4 flex w-full items-center justify-center md:mt-8 md:w-4xl">
-              <button
-                onClick={() =>
-                  document
-                    .getElementById('demo-video')
-                    ?.scrollIntoView({ behavior: 'smooth' })
-                }
-                className="mr-3 flex cursor-pointer items-center gap-1 border border-white/10 px-3 py-1 text-[10px] font-medium -tracking-[0.5px] text-white md:px-8 md:py-1.5 md:text-[14px]"
-              >
-                See how it works
-              </button>
-
-              <Link
-                href="/chat"
-                className="flex items-center gap-1 bg-white/90 px-2 py-1 text-[10px] font-medium -tracking-[0.5px] text-black md:px-7 md:py-1.5 md:text-[14px]"
-              >
-                Get started now <MdArrowForward />
-              </Link>
-            </div> */}
-
-            {/* <div className="relative mx-auto mt-5 inline-block w-[330px] p-0.5 md:w-full md:max-w-2xl">
-              <span className="absolute top-0 left-0 h-2 w-2 border-t-2 border-l-2 border-white/70 md:h-4 md:w-4" />
-              <span className="absolute top-0 right-0 h-2 w-2 border-t-2 border-r-2 border-white/70 md:h-4 md:w-4" />
-              <span className="absolute bottom-0 left-0 h-2 w-2 border-b-2 border-l-2 border-white/70 md:h-4 md:w-4" />
-              <span className="absolute right-0 bottom-0 h-2 w-2 border-r-2 border-b-2 border-white/70 md:h-4 md:w-4" />
+            <div className="relative mx-auto mt-5 inline-block w-[330px] p-0.5 md:w-full md:max-w-2xl text-black">
+              <span className="absolute top-0 left-0 h-2 w-2 border-t-2 border-l-2 border-black/70 md:h-4 md:w-4" />
+              <span className="absolute top-0 right-0 h-2 w-2 border-t-2 border-r-2 border-black/70 md:h-4 md:w-4" />
+              <span className="absolute bottom-0 left-0 h-2 w-2 border-b-2 border-l-2 border-black/70 md:h-4 md:w-4" />
+              <span className="absolute right-0 bottom-0 h-2 w-2 border-r-2 border-b-2 border-black/70 md:h-4 md:w-4" />
 
               <div className="w-full backdrop-blur-md">
-                <div className="relative flex flex-col border border-white/10 shadow-xl">
+                <div className="relative flex flex-col border border-black/10 shadow-xl">
                   <textarea
-                    className="h-10 w-full resize-none bg-transparent px-3 pt-2 text-[8px] leading-relaxed text-white placeholder-white/80 outline-none md:h-20 md:px-4 md:pt-4 md:text-[14px]"
+                    className="h-10 w-full resize-none bg-transparent px-3 pt-2 text-[8px] leading-relaxed text-black placeholder-black/80 outline-none md:h-20 md:px-4 md:pt-4 md:text-[14px]"
                     rows={3}
                     placeholder={currentPlaceholder + '|'}
                   />
 
                   <div className="flex flex-row items-center justify-between border-t border-[#191919] px-3 py-1 sm:px-4 md:py-2">
                     <div className="flex items-center">
-                      <button className="flex items-center gap-1 rounded-sm border border-[#191919] px-2 py-1 text-[8px] font-medium text-white transition-colors hover:bg-white/5 md:gap-2 md:text-[12px]">
+                      <button className="flex items-center gap-1 rounded-sm border border-[#191919] px-2 py-1 text-[8px] font-medium text-black transition-colors hover:bg-white/5 md:gap-2 md:text-[12px]">
                         <FcGoogle className="text-[9px] md:text-[14px]" />
                         <span>Gemma 2</span>
                         <IoIosArrowDown className="opacity-70" />
@@ -109,15 +77,15 @@ export default function Ather() {
 
                     <div className="flex items-center gap-2 sm:gap-3">
                       <div className="flex items-center gap-1 sm:gap-2">
-                        <button className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[#191919] text-white transition-colors hover:bg-white/5 sm:h-7 sm:w-7">
+                        <button className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[#191919] text-black transition-colors hover:bg-white/5 sm:h-7 sm:w-7">
                           <MdOutlineFullscreenExit className="text-[13px] md:text-[18px]" />
                         </button>
 
-                        <button className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[#191919] text-white transition-colors hover:bg-white/5 sm:h-7 sm:w-7">
+                        <button className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[#191919] text-black transition-colors hover:bg-white/5 sm:h-7 sm:w-7">
                           <IoMicOutline className="text-[13px] md:text-[18px]" />
                         </button>
 
-                        <button className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[#191919] text-white transition-colors hover:bg-white/5 sm:h-7 sm:w-7">
+                        <button className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[#191919] text-black transition-colors hover:bg-white/5 sm:h-7 sm:w-7">
                           <IoAddOutline className="text-[13px] md:text-[18px]" />
                         </button>
                       </div>
@@ -129,7 +97,7 @@ export default function Ather() {
                   </div>
                 </div>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

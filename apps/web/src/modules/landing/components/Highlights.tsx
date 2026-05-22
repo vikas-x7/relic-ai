@@ -15,7 +15,7 @@ export default function Highlights() {
   ];
 
   return (
-    <section className="px-6 md:px-12 py-40">
+    <section className="px-6 md:px-5 py-40">
       <div className="mb-16 text-center">
         <h2 className="text-4xl md:text-5xl font-medium font-bricolage tracking-[-2px]">See the power of infinite canvas</h2>
       </div>

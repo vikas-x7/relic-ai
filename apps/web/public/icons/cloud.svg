@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <!-- Outer glowing background aura -->
+  <circle cx="64" cy="64" r="48" fill="url(#cloud-glow)" opacity="0.15" />
+  
+  <!-- Outer dashed ring -->
+  <circle cx="64" cy="64" r="40" stroke="white" stroke-width="1" stroke-opacity="0.2" stroke-dasharray="4 6" />
+
+  <!-- Cloud outline -->
+  <path d="M46 76 A14 14 0 0 1 46 48 A22 22 0 0 1 82 42 A18 18 0 0 1 88 76 Z" fill="#0c0c0c" stroke="url(#accent-grad)" stroke-width="2.5" stroke-linejoin="round" />
+
+  <!-- Upward arrow representing scaling -->
+  <path d="M64 68 L64 50 M58 56 L64 50 L70 56" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+  <defs>
+    <radialGradient id="cloud-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="accent-grad" x1="32" y1="36" x2="96" y2="76" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#333333" />
+    </linearGradient>
+  </defs>
+</svg>

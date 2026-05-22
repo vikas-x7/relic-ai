@@ -1,3 +1,4 @@
+import Ather from './Ather';
 import MovingHanding from './MovingHading';
 
 export default function Hero() {
@@ -23,7 +24,7 @@ export default function Hero() {
         </button>
       </div>
 
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full px-6 pb-8 md:mb-10">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full px-6 pb-8 md:mb-0">
         <h2 className="text-3xl md:text-5xl lg:text-[3.5rem]  leading-tight   text-center tracking-[-2px] font-larken">A visual workspace for AI conversations</h2>
 
         <p className="text-sm md:text-base  font-cabin lg:text-[16px] text-black tracking-[px] max-w-[49rem] mx-auto leading-relaxed mb-8 text-center">
@@ -36,7 +37,8 @@ export default function Hero() {
         </button>
       </div>
 
-      <div className="px-6">
+
+      <div className="px-6 mt-13">
         <video className="rounded-[40px] " autoPlay loop muted playsInline src="https://res.cloudinary.com/dyv9kenuj/video/upload/v1778740598/relicdemov1_1_aurpo2.mp4"></video>
       </div>
     </section>
