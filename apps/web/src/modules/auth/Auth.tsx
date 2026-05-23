@@ -63,12 +63,11 @@ export default function LoginPage({ error }: LoginPageProps) {
   }
 
   return (
-    <div className="font-DM_sans flex min-h-screen bg-black text-white">
+    <div className="font-DM_sans flex min-h-screen bg-black text-white font-cabin">
       <div className="relative hidden border-r border-white/20 lg:block lg:w-1/2">
-        <Image
-          width={1000}
-          height={1000}
-          src="/images/relicailoginimage.jpg"
+        <img
+          
+          src="https://relicai.in/_next/image?url=%2Fimages%2Frelicailoginimage.jpg&w=2048&q=75"
           alt=""
           className="h-screen w-full object-cover opacity-40"
         />
