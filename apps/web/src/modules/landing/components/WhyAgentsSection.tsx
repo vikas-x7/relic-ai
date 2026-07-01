@@ -42,7 +42,7 @@ export default function WhyAgentsSection() {
     <section className="w-full text-white py-16 px-4 sm:px-6 lg:px-12 mt-20">
       <div className="mx-auto space-y-12">
         <div className="space-y-4">
-          <div className="inline-block border border-white/20 px-3 py-1 text-xs font-mono uppercase text-white/70">WHY Relic ai</div>
+          <div className="inline-block border border-white/20 px-3 py-1 text-xs  uppercase text-white/70">WHY Relic ai</div>
           <h2 className="text-3xl sm:text-5xl lg:text-[44px] font-normal tracking-[-2.5px] max-w-3xl">
             Your agents are smart. <br />
             Their tools should be too.

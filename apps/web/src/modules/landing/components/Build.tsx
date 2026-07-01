@@ -48,36 +48,33 @@ export default function Build() {
   ];
 
   return (
-    <section className="w-full  text-white/90 overflow-hidden border-t border-white/10 border-dashed px-12">
-      <div className="grid grid-cols-1 lg:grid-cols-2 ">
-        {/* Left Side: Image container */}
+    <section className="">
+      <div className="grid grid-cols-1 lg:grid-cols-2 border-t border-dashed border-white/20 ">
         <div className=" w-full h-screen overflow-hidden group border-r border-white/10 border-dashed">
-          {/* Background image (dithered/abstract digital pattern placeholder) */}
           <img src="https://i.pinimg.com/originals/9c/14/86/9c14863b9e64ffc65cdfda4cdc9a0b99.gif" alt="Built for the long term" className="w-full h-screen object-cover" />
-          {/* Subtle noise/grid overlay to match high-end tech aesthetic */}
         </div>
 
         {/* Right Side: Text & Features */}
-        <div className="flex flex-col justify-center p-8 md:p-16 lg:px-10 ">
+        <div className="flex flex-col justify-center ">
           {/* Top Header */}
-          <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white/90 mt-6 tracking-tight leading-none">Built for the long term</h2>
-            <p className="text-sm md:text-base text-zinc-600 mt-6 max-w-xl leading-relaxed font-light">
+          <div className="mb-16 px-10">
+            <h2 className="text-4xl md:text-5xl lg:text-5xl  text-white/90 mt-6 tracking-[-2px] leading-none">Built for the long term</h2>
+            <p className="text-sm md:text-base text-white/60 mt-6 max-w-xl leading-relaxed font-light">
               We don&apos;t just ship code; we architect neural ecosystems. Our approach combines rigorous testing with rapid deployment cycles.
             </p>
           </div>
 
           {/* Grid of features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 border-t border-black/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 border-t border-white/10 px-10">
             {features.map((feature, index) => {
               // Custom borders for grid layout
               const borderClass =
                 index === 0
-                  ? 'border-b md:border-r border-black/10 py-10 pr-6'
+                  ? 'border-b md:border-r border-white/10 py-10 pr-6'
                   : index === 1
-                    ? 'border-b border-black/10 py-10 md:pl-10 pr-6'
+                    ? 'border-b border-white/10 py-10 md:pl-10 pr-6'
                     : index === 2
-                      ? 'border-b md:border-b-0 md:border-r border-black/10 py-10 pr-6'
+                      ? 'border-b md:border-b-0 md:border-r border-white/10 py-10 pr-6'
                       : '';
 
               return (

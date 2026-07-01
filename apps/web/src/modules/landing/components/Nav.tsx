@@ -46,7 +46,7 @@ const Navbar = () => {
 
   return (
     <nav className="font-cabin fixed top-0 left-0 right-0 z-50 px-2 sm:px-12 ">
-      <div className="bg-[#F0F0F0] rounded-[2px] text-black w-full h-8 text-center flex items-center justify-center overflow-hidden px-4 [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+      <div className="bg-[#F0F0F0] rounded-[2px] text-black w-full h-8 text-center flex items-center justify-center overflow-hidden px-4 mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
         <p className="flex items-center gap-2  text-xs sm:text-sm whitespace-nowrap">
           Relic ai the beta version is here <MdArrowForward />
         </p>
@@ -56,8 +56,9 @@ const Navbar = () => {
         <div className="flex h-12  items-center justify-between">
           <div className="hidden lg:flex items-center gap-5 bg-[#F0F0F0]  px-3 py-2 rounded-[3px] transition-colors duration-300 ">
             <Link href="/" className="flex items-center">
-              <BiSolidSquare size={23} className="text-[#171717]" />
-              <h1 className="text-[19px] font-semibold tracking-[-0.5px] mt-[0.5px]">Relic ai </h1>
+              {/* <BiSolidSquare size={23} className="text-[#171717]" /> */}
+              <img src="https://i.pinimg.com/736x/bd/26/66/bd2666c8166b5c90afd47b36f428cc25.jpg" alt="" className="w-6 mr-1 grayscale mix-blend-multiply" />
+              <h1 className="text-[19px] font-semibold tracking-[-0.5px] mt-[0.5px]">Relic AI </h1>
             </Link>
             {NAV_LINKS.map((link) => (
               <NavItem key={link.id} {...link} className="text-[14px] hover:opacity-70  mt-1 transition-opacity tracking-[-0.5px]" />

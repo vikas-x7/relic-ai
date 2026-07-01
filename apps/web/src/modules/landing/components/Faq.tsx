@@ -103,7 +103,7 @@ export default function FAQ() {
   };
 
   return (
-    <section className="relative overflow-hidden w-full bg-white text-[#111] font-cabin border-t border-black/10 py-50">
+    <section className="relative overflow-hidden w-full bg-white text-[#111] font-cabin border-t border-black/10 py-50 ">
       <div className="pointer-events-none absolute inset-0 z-0 opacity-100">
         <svg className="h-full w-full" id="noice-faq">
           <filter id="noise-filter-faq">
@@ -125,9 +125,9 @@ export default function FAQ() {
         </svg>
       </div>
 
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 border-t border-black/10">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 border-t border-black/10 ">
         {/* Left Side: Header */}
-        <div className=" px-10 border-b md:border-r border-black/10 flex flex-col justify-between ">
+        <div className=" px-12 border-b md:border-r border-black/10 flex flex-col justify-between ">
           <div className="mt-10">
             <span className="text-xstracking-[0.2em] font-medium">FAQ</span>
             <h2 className="text-5xl md:text-6xl leading-13 tracking-[-3px] mb-10 mt-3">
@@ -147,7 +147,7 @@ export default function FAQ() {
         </div>
 
         {/* Right Side: Tabs and Accordion */}
-        <div className="flex flex-col font-light min-h-[560px]">
+        <div className="flex flex-col font-light pr-12">
           {/* Tab Navigation */}
           <div className="grid grid-cols-4 border-b border-black/10">
             {tabs.map((tab) => (
@@ -168,16 +168,10 @@ export default function FAQ() {
                 <div className="flex items-center gap-4">
                   <div>
                     <h3 className="font-light text-base">{item.q}</h3>
-                    {openIndex === i && (
-                      <p className="text-sm text-black/60 mt-2 max-w-lg">
-                        {item.a}
-                      </p>
-                    )}
+                    {openIndex === i && <p className="text-sm text-black/60 mt-2 max-w-lg">{item.a}</p>}
                   </div>
                 </div>
-                <span className="text-xl font-light text-black/40">
-                  {openIndex === i ? '−' : '+'}
-                </span>
+                <span className="text-xl font-light text-black/40">{openIndex === i ? '−' : '+'}</span>
               </div>
             ))}
           </div>

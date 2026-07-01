@@ -32,7 +32,7 @@ export default function MovingHanding() {
         }
       `}</style>
 
-      <section className="w-full overflow-hidden border-y border-white/5 bg-black py-8">
+      <section className="w-full overflow-hidden border-y border-dashed border-white/12 bg-black py-8">
         <div className="relative w-full overflow-hidden">
           <div className="animate-marquee-loop">
             {[0, 1].map((group) => (

@@ -31,7 +31,7 @@ const Hero = () => {
 
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8 mb-12">
             <div className="flex items-center gap-3">
-              <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Flag of India" className="w-8 sm:w-10" />
+              <img src="https://i.pinimg.com/1200x/de/c8/b9/dec8b90206c23c3c48b05d39bea187c1.jpg" alt="Flag of India" className="w-8 sm:w-10 " />
               <div className="text-[4px] sm:text-[10px] text-black">
                 <p>Based In The Beautiful</p>
                 <p>India & Online Worldwide</p>
@@ -39,13 +39,13 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-row sm:flex-col items-start sm:items-end gap-6 sm:gap-3 text-sm text-black font-medium">
-              <Link href="#" className="hover:text-black/50 transition-colors">
+              <Link href="#" className="hover:text-black/50 transition-colors font-light">
                 Home
               </Link>
-              <Link href="#" className="hover:text-black/50 transition-colors">
+              <Link href="#" className="hover:text-black/50 transition-colors font-light ">
                 Get start
               </Link>
-              <Link href="#" className="hover:text-black/50 transition-colors">
+              <Link href="#" className="hover:text-black/50 transition-colors font-light">
                 Working
               </Link>
             </div>
