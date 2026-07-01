@@ -84,7 +84,7 @@ export default function LoginPage({ error }: LoginPageProps) {
       </div>
       <div className="flex w-full items-center justify-center lg:w-1/2">
         <div className="absolute top-0 left-0 mt-3 ml-3 flex items-center">
-          <img src="/images/logo.png" alt="" className="h-11 w-11" />
+          <img src="https://relicai.in/images/logo.png" alt="" className="h-11 w-11" />
           <h1 className="-ml-2 text-[20px]">Relic ai</h1>
         </div>
         <div className="w-[480px] px-6">

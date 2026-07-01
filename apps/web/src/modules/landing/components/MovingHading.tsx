@@ -1,16 +1,20 @@
 'use client';
 
-import { PiDotOutlineFill } from 'react-icons/pi';
-
 const marqueeItemsData = [
-  { name: 'Explore complex ideas on an infinite canvas  ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Branch any conversation without losing parent context ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Build connected knowledge graphs of your thoughts ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Organize all your research and learning paths ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'No more cluttered threads in chat history ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Ask follow up questions from any node ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Visual nodes keep your ideas fully connected ', src: 'https://thesvg.org/icons/gemini/default.svg' },
-  { name: 'Explore endless possibilities with visual AI canvas ', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Gemini', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Kimi', src: 'https://thesvg.org/icons/kimi/default.svg' },
+  { name: 'MiniMax', src: 'https://thesvg.org/icons/minimax/default.svg' },
+  { name: 'DeepSeek', src: 'https://thesvg.org/icons/deepseek/default.svg' },
+  { name: 'Mistral AI', src: 'https://thesvg.org/icons/mistral/default.svg' },
+  { name: 'Gemini', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Kimi', src: 'https://thesvg.org/icons/kimi/default.svg' },
+  { name: 'Gemini', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Kimi', src: 'https://thesvg.org/icons/kimi/default.svg' },
+  { name: 'MiniMax', src: 'https://thesvg.org/icons/minimax/default.svg' },
+  { name: 'DeepSeek', src: 'https://thesvg.org/icons/deepseek/default.svg' },
+  { name: 'Mistral AI', src: 'https://thesvg.org/icons/mistral/default.svg' },
+  { name: 'Gemini', src: 'https://thesvg.org/icons/gemini/default.svg' },
+  { name: 'Kimi', src: 'https://thesvg.org/icons/kimi/default.svg' },
 ];
 
 export default function MovingHanding() {
@@ -24,22 +28,20 @@ export default function MovingHanding() {
         .animate-marquee-loop {
           display: flex;
           width: max-content;
-          animation: marquee 240s linear infinite;
+          animation: marquee 90s linear infinite;
         }
       `}</style>
 
-      <section className="w-full overflow-hidden  bg-[#1C1A16]  font-cabin">
-        <div className="relative w-full overflow-hidden ">
+      <section className="w-full overflow-hidden border-y border-white/5 bg-black py-8">
+        <div className="relative w-full overflow-hidden">
           <div className="animate-marquee-loop">
             {[0, 1].map((group) => (
-              <div key={group} className="flex shrink-0 items-center gap-1 pr-16" aria-hidden={group === 1}>
+              <div key={group} className="flex shrink-0 items-center gap-16 pr-16" aria-hidden={group === 1}>
                 {marqueeItemsData.map((item, i) => (
-                  <div key={`${group}-${i}`} className="flex shrink-0 items-center justify-center transition-opacity duration-300 hover:opacity-100">
-                    {' '}
-                    <span className="text-white">
-                      <PiDotOutlineFill size={45}/>
-                    </span>
-                    <span className="text-[13px]  text-white md:text-[15px] ">{item.name}</span>
+                  <div key={`${group}-${i}`} className="flex shrink-0 items-center justify-center opacity-40 transition-opacity duration-300 hover:opacity-100">
+                    <img src={item.src} alt={group === 0 ? `${item.name}-logo` : ''} className="h-6 w-auto max-w-full object-contain brightness-200 contrast-200 grayscale" />
+
+                    <span className="ml-3 text-[16px] font-medium tracking-tight text-white md:text-[18px]">{item.name}</span>
                   </div>
                 ))}
               </div>

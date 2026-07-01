@@ -25,23 +25,25 @@ export default function Integrations() {
   ];
 
   return (
-    <section className="text-white pb-54">
+    <section className="text-white pb-54 ">
       {/* Header */}
-      <div className="px-6 md:px-12 mb-20 flex items-end justify-end ">
-        <div className='w-4xl text-end'>
-
-        <div className="text-[15px] uppercase ml-7 text-white/50 mb-6 flex items-center gap-2">
-          <span><BsAsterisk /></span> INTEGRATIONS
-        </div>
-        <h2 className="text-4xl md:text-3xl font-medium leading-[1.1] text-[#FAFAFA] tracking-tighter">
-          Armory bridges the gap between your data and your tools.
-          <span > Deploy agents that live where you work, from Slack to GitHub and beyond.</span>
-        </h2>
+      <div className="mb-20 flex items-end justify-end px-12 ">
+        <div className="w-4xl text-end">
+          <div className="text-[15px] uppercase ml-7 text-white/50 mb-6 flex items-center gap-2">
+            <span>
+              <BsAsterisk />
+            </span>{' '}
+            INTEGRATIONS
+          </div>
+          <h2 className="text-4xl md:text-3xl font-medium leading-[1.1] text-[#FAFAFA] tracking-tighter">
+            Armory bridges the gap between your data and your tools.
+            <span> Deploy agents that live where you work, from Slack to GitHub and beyond.</span>
+          </h2>
         </div>
       </div>
 
       {/* Logo Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-5 border-t border-dashed border-l border-white/10">
+      <div className="grid grid-cols-2 md:grid-cols-5 border-t border-dashed border-l border-white/10 ">
         {logos.map((item, index) => {
           const Icon = item.icon; // Component ko variable mein assign kiya
           return (

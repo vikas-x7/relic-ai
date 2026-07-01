@@ -1,16 +1,18 @@
+import MovingHanding from '@/src/modules/landing/components/MovingHading';
 import Ather from './Ather';
 import Build from './Build';
 import Highlights from './Highlights';
 import Integrations from './Integrations';
 import Working from './Working';
+import WhyAgentsSection from '@/src/modules/landing/components/WhyAgentsSection';
 
 export default function Feature() {
   const stats = [
     {
-      value: '',
-      description: '',
+      value: '34',
+      description: 'Complete context inheritance for branches.',
     },
-      {
+    {
       value: '100%',
       description: 'Complete context inheritance for branches.',
     },
@@ -55,7 +57,9 @@ export default function Feature() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-black  text-white  selection:bg-white/20 flex flex-col justify-between font-cabin">
+    <section className="relative overflow-clip bg-black  text-white  selection:bg-white/20 flex flex-col justify-between font-cabin">
+      <MovingHanding />
+      <WhyAgentsSection />
       <div className="pointer-events-none absolute inset-0 z-0 opacity-100">
         <svg className="h-full w-full" id="noice-feature">
           <filter id="noise-filter-feature">
@@ -77,9 +81,9 @@ export default function Feature() {
         </svg>
       </div>
 
-      <div className="relative z-10 w-full bg-white h-30 rounded-b-[40px] mb-20"></div>
+      {/* <div className="relative z-10 w-full bg-white h-30 rounded-b-[40px] mb-20"></div> */}
 
-      <section className="relative overflow-hidden w-full">
+      {/* <section className="relative overflow-hidden w-full">
         <div className="relative">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
             {features.map((feature, index) => (
@@ -106,23 +110,22 @@ export default function Feature() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section>
-        <div className='ml-40 w-3xl border-l border-white/10 border-dashed'>
-          <div className='py-25 px-10'>
- 
-          <div className="relative z-10 flex items-start justify-between ">
-            <div className="flex items-center gap-3 text-white/70 py-4">
-              <span className="text-[14px] tracking-[-0.05px] uppercase text-white">Statistics</span>
+      <section className="border-t border-white/10 ">
+        <div className="ml-95 w-3xl border-l border-white/10 border-dashed">
+          <div className="py-25 px-10">
+            <div className="relative z-10 flex items-start justify-between ">
+              <div className="flex items-center gap-3 text-white/70 py-4">
+                <span className="text-[14px] tracking-[-0.05px] uppercase text-white">Statistics</span>
+              </div>
             </div>
-          </div>
 
-          <div className="relative z-10  max-w-4xl flex-1 flex flex-col justify-center  ">
-            <h2 className="text-2xl md:text-[32px] text-white/90 leading-relaxed md:leading-[38px] mb-10 font-cabin tracking-[-1.5px]">
-              Build a connected knowledge graph of your conversations. track every single thought visually on an infinite canvas.
-            </h2>
-          </div>
+            <div className="relative z-10  max-w-4xl flex-1 flex flex-col justify-center  ">
+              <h2 className="text-2xl md:text-[32px] text-white/90 leading-relaxed md:leading-[38px] mb-10 font-cabin tracking-[-1.5px]">
+                Build a connected knowledge graph of your conversations. track every single thought visually on an infinite canvas.
+              </h2>
+            </div>
 
             {/* View Report Button */}
             <button className="flex items-stretch w-fit group hover:opacity-80 transition-opacity cursor-pointer">
@@ -153,14 +156,11 @@ export default function Feature() {
           ))}
         </div>
       </section>
-
-     
-
       <Highlights />
-      
-      <Working />
+
+      {/* <Working /> */}
       <Integrations />
-       <Build />
+      <Build />
     </section>
   );
 }

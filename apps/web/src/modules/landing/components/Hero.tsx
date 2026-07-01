@@ -1,46 +1,70 @@
-import Ather from './Ather';
-import MovingHanding from './MovingHading';
+'use client';
 
-export default function Hero() {
+import React from 'react';
+import Link from 'next/link';
+import { FaLinkedinIn, FaXTwitter } from 'react-icons/fa6';
+import { FiArrowUpRight } from 'react-icons/fi';
+
+const Hero = () => {
   return (
-    <section className="relative w-full flex flex-col overflow-hidden text-[#1a1a1a]">
-      <div className="pointer-events-none absolute inset-0 z-0 opacity-15"></div>
+    <div className="w-full font-cabin bg-white text-black pt-12 sm:pt-16 md:pt-20 border-t border-black/20 border-dashed mt-16 sm:mt-24 md:mt-30 overflow-hidden px-12">
+      <div className="">
+        <div className="px-4 sm:px-6 md:px-4 mx-auto">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12">
+            <Link
+              href="mailto:hey@cronix.com"
+              className="inline-flex text-[13px] sm:text-[14px] items-center ml-[-5] justify-center gap-2 bg-[#101010] text-white px-3 py-1 sm:py-1 rounded-[3px] font-medium hover:bg-gray-800 transition-colors w-fit"
+            >
+              Getstart now
+              <FiArrowUpRight size={14} />
+            </Link>
 
-      <div className="relative z-110">
-        <MovingHanding />
+            <div className="flex gap-4 text-black/60 sm:text-white/30">
+              <Link href="#" className="hover:text-black sm:hover:text-white transition-colors">
+                <FaXTwitter size={14} />
+              </Link>
+              <Link href="#" className="hover:text-black sm:hover:text-white transition-colors">
+                <FaLinkedinIn size={14} />
+              </Link>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8 mb-12">
+            <div className="flex items-center gap-3">
+              <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Flag of India" className="w-8 sm:w-10" />
+              <div className="text-[4px] sm:text-[10px] text-black">
+                <p>Based In The Beautiful</p>
+                <p>India & Online Worldwide</p>
+              </div>
+            </div>
+
+            <div className="flex flex-row sm:flex-col items-start sm:items-end gap-6 sm:gap-3 text-sm text-black font-medium">
+              <Link href="#" className="hover:text-black/50 transition-colors">
+                Home
+              </Link>
+              <Link href="#" className="hover:text-black/50 transition-colors">
+                Get start
+              </Link>
+              <Link href="#" className="hover:text-black/50 transition-colors">
+                Working
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className="px-4 sm:px-6 md:px-4">
+            <p className="text-sm text-black mb-2 tracking-[-0.5px] leading-none">As we believe at relic ai</p>
+            <h2 className="text-xl md:text-2xl  mb-8 sm:mb-10 tracking-[-1px]">Anything less than seamless automation is a compromise.</h2>
+          </div>
+
+          <h1 className="text-[16vw] sm:text-[18vw] md:text-[17.3vw] text-[#010101] font-bold overflow-hidden tracking-tight sm:tracking-[-20px] md:tracking-[-20px] ml-[-4px] sm:ml-[-10px] leading-[0.8] sm:leading-[200px] md:leading-[250px] whitespace-nowrap select-none px-1">
+            Relicaicanvas ai
+          </h1>
+        </div>
       </div>
-
-      <div className="relative z-10 w-full flex justify-center -mt-8 ">
-        <h1 className="text-[28vw] leading-[0.50] font-bold tracking-[-0.06em] text-[#1C1A16] select-none font-cabin">relicainot</h1>
-      </div>
-
-      <div className="flex items-center justify-center w-full mt-30 mb-10">
-        <button className="rounded-[7px] bg-white px-3 py-[6px] tracking-[-0.75px] text-sm font-medium shadow-sm flex items-center gap-2">Infinite Canvas AI</button>
-
-        <div className="w-8 md:w-16 h-[1px] bg-gray-200"></div>
-
-        <button className="rounded-[7px] bg-white px-3 py-[6px]  tracking-[-0.75px] border border-gray-200/60 bg-white/40 px-5 py-2.5 text-sm font-medium flex items-center gap-2 hover:bg-white transition-colors">
-          Branch at any point
-        </button>
-      </div>
-
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full px-6 pb-8 md:mb-0">
-        <h2 className="text-3xl md:text-5xl lg:text-[3.5rem]  leading-tight   text-center tracking-[-2px] font-larken">A visual workspace for AI conversations</h2>
-
-        <p className="text-sm md:text-base  font-cabin lg:text-[16px] text-black tracking-[px] max-w-[49rem] mx-auto leading-relaxed mb-8 text-center">
-          Relic AI is a visual workspace built on an infinite canvas. You can create new branches from any message, inherit context automatically, and organize complex research into connected
-          knowledge graphs.
-        </p>
-
-        <button className="bg-[#1a1a1a] text-white rounded-[40px] px-7 py-3 text-sm md:text-base font-medium flex items-center gap-2 hover:bg-black transition-transform cursor-pointer">
-          Start branching now
-        </button>
-      </div>
-
-
-      <div className="px-6 mt-13">
-        <video className="rounded-[40px] " autoPlay loop muted playsInline src="https://res.cloudinary.com/dyv9kenuj/video/upload/v1778740598/relicdemov1_1_aurpo2.mp4"></video>
-      </div>
-    </section>
+    </div>
   );
-}
+};
+
+export default Hero;
