@@ -12,7 +12,7 @@ const Hero = () => {
         <div className="px-4 sm:px-6 md:px-4 mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12">
             <Link
-              href="mailto:hey@cronix.com"
+              href="/auth"
               className="inline-flex text-[13px] sm:text-[14px] items-center ml-[-5] justify-center gap-2 bg-[#101010] text-white px-3 py-1 sm:py-1 rounded-[3px] font-medium hover:bg-gray-800 transition-colors w-fit"
             >
               Getstart now
