@@ -13,3 +13,50 @@
   --font-cabin: var(--font-cabin), sans-serif;
   --font-larken: 'Larken Light', serif;
 }
+
+@layer utilities {
+  .wrap-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+/* Dark scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Stream cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.stream-cursor::after {
+  content: '●';
+  display: inline-block;
+  animation: blink 0.8s ease-in-out infinite;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
+/* Selection highlight */
+::selection {
+  background: rgba(255, 255, 255, 0.15);
+}

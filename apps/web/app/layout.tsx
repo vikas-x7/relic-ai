@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Bricolage_Grotesque, Outfit } from 'next/font/google';
+import '@xyflow/react/dist/style.css';
 import './globals.css';
 
 const bricolage = Bricolage_Grotesque({
