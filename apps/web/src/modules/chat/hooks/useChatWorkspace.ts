@@ -76,7 +76,7 @@ export function useChatWorkspace() {
   const ops: CanvasOpsRef = {
     setNodes: canvasState.setNodes,
     setEdges: canvasState.setEdges,
-    getNode: getNode as (nodeId: string) => Edge | undefined,
+    getNode: getNode as (nodeId: string) => import('@xyflow/react').Node | undefined,
     getZoom,
     screenToFlowPosition,
     setCenter: setCenter as (...args: unknown[]) => Promise<boolean>,
