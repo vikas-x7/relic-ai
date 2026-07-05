@@ -1,14 +1,19 @@
+import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
+import { env } from './config/env'
+import { authRoutes } from './modules/auth/routes'
 
 const app = new Hono()
 
-const welcomeStrings = [
-  'Hello Hono!',
-  'To learn more about Hono on Vercel, visit https://vercel.com/docs/frameworks/backend/hono'
-]
+app.get('/', (c) => c.text('Relic AI API'))
 
-app.get('/', (c) => {
-  return c.text(welcomeStrings.join('\n\n'))
-})
+app.route('/auth', authRoutes)
+
+serve(
+  { fetch: app.fetch, port: env.port },
+  (info) => {
+    console.log(`[server] running on http://localhost:${info.port}`)
+  },
+)
 
 export default app
