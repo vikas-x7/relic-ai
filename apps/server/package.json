@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:dotenv --banner:js=\"import{createRequire as __createRequire}from'node:module';const require=__createRequire(import.meta.url);\"",
+    "build": "prisma generate --schema ../../packages/db/prisma/schema.prisma --config ../../packages/db/prisma.config.ts && esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:dotenv --banner:js=\"import{createRequire as __createRequire}from'node:module';const require=__createRequire(import.meta.url);\"",
     "check-types": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "@hono/node-server": "^1.16.0",
     "@types/node": "^24.10.0",
     "esbuild": "^0.28.2",
+    "prisma": "^7.9.1",
     "tsx": "^4.23.0",
     "typescript": "^5.9.2"
   }
