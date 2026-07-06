@@ -13,8 +13,6 @@ export const OPTIONS = vercelHandle;
 
 export default vercelHandle;
 
-// Standalone server (node dist/index.js / tsx src/index.ts). On Vercel the
-// function runtime imports this module instead of running it directly.
 if (!process.env.VERCEL) {
   serve({ fetch: app.fetch, port: env.port, hostname: '0.0.0.0' }, (info) => {
     console.log(`[server] running on http://localhost:${info.port}`);
