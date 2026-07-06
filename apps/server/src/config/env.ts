@@ -1,12 +1,5 @@
 import 'dotenv/config';
 
-function required(name: string, value: string | undefined): string {
-  if (!value) {
-    throw new Error(`Missing environment variable: ${name}`);
-  }
-  return value;
-}
-
 export function parseDuration(value: string | undefined, fallback: string): number {
   const raw = value?.trim() || fallback;
   const match = raw.match(/^(\d+)\s*(s|m|h|d|w)?$/i);
@@ -27,15 +20,19 @@ export function parseDuration(value: string | undefined, fallback: string): numb
 
 const nodeEnv = process.env.NODE_ENV ?? 'development';
 
+function withoutTrailingSlash(value: string): string {
+  return value.replace(/\/+$/, '');
+}
+
 export const env = {
   port: Number(process.env.PORT ?? 3001),
   nodeEnv,
   isProd: nodeEnv === 'production',
-  serverUrl: process.env.SERVER_URL ?? 'http://localhost:3001',
-  webUrl: process.env.WEB_URL ?? 'http://localhost:3000',
+  serverUrl: withoutTrailingSlash(process.env.SERVER_URL ?? 'http://localhost:3001'),
+  webUrl: withoutTrailingSlash(process.env.WEB_URL ?? 'http://localhost:3000'),
   jwt: {
-    accessSecret: required('JWT_SECRET', process.env.JWT_SECRET),
-    refreshSecret: required('REFRESH_TOKEN_SECRET', process.env.REFRESH_TOKEN_SECRET),
+    accessSecret: process.env.JWT_SECRET ?? '',
+    refreshSecret: process.env.REFRESH_TOKEN_SECRET ?? '',
     accessExpiresIn: parseDuration(process.env.JWT_EXPIRES_IN, '15m'),
     refreshExpiresIn: parseDuration(process.env.JWT_REFRESH_EXPIRES_IN, '7d'),
     stateExpiresIn: parseDuration(process.env.OAUTH_STATE_EXPIRES_IN, '10m'),
@@ -49,3 +46,20 @@ export const env = {
     clientSecret: process.env.GITHUB_CLIENT_SECRET ?? '',
   },
 };
+
+/**
+ * Keep configuration errors request-scoped. Throwing during module import turns
+ * every route (including / and /health) into Vercel FUNCTION_INVOCATION_FAILED.
+ */
+export function assertAuthConfiguration(): void {
+  const missing = [
+    !env.jwt.accessSecret && 'JWT_SECRET',
+    !env.jwt.refreshSecret && 'REFRESH_TOKEN_SECRET',
+    env.isProd && !process.env.SERVER_URL && 'SERVER_URL',
+    env.isProd && !process.env.WEB_URL && 'WEB_URL',
+  ].filter(Boolean);
+
+  if (missing.length > 0) {
+    throw new Error(`Missing authentication configuration: ${missing.join(', ')}`);
+  }
+}

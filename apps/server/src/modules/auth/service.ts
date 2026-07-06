@@ -1,4 +1,4 @@
-import { prisma } from 'db'
+import { getPrisma } from 'db'
 import type { OAuthUser } from './oauth'
 
 export interface AuthUser {
@@ -9,6 +9,7 @@ export interface AuthUser {
 }
 
 export async function findOrCreateUser(oauthUser: OAuthUser): Promise<AuthUser> {
+  const prisma = getPrisma()
   const existingAccount = await prisma.account.findUnique({
     where: {
       provider_providerId: {
@@ -53,6 +54,7 @@ export async function storeRefreshToken(input: {
   userId: number
   expiresAt: Date
 }): Promise<void> {
+  const prisma = getPrisma()
   await prisma.refreshToken.create({
     data: {
       jti: input.jti,
@@ -63,6 +65,7 @@ export async function storeRefreshToken(input: {
 }
 
 export async function findRefreshToken(jti: string) {
+  const prisma = getPrisma()
   return prisma.refreshToken.findUnique({
     where: { jti },
     include: { user: true },
@@ -70,6 +73,7 @@ export async function findRefreshToken(jti: string) {
 }
 
 export async function revokeRefreshToken(jti: string): Promise<void> {
+  const prisma = getPrisma()
   await prisma.refreshToken.update({
     where: { jti },
     data: { revokedAt: new Date() },

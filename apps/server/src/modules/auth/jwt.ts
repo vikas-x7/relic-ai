@@ -1,5 +1,5 @@
 import { sign, verify } from 'hono/jwt'
-import { env } from '../../config/env'
+import { assertAuthConfiguration, env } from '../../config/env'
 import type { Provider } from './oauth'
 
 const JWT_ALG = 'HS256'
@@ -45,6 +45,7 @@ export async function createAccessToken(user: {
   email: string
   name: string | null
 }): Promise<string> {
+  assertAuthConfiguration()
   const payload: AccessPayload = {
     type: 'access',
     sub: String(user.id),
@@ -61,6 +62,7 @@ export async function createAccessToken(user: {
 export async function verifyAccessToken(
   token: string,
 ): Promise<AccessPayload | null> {
+  assertAuthConfiguration()
   try {
     const payload = await verify(token, env.jwt.accessSecret, JWT_ALG)
     return payload.type === 'access' ? (payload as unknown as AccessPayload) : null
@@ -74,6 +76,7 @@ export async function createRefreshToken(user: {
   email: string
   name: string | null
 }): Promise<{ token: string; jti: string; expiresAt: Date }> {
+  assertAuthConfiguration()
   const jti = crypto.randomUUID()
   const expiresAt = new Date(Date.now() + env.jwt.refreshExpiresIn * 1000)
   const payload: RefreshPayload = {
@@ -95,6 +98,7 @@ export async function createRefreshToken(user: {
 export async function verifyRefreshToken(
   token: string,
 ): Promise<RefreshPayload | null> {
+  assertAuthConfiguration()
   try {
     const payload = await verify(token, env.jwt.refreshSecret, JWT_ALG)
     return payload.type === 'refresh' ? (payload as unknown as RefreshPayload) : null
@@ -107,6 +111,7 @@ export async function createOAuthState(
   provider: Provider,
   verifier: string,
 ): Promise<string> {
+  assertAuthConfiguration()
   const payload: OAuthStatePayload = {
     type: 'oauth-state',
     provider,
@@ -124,6 +129,7 @@ export async function verifyOAuthState(
   token: string,
   provider: Provider,
 ): Promise<OAuthStatePayload | null> {
+  assertAuthConfiguration()
   try {
     const payload = await verify(token, env.jwt.accessSecret, JWT_ALG)
     if (payload.type !== 'oauth-state' || payload.provider !== provider) {
