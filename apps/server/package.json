@@ -1,6 +1,9 @@
 {
   "name": "hono",
   "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "prisma generate --schema ../../packages/db/prisma/schema.prisma --config ../../packages/db/prisma.config.ts && esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:dotenv --banner:js=\"import{createRequire as __createRequire}from'node:module';const require=__createRequire(import.meta.url);\"",
