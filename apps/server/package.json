@@ -7,9 +7,12 @@
     "check-types": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
     "db": "workspace:*",
     "dotenv": "^17.4.2",
-    "hono": "^4.13.1"
+    "hono": "^4.13.1",
+    "pg": "^8.23.0"
   },
   "devDependencies": {
     "@hono/node-server": "^1.16.0",

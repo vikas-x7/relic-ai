@@ -20,6 +20,12 @@ importers:
 
   apps/server:
     dependencies:
+      '@prisma/adapter-pg':
+        specifier: ^7.9.1
+        version: 7.9.1
+      '@prisma/client':
+        specifier: ^7.9.1
+        version: 7.9.1(prisma@7.9.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.2))(typescript@5.9.2)
       db:
         specifier: workspace:*
         version: link:../../packages/db
@@ -29,6 +35,9 @@ importers:
       hono:
         specifier: ^4.13.1
         version: 4.13.1
+      pg:
+        specifier: ^8.23.0
+        version: 8.23.0
     devDependencies:
       '@hono/node-server':
         specifier: ^1.16.0
@@ -3663,6 +3672,13 @@ snapshots:
       - pg-native
 
   '@prisma/client-runtime-utils@7.9.1': {}
+
+  '@prisma/client@7.9.1(prisma@7.9.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.2))(typescript@5.9.2)':
+    dependencies:
+      '@prisma/client-runtime-utils': 7.9.1
+    optionalDependencies:
+      prisma: 7.9.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.2)
+      typescript: 5.9.2
 
   '@prisma/client@7.9.1(prisma@7.9.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@7.0.2))(typescript@7.0.2)':
     dependencies:
