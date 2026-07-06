@@ -1,13 +1,6 @@
 import { serve } from '@hono/node-server';
-import { Hono } from 'hono';
+import { app } from './app';
 import { env } from './config/env';
-import { authRoutes } from './modules/auth/routes';
-
-const app = new Hono();
-
-app.get('/', (c) => c.text('Relic AI API'));
-
-app.route('/auth', authRoutes);
 
 const vercelHandle = (req: Request) => app.fetch(req);
 
