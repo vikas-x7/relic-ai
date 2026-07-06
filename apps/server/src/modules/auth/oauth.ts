@@ -1,34 +1,34 @@
-import { createHash, randomBytes } from 'node:crypto'
-import { env } from '../../config/env'
+import { createHash, randomBytes } from 'node:crypto';
+import { env } from '../../config/env';
 
-export type Provider = 'google' | 'github'
+export type Provider = 'google' | 'github';
 
-export const PROVIDERS: readonly Provider[] = ['google', 'github']
+export const PROVIDERS: readonly Provider[] = ['google', 'github'];
 
 export function isProvider(value: string): value is Provider {
-  return (PROVIDERS as readonly string[]).includes(value)
+  return (PROVIDERS as readonly string[]).includes(value);
 }
 
 export interface OAuthUser {
-  provider: Provider
-  providerId: string
-  email: string
-  name: string | null
-  avatar: string | null
+  provider: Provider;
+  providerId: string;
+  email: string;
+  name: string | null;
+  avatar: string | null;
 }
 
 export interface TokenResponse {
-  accessToken: string
+  accessToken: string;
 }
 
 interface ProviderConfig {
-  clientId: string
-  clientSecret: string
-  authorizeUrl: string
-  tokenUrl: string
-  scope: string
-  pkce: boolean
-  fetchUser: (accessToken: string) => Promise<Omit<OAuthUser, 'provider'>>
+  clientId: string;
+  clientSecret: string;
+  authorizeUrl: string;
+  tokenUrl: string;
+  scope: string;
+  pkce: boolean;
+  fetchUser: (accessToken: string) => Promise<Omit<OAuthUser, 'provider'>>;
 }
 
 const providerConfigs: Record<Provider, ProviderConfig> = {
@@ -42,25 +42,25 @@ const providerConfigs: Record<Provider, ProviderConfig> = {
     fetchUser: async (accessToken) => {
       const res = await fetch('https://openidconnect.googleapis.com/v1/userinfo', {
         headers: { Authorization: `Bearer ${accessToken}` },
-      })
+      });
       if (!res.ok) {
-        throw new Error(`Failed to fetch Google userinfo: ${res.status}`)
+        throw new Error(`Failed to fetch Google userinfo: ${res.status}`);
       }
       const data = (await res.json()) as {
-        sub: string
-        email?: string
-        name?: string
-        picture?: string
-      }
+        sub: string;
+        email?: string;
+        name?: string;
+        picture?: string;
+      };
       if (!data.email) {
-        throw new Error('Google account has no email address')
+        throw new Error('Google account has no email address');
       }
       return {
         providerId: data.sub,
         email: data.email,
         name: data.name ?? null,
         avatar: data.picture ?? null,
-      }
+      };
     },
   },
   github: {
@@ -75,26 +75,26 @@ const providerConfigs: Record<Provider, ProviderConfig> = {
         Authorization: `Bearer ${accessToken}`,
         Accept: 'application/vnd.github+json',
         'User-Agent': 'relic-ai',
-      }
+      };
 
-      const res = await fetch('https://api.github.com/user', { headers })
+      const res = await fetch('https://api.github.com/user', { headers });
       if (!res.ok) {
-        throw new Error(`Failed to fetch GitHub user: ${res.status}`)
+        throw new Error(`Failed to fetch GitHub user: ${res.status}`);
       }
       const data = (await res.json()) as {
-        id: number
-        login: string
-        name?: string | null
-        avatar_url?: string | null
-        email?: string | null
-      }
+        id: number;
+        login: string;
+        name?: string | null;
+        avatar_url?: string | null;
+        email?: string | null;
+      };
 
-      let email = data.email ?? null
+      let email = data.email ?? null;
       if (!email) {
-        email = await fetchPrimaryEmail(headers)
+        email = await fetchPrimaryEmail(headers);
       }
       if (!email) {
-        throw new Error('GitHub account has no public email')
+        throw new Error('GitHub account has no public email');
       }
 
       return {
@@ -102,85 +102,77 @@ const providerConfigs: Record<Provider, ProviderConfig> = {
         email,
         name: data.name ?? data.login,
         avatar: data.avatar_url ?? null,
-      }
+      };
     },
   },
-}
+};
 
 async function fetchPrimaryEmail(headers: Record<string, string>): Promise<string | null> {
-  const res = await fetch('https://api.github.com/user/emails', { headers })
+  const res = await fetch('https://api.github.com/user/emails', { headers });
   if (!res.ok) {
-    return null
+    return null;
   }
   const emails = (await res.json()) as {
-    email: string
-    primary: boolean
-    verified: boolean
-  }[]
+    email: string;
+    primary: boolean;
+    verified: boolean;
+  }[];
 
-  const verified = emails.find((e) => e.primary && e.verified)
-  return verified?.email ?? emails.find((e) => e.primary)?.email ?? null
+  const verified = emails.find((e) => e.primary && e.verified);
+  return verified?.email ?? emails.find((e) => e.primary)?.email ?? null;
 }
 
 export function getProviderConfig(provider: Provider): ProviderConfig {
-  return providerConfigs[provider]
+  return providerConfigs[provider];
 }
 
 export function isProviderConfigured(provider: Provider): boolean {
-  const config = providerConfigs[provider]
-  return Boolean(config.clientId && config.clientSecret)
+  const config = providerConfigs[provider];
+  return Boolean(config.clientId && config.clientSecret);
 }
 
 export interface PkcePair {
-  verifier: string
-  challenge: string
+  verifier: string;
+  challenge: string;
 }
 
 export function generatePkce(): PkcePair {
-  const verifier = randomBytes(32).toString('base64url')
-  const challenge = createHash('sha256').update(verifier).digest('base64url')
-  return { verifier, challenge }
+  const verifier = randomBytes(32).toString('base64url');
+  const challenge = createHash('sha256').update(verifier).digest('base64url');
+  return { verifier, challenge };
 }
 
-export function buildAuthorizeUrl(
-  provider: Provider,
-  state: string,
-  pkce: PkcePair | null,
-): string {
-  const config = getProviderConfig(provider)
-  const url = new URL(config.authorizeUrl)
-  url.searchParams.set('client_id', config.clientId)
-  url.searchParams.set('redirect_uri', callbackUrl(provider))
-  url.searchParams.set('response_type', 'code')
-  url.searchParams.set('scope', config.scope)
-  url.searchParams.set('state', state)
+export function buildAuthorizeUrl(provider: Provider, state: string, pkce: PkcePair | null): string {
+  const config = getProviderConfig(provider);
+  const url = new URL(config.authorizeUrl);
+  url.searchParams.set('client_id', config.clientId);
+  url.searchParams.set('redirect_uri', callbackUrl(provider));
+  url.searchParams.set('response_type', 'code');
+  url.searchParams.set('scope', config.scope);
+  url.searchParams.set('state', state);
 
   if (config.pkce && pkce) {
-    url.searchParams.set('code_challenge', pkce.challenge)
-    url.searchParams.set('code_challenge_method', 'S256')
+    url.searchParams.set('code_challenge', pkce.challenge);
+    url.searchParams.set('code_challenge_method', 'S256');
   }
-  return url.toString()
+  return url.toString();
 }
 
 export function callbackUrl(provider: Provider): string {
-  return `${env.serverUrl}/auth/${provider}/callback`
+  return `${env.serverUrl}/auth/${provider}/callback`;
 }
 
-export async function exchangeCodeForToken(
-  provider: Provider,
-  code: string,
-  verifier: string | null,
-): Promise<TokenResponse> {
-  const config = getProviderConfig(provider)
+export async function exchangeCodeForToken(provider: Provider, code: string, verifier: string | null): Promise<TokenResponse> {
+  const config = getProviderConfig(provider);
   const body = new URLSearchParams({
     client_id: config.clientId,
     client_secret: config.clientSecret,
     code,
     redirect_uri: callbackUrl(provider),
     grant_type: 'authorization_code',
-  })
+  });
   if (config.pkce && verifier) {
-    body.set('code_verifier', verifier)
+    body.set('code_verifier', verifier);
   }
 
   const res = await fetch(config.tokenUrl, {
@@ -190,23 +182,20 @@ export async function exchangeCodeForToken(
       Accept: 'application/json',
     },
     body,
-  })
+  });
 
   if (!res.ok) {
-    throw new Error(`Token exchange failed with ${res.status}`)
+    throw new Error(`Token exchange failed with ${res.status}`);
   }
 
-  const data = (await res.json()) as { access_token?: string; error?: string; error_description?: string }
+  const data = (await res.json()) as { access_token?: string; error?: string; error_description?: string };
   if (!data.access_token) {
-    throw new Error(data.error_description ?? data.error ?? 'Token exchange failed')
+    throw new Error(data.error_description ?? data.error ?? 'Token exchange failed');
   }
-  return { accessToken: data.access_token }
+  return { accessToken: data.access_token };
 }
 
-export async function fetchOAuthUser(
-  provider: Provider,
-  accessToken: string,
-): Promise<OAuthUser> {
-  const user = await getProviderConfig(provider).fetchUser(accessToken)
-  return { provider, ...user }
+export async function fetchOAuthUser(provider: Provider, accessToken: string): Promise<OAuthUser> {
+  const user = await getProviderConfig(provider).fetchUser(accessToken);
+  return { provider, ...user };
 }

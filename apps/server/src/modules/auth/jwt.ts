@@ -3,9 +3,6 @@ import { env } from '../../config/env'
 import type { Provider } from './oauth'
 
 const JWT_ALG = 'HS256'
-const ACCESS_TTL_SECONDS = 60 * 15
-const REFRESH_TTL_SECONDS = 60 * 60 * 24 * 7
-const STATE_TTL_SECONDS = 60 * 10
 
 export const ACCESS_COOKIE_NAME = 'relic_access_token'
 export const REFRESH_COOKIE_NAME = 'relic_refresh_token'
@@ -31,12 +28,16 @@ export interface OAuthStatePayload {
   verifier: string
 }
 
+function nowInSeconds(): number {
+  return Math.floor(Date.now() / 1000)
+}
+
 export function accessTokenMaxAge(): number {
-  return ACCESS_TTL_SECONDS
+  return env.jwt.accessExpiresIn
 }
 
 export function refreshTokenMaxAge(): number {
-  return REFRESH_TTL_SECONDS
+  return env.jwt.refreshExpiresIn
 }
 
 export async function createAccessToken(user: {
@@ -51,8 +52,8 @@ export async function createAccessToken(user: {
     name: user.name,
   }
   return sign(
-    { ...payload, exp: Math.floor(Date.now() / 1000) + ACCESS_TTL_SECONDS },
-    env.jwtSecret,
+    { ...payload, exp: nowInSeconds() + env.jwt.accessExpiresIn },
+    env.jwt.accessSecret,
     JWT_ALG,
   )
 }
@@ -61,7 +62,7 @@ export async function verifyAccessToken(
   token: string,
 ): Promise<AccessPayload | null> {
   try {
-    const payload = await verify(token, env.jwtSecret, JWT_ALG)
+    const payload = await verify(token, env.jwt.accessSecret, JWT_ALG)
     return payload.type === 'access' ? (payload as unknown as AccessPayload) : null
   } catch {
     return null
@@ -74,7 +75,7 @@ export async function createRefreshToken(user: {
   name: string | null
 }): Promise<{ token: string; jti: string; expiresAt: Date }> {
   const jti = crypto.randomUUID()
-  const expiresAt = new Date(Date.now() + REFRESH_TTL_SECONDS * 1000)
+  const expiresAt = new Date(Date.now() + env.jwt.refreshExpiresIn * 1000)
   const payload: RefreshPayload = {
     type: 'refresh',
     sub: String(user.id),
@@ -83,7 +84,7 @@ export async function createRefreshToken(user: {
   return {
     token: await sign(
       { ...payload, exp: Math.floor(expiresAt.getTime() / 1000) },
-      env.jwtSecret,
+      env.jwt.refreshSecret,
       JWT_ALG,
     ),
     jti,
@@ -95,7 +96,7 @@ export async function verifyRefreshToken(
   token: string,
 ): Promise<RefreshPayload | null> {
   try {
-    const payload = await verify(token, env.jwtSecret, JWT_ALG)
+    const payload = await verify(token, env.jwt.refreshSecret, JWT_ALG)
     return payload.type === 'refresh' ? (payload as unknown as RefreshPayload) : null
   } catch {
     return null
@@ -113,8 +114,8 @@ export async function createOAuthState(
     verifier,
   }
   return sign(
-    { ...payload, exp: Math.floor(Date.now() / 1000) + STATE_TTL_SECONDS },
-    env.jwtSecret,
+    { ...payload, exp: nowInSeconds() + env.jwt.stateExpiresIn },
+    env.jwt.accessSecret,
     JWT_ALG,
   )
 }
@@ -124,7 +125,7 @@ export async function verifyOAuthState(
   provider: Provider,
 ): Promise<OAuthStatePayload | null> {
   try {
-    const payload = await verify(token, env.jwtSecret, JWT_ALG)
+    const payload = await verify(token, env.jwt.accessSecret, JWT_ALG)
     if (payload.type !== 'oauth-state' || payload.provider !== provider) {
       return null
     }

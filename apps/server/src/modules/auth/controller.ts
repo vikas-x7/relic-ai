@@ -71,7 +71,7 @@ export async function startAuth(c: Context) {
 
   setCookie(c, OAUTH_STATE_COOKIE_NAME, state, {
     ...cookieOptions(),
-    maxAge: 60 * 10,
+    maxAge: env.jwt.stateExpiresIn,
   })
 
   const url = buildAuthorizeUrl(providerParam, state, pkce)
