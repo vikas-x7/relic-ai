@@ -8,7 +8,6 @@ export const app = new Hono();
 app.use(
   '*',
   cors({
-    // Browser requests must originate from the deployed web application.
     origin: env.webUrl,
     credentials: true,
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -24,8 +23,5 @@ app.notFound((c) => c.json({ error: 'Not found' }, 404));
 
 app.onError((error, c) => {
   console.error('[server] request failed', error);
-  return c.json(
-    { error: env.isProd ? 'Internal server error' : error.message },
-    500,
-  );
+  return c.json({ error: env.isProd ? 'Internal server error' : error.message }, 500);
 });
