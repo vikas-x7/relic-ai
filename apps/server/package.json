@@ -2,7 +2,7 @@
   "name": "hono",
   "type": "module",
   "engines": {
-    "node": "22.x"
+    "node": ">=18"
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",
