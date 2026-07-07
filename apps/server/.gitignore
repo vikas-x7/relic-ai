@@ -11,6 +11,12 @@
 # deps
 node_modules/
 
+# generated prisma client
+/generated/prisma
+
+# prisma
+skills-lock.json
+
 # env
 .env
 

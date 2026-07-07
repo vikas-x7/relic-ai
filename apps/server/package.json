@@ -6,13 +6,15 @@
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "prisma generate --schema ../../packages/db/prisma/schema.prisma --config ../../packages/db/prisma.config.ts && esbuild src/index.ts --bundle --platform=node --format=esm --outfile=api/index.js --log-level=warning",
+    "db:generate": "prisma generate --schema prisma/schema.prisma --config prisma.config.ts",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push",
+    "build": "pnpm db:generate && esbuild src/index.ts --bundle --platform=node --format=esm --outfile=api/index.js --external:dotenv --banner:js=\"import{createRequire as __createRequire}from'node:module';const require=__createRequire(import.meta.url);\" --log-level=warning",
     "check-types": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
-    "db": "workspace:*",
     "dotenv": "^17.4.2",
     "hono": "^4.13.1",
     "pg": "^8.23.0"

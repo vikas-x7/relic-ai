@@ -1,4 +1,4 @@
-import { getPrisma } from 'db'
+import { getPrisma } from '../../prisma'
 import type { OAuthUser } from './oauth'
 
 export interface AuthUser {
