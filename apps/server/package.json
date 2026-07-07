@@ -9,10 +9,11 @@
     "db:generate": "prisma generate --schema prisma/schema.prisma --config prisma.config.ts",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
-    "build": "pnpm db:generate && esbuild src/index.ts --bundle --platform=node --format=esm --outfile=api/index.js --external:@prisma/client --external:@prisma/adapter-pg --external:pg --banner:js=\"import{createRequire as __createRequire}from'node:module';const require=__createRequire(import.meta.url);\" --log-level=warning",
+    "build": "pnpm db:generate",
     "check-types": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
+    "@hono/node-server": "^1.16.0",
     "@prisma/adapter-pg": "^7.9.1",
     "@prisma/client": "^7.9.1",
     "dotenv": "^17.4.2",
@@ -20,7 +21,6 @@
     "pg": "^8.23.0"
   },
   "devDependencies": {
-    "@hono/node-server": "^1.16.0",
     "@types/node": "^24.10.0",
     "esbuild": "^0.28.2",
     "prisma": "^7.9.1",
