@@ -1,20 +1,13 @@
 import { serve } from '@hono/node-server';
+import { handle } from '@hono/node-server/vercel';
 import { app } from './app';
 import { env } from './config/env';
 
-const vercelHandle = (req: Request) => app.fetch(req);
-
-export const GET = vercelHandle;
-export const POST = vercelHandle;
-export const PUT = vercelHandle;
-export const PATCH = vercelHandle;
-export const DELETE = vercelHandle;
-export const OPTIONS = vercelHandle;
-
-export default vercelHandle;
+export default handle(app);
 
 if (!process.env.VERCEL) {
   serve({ fetch: app.fetch, port: env.port, hostname: '0.0.0.0' }, (info) => {
     console.log(`[server] running on http://localhost:${info.port}`);
   });
 }
+

@@ -2,14 +2,14 @@
   "name": "hono",
   "type": "module",
   "engines": {
-    "node": ">=18"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "db:generate": "prisma generate --schema prisma/schema.prisma --config prisma.config.ts",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
-    "build": "pnpm db:generate && esbuild src/index.ts --bundle --platform=node --format=esm --outfile=api/index.js --banner:js=\"import{createRequire as __createRequire}from'node:module';const require=__createRequire(import.meta.url);\" --log-level=warning",
+    "build": "pnpm db:generate && esbuild src/index.ts --bundle --platform=node --format=esm --outfile=api/index.js --external:@prisma/client --external:@prisma/adapter-pg --external:pg --banner:js=\"import{createRequire as __createRequire}from'node:module';const require=__createRequire(import.meta.url);\" --log-level=warning",
     "check-types": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
