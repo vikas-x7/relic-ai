@@ -3,11 +3,13 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "db": "workspace:*",
+    "dotenv": "^17.4.2",
     "hono": "^4.13.2",
     "next": "^16.2.10",
     "react": "19.2.7",
