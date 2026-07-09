@@ -1,30 +1,24 @@
 {
-  "name": "hono",
+  "name": "server",
   "type": "module",
-  "engines": {
-    "node": "22.x"
-  },
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "db:generate": "prisma generate --schema prisma/schema.prisma --config prisma.config.ts",
-    "db:migrate": "prisma migrate dev",
-    "db:push": "prisma db push",
-    "build": "pnpm db:generate",
-    "check-types": "tsc -p tsconfig.json --noEmit"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "@hono/node-server": "^1.16.0",
-    "@prisma/adapter-pg": "^7.9.1",
-    "@prisma/client": "^7.9.1",
-    "dotenv": "^17.4.2",
-    "hono": "^4.13.1",
-    "pg": "^8.23.0"
+    "hono": "^4.13.2",
+    "next": "^16.2.10",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
   },
   "devDependencies": {
-    "@types/node": "^24.10.0",
-    "esbuild": "^0.28.2",
-    "prisma": "^7.9.1",
-    "tsx": "^4.23.0",
-    "typescript": "^5.9.2"
+    "@types/node": "^26",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "^16.2.10",
+    "typescript": "^5"
   }
 }
