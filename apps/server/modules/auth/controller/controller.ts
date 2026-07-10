@@ -20,18 +20,22 @@ import { findOrCreateUser, findRefreshToken, findUserById, revokeRefreshToken, s
 
 function setAuthCookies(c: Context, accessToken: string, refreshToken: string, refreshTokenMaxAgeSeconds: number) {
   const secure = env.isProd;
+  const sameSite = env.isProd ? 'None' : 'Lax';
+  const domain = env.cookieDomain || undefined;
   setCookie(c, ACCESS_COOKIE_NAME, accessToken, {
     httpOnly: true,
     secure,
-    sameSite: 'Lax',
+    sameSite,
     path: '/',
+    domain,
     maxAge: accessTokenMaxAge(),
   });
   setCookie(c, REFRESH_COOKIE_NAME, refreshToken, {
     httpOnly: true,
     secure,
-    sameSite: 'Lax',
+    sameSite,
     path: '/',
+    domain,
     maxAge: refreshTokenMaxAgeSeconds,
   });
 }
@@ -62,8 +66,9 @@ export async function startAuth(c: Context) {
   setCookie(c, OAUTH_STATE_COOKIE_NAME, state, {
     httpOnly: true,
     secure: env.isProd,
-    sameSite: 'Lax',
+    sameSite: env.isProd ? 'None' : 'Lax',
     path: '/',
+    domain: env.cookieDomain || undefined,
     maxAge: oauthStateMaxAge(),
   });
 
