@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const REFRESH_COOKIE = 'relic_refresh_token';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const isLoggedIn = request.cookies.has(REFRESH_COOKIE);
 
