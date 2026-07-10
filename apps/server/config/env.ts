@@ -29,7 +29,8 @@ export const env = {
   nodeEnv,
   isProd: nodeEnv === 'production',
   serverUrl: process.env.SERVER_URL ?? 'http://localhost:3000',
-  webUrl: process.env.WEB_URL ?? 'http://localhost:3000',
+  webUrl: process.env.WEB_URL ?? 'http://localhost:3001',
+  corsOrigins: (process.env.CORS_ORIGINS ?? '').split(',').filter(Boolean),
   jwt: {
     accessSecret: required('JWT_SECRET', process.env.JWT_SECRET),
     refreshSecret: required('REFRESH_TOKEN_SECRET', process.env.REFRESH_TOKEN_SECRET),

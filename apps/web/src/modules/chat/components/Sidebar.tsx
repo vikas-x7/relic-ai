@@ -1,10 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { signOut } from 'next-auth/react';
 import {
   FiEdit2,
-  FiLogOut,
   FiMoreHorizontal,
   FiSearch,
   FiSidebar,
@@ -50,7 +48,6 @@ export default function Sidebar({ className }: SidebarProps) {
   const [renamingChatId, setRenamingChatId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState('');
   const [deleteTarget, setDeleteTarget] = useState<Chat | null>(null);
-  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [hoverStyle, setHoverStyle] = useState({ top: 0, height: 0, opacity: 0 });
 
   useEffect(() => {
@@ -271,11 +268,6 @@ export default function Sidebar({ className }: SidebarProps) {
                 <span className="max-w-[120px] truncate text-[11px] text-white/40">user@example.com</span>
               </div>
             </div>
-            <FiLogOut
-              className="cursor-pointer text-white/40 hover:text-white"
-              size={18}
-              onClick={() => setShowLogoutConfirm(true)}
-            />
           </div>
         </div>
       </aside>
@@ -311,31 +303,6 @@ export default function Sidebar({ className }: SidebarProps) {
                 className="rounded-[6px] bg-red-500 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-red-400"
               >
                 Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showLogoutConfirm && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm">
-          <div className="w-full max-w-[360px] rounded-[5px] bg-[#151515] p-4 text-white shadow-2xl shadow-black/60">
-            <h2 className="text-[15px] font-medium">Logout</h2>
-            <p className="mt-2 text-sm leading-6 text-white/50">Are you sure you want to logout?</p>
-            <div className="mt-5 flex justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => setShowLogoutConfirm(false)}
-                className="rounded-[6px] px-3 py-2 text-sm text-white/60 transition-colors hover:bg-white/10 hover:text-white"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={() => signOut({ callbackUrl: '/' })}
-                className="rounded-[3px] bg-red-500 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-red-400"
-              >
-                Logout
               </button>
             </div>
           </div>

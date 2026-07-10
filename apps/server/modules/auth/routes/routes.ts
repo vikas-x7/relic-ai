@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { requireAuth } from './middleware'
+import { requireAuth } from '../middleware/middleware'
 import {
   getCurrentUser,
   getProviderAvailability,
@@ -7,8 +7,8 @@ import {
   logout,
   refreshTokens,
   startAuth,
-} from './controller'
-import type { AppVariables } from './types'
+} from '../controller/controller'
+import type { AppVariables } from '../types/types'
 
 export function createAuthRoutes(): Hono<{ Variables: AppVariables }> {
   const auth = new Hono<{ Variables: AppVariables }>()

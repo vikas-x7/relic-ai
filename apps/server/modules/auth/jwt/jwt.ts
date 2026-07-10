@@ -1,6 +1,6 @@
 import { sign, verify } from 'hono/jwt'
-import { env } from '../../config/env'
-import type { Provider } from './oauth'
+import { env } from '../../../config/env'
+import type { Provider } from '../oauth/oauth'
 
 const JWT_ALG = 'HS256'
 

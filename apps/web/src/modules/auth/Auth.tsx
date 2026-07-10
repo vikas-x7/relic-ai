@@ -1,24 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { getProviders, signIn } from 'next-auth/react';
+import { useState } from 'react';
 import { BiLogoGithub } from 'react-icons/bi';
 import { FcGoogle } from 'react-icons/fc';
-import Image from 'next/image';
+import { useProviders } from '@/src/modules/auth/hooks/useAuth';
 
-type ProviderMap = Awaited<ReturnType<typeof getProviders>>;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const authErrors: Record<string, string> = {
-  AccessDenied: 'Sign in was cancelled or access was denied.',
-  Callback: 'OAuth callback could not be completed. Check provider settings.',
-  OAuthAccountNotLinked:
-    'This email is linked with another sign-in method. Try that method instead.',
-  OAuthCallback:
-    'Provider callback failed. Check client ID, client secret, and callback URL.',
-  OAuthCreateAccount: 'Could not create account. Please try again later.',
-  Configuration:
-    'Auth providers are not configured. Add environment variables.',
-  Default: 'Sign in failed. Please try again.',
+  invalid_state: 'Session expired. Please try again.',
+  no_code: 'Authentication failed. No code received.',
+  exchange_failed: 'Authentication failed. Please try again.',
+  default: 'Sign in failed. Please try again.',
 };
 
 type LoginPageProps = {
@@ -26,52 +19,26 @@ type LoginPageProps = {
 };
 
 export default function LoginPage({ error }: LoginPageProps) {
-  const [providers, setProviders] = useState<ProviderMap>(null);
+  const { data: providers } = useProviders();
   const [activeProvider, setActiveProvider] = useState<string | null>(null);
 
-  useEffect(() => {
-    let isMounted = true;
+  const errorMessage = error
+    ? (authErrors[error] ?? authErrors.default)
+    : null;
 
-    async function loadProviders() {
-      const availableProviders = await getProviders();
-
-      if (isMounted) {
-        setProviders(availableProviders);
-      }
-    }
-
-    void loadProviders();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  const errorMessage = error ? (authErrors[error] ?? authErrors.Default) : null;
-
-  const providersLoaded = providers !== null;
-  const hasConfiguredProviders =
-    !!providers && Object.keys(providers).length > 0;
-
-  function handleSignIn(providerId: 'google' | 'github') {
-    if (!providers?.[providerId]) {
-      return;
-    }
-
-    setActiveProvider(providerId);
-    void signIn(providerId, { callbackUrl: '/chat' });
+  function handleSignIn(provider: 'google' | 'github') {
+    setActiveProvider(provider);
+    window.location.href = `${API_URL}/auth/${provider}`;
   }
 
   return (
     <div className="font-DM_sans flex min-h-screen bg-black text-white font-cabin">
       <div className="relative hidden border-r border-white/20 lg:block lg:w-1/2">
         <img
-          
           src="https://relicai.in/_next/image?url=%2Fimages%2Frelicailoginimage.jpg&w=2048&q=75"
           alt=""
           className="h-screen w-full object-cover opacity-40"
         />
-
         <div className="absolute bottom-[3%] left-[3%]">
           <p className="-mb-3 text-start text-[30px] font-medium -tracking-[2px]">
             Don&apos;t Go with flow
@@ -79,7 +46,6 @@ export default function LoginPage({ error }: LoginPageProps) {
           <h1 className="text-[100px] leading-25 font-semibold -tracking-[8px]">
             Start using relic ai
           </h1>
-          <div></div>
         </div>
       </div>
       <div className="flex w-full items-center justify-center lg:w-1/2">
@@ -98,18 +64,11 @@ export default function LoginPage({ error }: LoginPageProps) {
             </p>
           </div>
 
-          {errorMessage ? (
+          {errorMessage && (
             <div className="mb-4 border border-red-200 bg-red-50 px-3 py-2 text-left text-xs text-red-700">
               {errorMessage}
             </div>
-          ) : null}
-
-          {providersLoaded && !hasConfiguredProviders ? (
-            <div className="mb-4 border border-amber-200 bg-amber-50 px-3 py-2 text-left text-xs text-amber-700">
-              To enable Google and GitHub authentication, add provider
-              credentials in your `.env` file.
-            </div>
-          ) : null}
+          )}
 
           <div className="flex flex-col gap-3">
             <button
@@ -120,9 +79,7 @@ export default function LoginPage({ error }: LoginPageProps) {
             >
               <span className="flex items-center justify-center gap-1 font-medium -tracking-[0.5px]">
                 <FcGoogle size={19} />
-                {activeProvider === 'google'
-                  ? 'Continue with Google'
-                  : 'Continue with Google'}
+                {activeProvider === 'google' ? 'Log in...' : 'Continue with Google'}
               </span>
             </button>
 
@@ -134,9 +91,7 @@ export default function LoginPage({ error }: LoginPageProps) {
             >
               <span className="flex items-center justify-center gap-1 font-medium -tracking-[0.5px]">
                 <BiLogoGithub size={19} />
-                {activeProvider === 'github'
-                  ? 'Continue with GitHub'
-                  : 'Continue with GitHub'}
+                {activeProvider === 'github' ? 'Log in...' : 'Continue with GitHub'}
               </span>
             </button>
           </div>

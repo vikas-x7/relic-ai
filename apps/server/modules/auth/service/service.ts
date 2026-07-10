@@ -1,5 +1,5 @@
 import { getPrisma } from 'db'
-import type { Provider } from './oauth'
+import type { Provider } from '../oauth/oauth'
 
 export async function findOrCreateUser(input: {
   provider: Provider

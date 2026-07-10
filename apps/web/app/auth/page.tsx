@@ -1,14 +1,11 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
 import Auth from '@/src/modules/auth/Auth';
 
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
-
-export default async function AuthPage({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
-  const resolvedSearchParams = await searchParams;
-  const error = typeof resolvedSearchParams.error === 'string' ? resolvedSearchParams.error : undefined;
+export default function AuthPage() {
+  const searchParams = useSearchParams();
+  const error = searchParams.get('reason') ?? undefined;
 
   return <Auth error={error} />;
 }
