@@ -1,1 +1,2 @@
-export { getPrisma } from './prisma'
+export { getPrisma, disconnectPrisma, getPgPool } from './prisma'
+export { env } from './env'
