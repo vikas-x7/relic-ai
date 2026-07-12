@@ -104,7 +104,10 @@ export function parseMessageBlocks(content: string): MessageBlock[] {
 function getFenceLanguage(line: string) {
   if (!line.startsWith('```')) return null;
 
-  return line.slice(3).trim().replace(/[^\w+#.-]/g, '');
+  return line
+    .slice(3)
+    .trim()
+    .replace(/[^\w+#.-]/g, '');
 }
 
 function isRuleLine(line: string) {

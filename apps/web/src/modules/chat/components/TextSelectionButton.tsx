@@ -8,11 +8,7 @@ type TextSelectionButtonProps = {
   onClick: () => void;
 };
 
-export default function TextSelectionButton({
-  x,
-  y,
-  onClick,
-}: TextSelectionButtonProps) {
+export default function TextSelectionButton({ x, y, onClick }: TextSelectionButtonProps) {
   return (
     <button
       id="new-node-btn"

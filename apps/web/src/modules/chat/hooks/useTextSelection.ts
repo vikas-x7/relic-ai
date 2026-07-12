@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Edge, Node } from '@xyflow/react';
-import { CHAT_NODE_HANDLE_IDS, CHAT_NODE_WIDTH, NEW_NODE_HORIZONTAL_GAP, NEW_NODE_VERTICAL_GAP } from '@/src/modules/chat/constants';
+import {
+  CHAT_NODE_HANDLE_IDS,
+  CHAT_NODE_WIDTH,
+  NEW_NODE_HORIZONTAL_GAP,
+  NEW_NODE_VERTICAL_GAP,
+} from '@/src/modules/chat/constants';
 import type { ChatNodeData, TextSelectionAction } from '@/src/modules/chat/types';
 import type { NodeHandlers } from '@/src/modules/chat/hooks/useCanvasState';
 
@@ -20,7 +25,12 @@ type UseTextSelectionParams = {
   onInteract: () => void;
 };
 
-export function useTextSelection({ opsRef, handlersRef, onActivateNode, onInteract }: UseTextSelectionParams) {
+export function useTextSelection({
+  opsRef,
+  handlersRef,
+  onActivateNode,
+  onInteract,
+}: UseTextSelectionParams) {
   const [textSelectionAction, setTextSelectionAction] = useState<TextSelectionAction | null>(null);
 
   const handleTextSelection = useCallback(
@@ -59,7 +69,10 @@ export function useTextSelection({ opsRef, handlersRef, onActivateNode, onIntera
         y: sourceNode.position.y + NEW_NODE_VERTICAL_GAP,
       };
     } else {
-      const flowPos = ops.screenToFlowPosition({ x: textSelectionAction.x, y: textSelectionAction.y });
+      const flowPos = ops.screenToFlowPosition({
+        x: textSelectionAction.x,
+        y: textSelectionAction.y,
+      });
       newNodePosition = { x: flowPos.x - CHAT_NODE_WIDTH / 2, y: flowPos.y };
     }
 
@@ -119,5 +132,10 @@ export function useTextSelection({ opsRef, handlersRef, onActivateNode, onIntera
     return () => document.removeEventListener('mousedown', handleDocumentClick);
   }, [textSelectionAction]);
 
-  return { textSelectionAction, handleTextSelection, handleCreateNodeFromSelection, setTextSelectionAction };
+  return {
+    textSelectionAction,
+    handleTextSelection,
+    handleCreateNodeFromSelection,
+    setTextSelectionAction,
+  };
 }

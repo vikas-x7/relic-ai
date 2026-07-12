@@ -10,11 +10,7 @@ export type NodeHandlers = {
   onRequestDelete?: (nodeId: string) => void;
   onFocusNode?: (nodeId: string) => void;
   onInteract?: () => void;
-  onTextSelection?: (
-    nodeId: string,
-    selectedText: string,
-    selectionRect: DOMRect,
-  ) => void;
+  onTextSelection?: (nodeId: string, selectedText: string, selectionRect: DOMRect) => void;
   onResponseHeightChange?: (nodeId: string, delta: number) => void;
 };
 
@@ -24,7 +20,11 @@ type UseCanvasStateParams = {
   streamingNodeIds: Set<string>;
 };
 
-export function useCanvasState({ handlersRef, nodeMessages, streamingNodeIds }: UseCanvasStateParams) {
+export function useCanvasState({
+  handlersRef,
+  nodeMessages,
+  streamingNodeIds,
+}: UseCanvasStateParams) {
   const [nodes, setNodes] = useState<ChatNodeType[]>(() => initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
   const edgesRef = useRef<Edge[]>([]);
@@ -34,28 +34,27 @@ export function useCanvasState({ handlersRef, nodeMessages, streamingNodeIds }: 
   const prevStreamRef = useRef<Set<string>>(streamingNodeIds);
 
   const syncNodeInteractionHandler = useMemo(
-    () =>
-      (nextNodes: ChatNodeType[], msgs: NodeMessageMap, currentStreamingIds: Set<string>) => {
-        const handlers = handlersRef.current;
+    () => (nextNodes: ChatNodeType[], msgs: NodeMessageMap, currentStreamingIds: Set<string>) => {
+      const handlers = handlersRef.current;
 
-        return nextNodes.map((node) => ({
-          ...node,
-          data: {
-            ...node.data,
-            messages: msgs[node.data.customId] || [],
-            isStreaming: currentStreamingIds.has(node.data.customId),
-            onInteract: handlers.onInteract,
-            onResponseHeightChange: handlers.onResponseHeightChange,
-            onSend: handlers.onSend,
-            onStop: handlers.onStop,
-            onExpand: handlers.onExpand,
-            onFocusNode: handlers.onFocusNode,
-            onRequestDelete: handlers.onRequestDelete,
-            canDelete: nextNodes.length > 1,
-            onTextSelection: handlers.onTextSelection,
-          },
-        }));
-      },
+      return nextNodes.map((node) => ({
+        ...node,
+        data: {
+          ...node.data,
+          messages: msgs[node.data.customId] || [],
+          isStreaming: currentStreamingIds.has(node.data.customId),
+          onInteract: handlers.onInteract,
+          onResponseHeightChange: handlers.onResponseHeightChange,
+          onSend: handlers.onSend,
+          onStop: handlers.onStop,
+          onExpand: handlers.onExpand,
+          onFocusNode: handlers.onFocusNode,
+          onRequestDelete: handlers.onRequestDelete,
+          canDelete: nextNodes.length > 1,
+          onTextSelection: handlers.onTextSelection,
+        },
+      }));
+    },
     [handlersRef],
   );
 

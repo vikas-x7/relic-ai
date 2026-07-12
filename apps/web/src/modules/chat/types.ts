@@ -22,11 +22,7 @@ export type ChatNodeData = {
   onFocusNode?: (nodeId: string) => void;
   onRequestDelete?: (nodeId: string) => void;
   canDelete?: boolean;
-  onTextSelection?: (
-    nodeId: string,
-    selectedText: string,
-    selectionRect: DOMRect,
-  ) => void;
+  onTextSelection?: (nodeId: string, selectedText: string, selectionRect: DOMRect) => void;
 };
 
 export type ChatNodeType = Node<ChatNodeData>;

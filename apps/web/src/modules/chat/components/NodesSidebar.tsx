@@ -30,39 +30,26 @@ export default function NodesSidebar({
     >
       <div className="flex items-center justify-between px-4 py-2">
         <h2 className="text-[12px] text-white">Nodes ({nodes.length})</h2>
-        <button
-          onClick={onClose}
-          className="text-white/60 transition-colors hover:text-white"
-        >
+        <button onClick={onClose} className="text-white/60 transition-colors hover:text-white">
           <FiX size={14} />
         </button>
       </div>
       <div className="flex flex-1 flex-col gap-2 overflow-y-auto p-4">
         {nodes.map((node, index) => {
           const fullMsg =
-            nodeMessages[node.data.customId]?.find((m) => m.role === 'user')
-              ?.content ||
+            nodeMessages[node.data.customId]?.find((m) => m.role === 'user')?.content ||
             node.data.initialInput ||
             `Node ${index + 1}`;
-          const firstUserMsg =
-            fullMsg.length > 35
-              ? fullMsg.slice(0, 35).trim() + '...'
-              : fullMsg;
+          const firstUserMsg = fullMsg.length > 35 ? fullMsg.slice(0, 35).trim() + '...' : fullMsg;
 
           return (
             <button
               key={node.id}
               onClick={() =>
-                onSelectNode(
-                  node.id,
-                  node.position.x + CHAT_NODE_WIDTH / 2,
-                  node.position.y + 100,
-                )
+                onSelectNode(node.id, node.position.x + CHAT_NODE_WIDTH / 2, node.position.y + 100)
               }
               className={`w-full shrink-0 rounded-[3px] p-1 px-2 text-left transition-all duration-150 ease-out ${
-                activeNodeId === node.id
-                  ? 'bg-[#252525]'
-                  : 'bg-[#151515] hover:bg-[#1f1f1f]'
+                activeNodeId === node.id ? 'bg-[#252525]' : 'bg-[#151515] hover:bg-[#1f1f1f]'
               }`}
             >
               <span className="block w-full truncate text-[11px] font-medium text-white/90">

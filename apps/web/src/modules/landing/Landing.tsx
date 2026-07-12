@@ -19,7 +19,12 @@ function Landing() {
         <div className="pointer-events-none absolute inset-0 z-0 opacity-100">
           <svg className="h-full w-full" id="noice-feature">
             <filter id="noise-filter-feature">
-              <feTurbulence type="fractalNoise" baseFrequency="2" numOctaves="4" stitchTiles="stitch"></feTurbulence>
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="2"
+                numOctaves="4"
+                stitchTiles="stitch"
+              ></feTurbulence>
               <feColorMatrix type="saturate" values="0"></feColorMatrix>
               <feComponentTransfer>
                 <feFuncR type="linear" slope="0.37"></feFuncR>

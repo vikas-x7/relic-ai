@@ -36,12 +36,25 @@ export default function MovingHanding() {
         <div className="relative w-full overflow-hidden">
           <div className="animate-marquee-loop">
             {[0, 1].map((group) => (
-              <div key={group} className="flex shrink-0 items-center gap-16 pr-16" aria-hidden={group === 1}>
+              <div
+                key={group}
+                className="flex shrink-0 items-center gap-16 pr-16"
+                aria-hidden={group === 1}
+              >
                 {marqueeItemsData.map((item, i) => (
-                  <div key={`${group}-${i}`} className="flex shrink-0 items-center justify-center opacity-40 transition-opacity duration-300 hover:opacity-100">
-                    <img src={item.src} alt={group === 0 ? `${item.name}-logo` : ''} className="h-6 w-auto max-w-full object-contain brightness-200 contrast-200 grayscale" />
+                  <div
+                    key={`${group}-${i}`}
+                    className="flex shrink-0 items-center justify-center opacity-40 transition-opacity duration-300 hover:opacity-100"
+                  >
+                    <img
+                      src={item.src}
+                      alt={group === 0 ? `${item.name}-logo` : ''}
+                      className="h-6 w-auto max-w-full object-contain brightness-200 contrast-200 grayscale"
+                    />
 
-                    <span className="ml-3 text-[16px] font-medium tracking-tight text-white md:text-[18px]">{item.name}</span>
+                    <span className="ml-3 text-[16px] font-medium tracking-tight text-white md:text-[18px]">
+                      {item.name}
+                    </span>
                   </div>
                 ))}
               </div>

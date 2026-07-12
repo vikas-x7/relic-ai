@@ -1,5 +1,5 @@
-import type { AccessPayload } from '../jwt/jwt'
+import type { AccessPayload } from '../jwt/jwt';
 
 export interface AppVariables {
-  authUser: AccessPayload
+  authUser: AccessPayload;
 }

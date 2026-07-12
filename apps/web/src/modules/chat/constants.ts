@@ -38,7 +38,13 @@ export const MODELS: ChatModel[] = [
   { id: 'gemma', name: 'Gemma 2', icon: 'fc-google', available: true },
   { id: 'minimax', name: 'Minimax', icon: 'thesvg-minimax', available: false, tag: 'coming soon' },
   { id: 'kimi', name: 'Kimi', icon: 'thesvg-kimi', available: false, tag: 'coming soon' },
-  { id: 'deepseek', name: 'DeepSeek', icon: 'thesvg-deepseek', available: false, tag: 'coming soon' },
+  {
+    id: 'deepseek',
+    name: 'DeepSeek',
+    icon: 'thesvg-deepseek',
+    available: false,
+    tag: 'coming soon',
+  },
   { id: 'mistral', name: 'Mistral', icon: 'thesvg-mistral', available: false, tag: 'coming soon' },
 ];
 

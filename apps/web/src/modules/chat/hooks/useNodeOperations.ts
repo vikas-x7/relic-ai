@@ -1,6 +1,11 @@
 import { useCallback } from 'react';
 import type { Edge, Node } from '@xyflow/react';
-import { ARRANGE_NODE_HORIZONTAL_GAP, CHAT_NODE_WIDTH, CHAT_INPUT_FOCUS_ZOOM, INITIAL_NODE_ID } from '@/src/modules/chat/constants';
+import {
+  ARRANGE_NODE_HORIZONTAL_GAP,
+  CHAT_NODE_WIDTH,
+  CHAT_INPUT_FOCUS_ZOOM,
+  INITIAL_NODE_ID,
+} from '@/src/modules/chat/constants';
 import type { ChatNodeData, ChatNodeType } from '@/src/modules/chat/types';
 
 type UseNodeOperationsParams = {
@@ -9,7 +14,9 @@ type UseNodeOperationsParams = {
   nodeToDelete: string | null;
   setActiveNodeId: React.Dispatch<React.SetStateAction<string>>;
   setNodeToDelete: (nodeId: string | null) => void;
-  setNodesRef: { current: ((updater: (nodes: Node<ChatNodeData>[]) => Node<ChatNodeData>[]) => void) | null };
+  setNodesRef: {
+    current: ((updater: (nodes: Node<ChatNodeData>[]) => Node<ChatNodeData>[]) => void) | null;
+  };
   setEdgesRef: { current: ((updater: (edges: Edge[]) => Edge[]) => void) | null };
   fitView: (...args: unknown[]) => Promise<boolean>;
   getNode: (nodeId: string) => Node | undefined;

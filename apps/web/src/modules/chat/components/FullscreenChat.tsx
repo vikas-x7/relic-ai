@@ -17,11 +17,7 @@ type FullscreenChatProps = {
   onClose: () => void;
   onRequestDelete?: (nodeId: string) => void;
   canDelete?: boolean;
-  onTextSelection?: (
-    nodeId: string,
-    selectedText: string,
-    selectionRect: DOMRect,
-  ) => void;
+  onTextSelection?: (nodeId: string, selectedText: string, selectionRect: DOMRect) => void;
 };
 
 export default function FullscreenChat({

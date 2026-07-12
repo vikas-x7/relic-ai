@@ -63,10 +63,7 @@ export class RevealStream {
 
       const step = Math.min(remaining, Math.max(1, Math.floor(this.revealBudget)));
       this.revealBudget = Math.max(0, this.revealBudget - step);
-      this.displayedContent = this.targetContent.slice(
-        0,
-        this.displayedContent.length + step,
-      );
+      this.displayedContent = this.targetContent.slice(0, this.displayedContent.length + step);
       this.onUpdate(this.displayedContent);
     }
 

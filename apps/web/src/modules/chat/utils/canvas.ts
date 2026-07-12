@@ -4,11 +4,7 @@ import {
   STREAM_MAX_REVEAL_RATE,
   STREAM_MIN_REVEAL_RATE,
 } from '@/src/modules/chat/constants';
-import type {
-  ChatMessage,
-  ChatNodeType,
-  PersistedCanvas,
-} from '@/src/modules/chat/types';
+import type { ChatMessage, ChatNodeType, PersistedCanvas } from '@/src/modules/chat/types';
 
 /**
  * Walk the edge graph backwards from `nodeId` to collect an ordered list of
@@ -42,10 +38,7 @@ export function getStreamRevealRate(remainingCharacters: number) {
   return STREAM_MIN_REVEAL_RATE;
 }
 
-export function serializeCanvas(
-  nodes: ChatNodeType[],
-  edges: Edge[],
-): PersistedCanvas {
+export function serializeCanvas(nodes: ChatNodeType[], edges: Edge[]): PersistedCanvas {
   return {
     nodes: nodes.map((node) => ({
       id: node.id,
@@ -76,11 +69,7 @@ export function isPersistedCanvas(value: unknown): value is PersistedCanvas {
   return Array.isArray(canvas.nodes) && Array.isArray(canvas.edges);
 }
 
-export function getNodeTitle(
-  node: ChatNodeType,
-  messages: ChatMessage[],
-  index: number,
-) {
+export function getNodeTitle(node: ChatNodeType, messages: ChatMessage[], index: number) {
   const full =
     messages.find((message) => message.role === 'user')?.content ||
     node.data.initialInput ||

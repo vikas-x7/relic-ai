@@ -1,29 +1,29 @@
 function required(name: string, value: string | undefined): string {
   if (!value) {
-    throw new Error(`Missing environment variable: ${name}`)
+    throw new Error(`Missing environment variable: ${name}`);
   }
-  return value
+  return value;
 }
 
 export function parseDuration(value: string | undefined, fallback: string): number {
-  const raw = value?.trim() || fallback
-  const match = raw.match(/^(\d+)\s*(s|m|h|d|w)?$/i)
+  const raw = value?.trim() || fallback;
+  const match = raw.match(/^(\d+)\s*(s|m|h|d|w)?$/i);
   if (!match) {
-    throw new Error(`Invalid duration format: "${raw}" (use e.g. 30s, 15m, 12h, 7d)`)
+    throw new Error(`Invalid duration format: "${raw}" (use e.g. 30s, 15m, 12h, 7d)`);
   }
-  const num = Number(match[1])
-  const unit = (match[2] ?? 's').toLowerCase()
+  const num = Number(match[1]);
+  const unit = (match[2] ?? 's').toLowerCase();
   const multipliers: Record<string, number> = {
     s: 1,
     m: 60,
     h: 60 * 60,
     d: 60 * 60 * 24,
     w: 60 * 60 * 24 * 7,
-  }
-  return num * multipliers[unit]
+  };
+  return num * multipliers[unit];
 }
 
-const nodeEnv = process.env.NODE_ENV ?? 'development'
+const nodeEnv = process.env.NODE_ENV ?? 'development';
 
 export const env = {
   nodeEnv,
@@ -47,4 +47,4 @@ export const env = {
     clientId: process.env.GITHUB_CLIENT_ID ?? '',
     clientSecret: process.env.GITHUB_CLIENT_SECRET ?? '',
   },
-}
+};

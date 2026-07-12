@@ -1,14 +1,6 @@
 import { useCallback } from 'react';
-import {
-  Position,
-  type Edge,
-  type FinalConnectionState,
-  type Node,
-} from '@xyflow/react';
-import {
-  CHAT_NODE_HANDLE_IDS,
-  CHAT_NODE_WIDTH,
-} from '@/src/modules/chat/constants';
+import { Position, type Edge, type FinalConnectionState, type Node } from '@xyflow/react';
+import { CHAT_NODE_HANDLE_IDS, CHAT_NODE_WIDTH } from '@/src/modules/chat/constants';
 import type { ChatNodeData } from '@/src/modules/chat/types';
 import type { NodeHandlers } from '@/src/modules/chat/hooks/useCanvasState';
 
@@ -54,13 +46,9 @@ export function useCanvasConnections({
           : CHAT_NODE_HANDLE_IDS.left;
 
       const clientX =
-        event instanceof MouseEvent
-          ? event.clientX
-          : (event.changedTouches?.[0]?.clientX ?? 0);
+        event instanceof MouseEvent ? event.clientX : (event.changedTouches?.[0]?.clientX ?? 0);
       const clientY =
-        event instanceof MouseEvent
-          ? event.clientY
-          : (event.changedTouches?.[0]?.clientY ?? 0);
+        event instanceof MouseEvent ? event.clientY : (event.changedTouches?.[0]?.clientY ?? 0);
 
       const dropPosition = ops.screenToFlowPosition({ x: clientX, y: clientY });
 

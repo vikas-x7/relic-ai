@@ -3,7 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 // React Icons import
-import { FaXTwitter, FaLinkedinIn, FaDiscord, FaRedditAlien, FaInstagram, FaYoutube } from 'react-icons/fa6';
+import {
+  FaXTwitter,
+  FaLinkedinIn,
+  FaDiscord,
+  FaRedditAlien,
+  FaInstagram,
+  FaYoutube,
+} from 'react-icons/fa6';
 import Image from 'next/image';
 
 const Footer = () => {
@@ -112,7 +119,11 @@ const Footer = () => {
 
       {/* Visual Image Section */}
       <div className="relative mt-6 w-full overflow-hidden opacity-80 md:mt-8">
-        <img src="https://relicai.in/_next/image?url=%2Fimages%2Frelicfooter.jpg&w=2048&q=75" alt="" className="block h-auto w-full object-cover" />
+        <img
+          src="https://relicai.in/_next/image?url=%2Fimages%2Frelicfooter.jpg&w=2048&q=75"
+          alt=""
+          className="block h-auto w-full object-cover"
+        />
 
         <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/10 to-transparent" />
       </div>

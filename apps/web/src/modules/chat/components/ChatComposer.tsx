@@ -6,10 +6,7 @@ import { IoMdArrowUp } from 'react-icons/io';
 import { IoMicSharp } from 'react-icons/io5';
 import { LiaLinkSolid } from 'react-icons/lia';
 import { FiTrash2 } from 'react-icons/fi';
-import {
-  CHAT_INPUT_MAX_HEIGHT,
-  CHAT_TEXT_INTERACTION_CLASS,
-} from '@/src/modules/chat/constants';
+import { CHAT_INPUT_MAX_HEIGHT, CHAT_TEXT_INTERACTION_CLASS } from '@/src/modules/chat/constants';
 import ModelSelector from '@/src/modules/chat/components/ModelSelector';
 
 type ChatComposerProps = {

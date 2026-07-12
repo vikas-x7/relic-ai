@@ -3,10 +3,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
 import { BsArrowsFullscreen } from 'react-icons/bs';
-import {
-  CHAT_NODE_HANDLE_IDS,
-  CHAT_TEXT_INTERACTION_CLASS,
-} from '@/src/modules/chat/constants';
+import { CHAT_NODE_HANDLE_IDS, CHAT_TEXT_INTERACTION_CLASS } from '@/src/modules/chat/constants';
 import type { ChatNodeData } from '@/src/modules/chat/types';
 import ChatComposer from '@/src/modules/chat/components/ChatComposer';
 import MessageContent from '@/src/modules/chat/components/MessageContent';
@@ -108,12 +105,11 @@ export default function ChatNode({ data }: NodeProps<Node<ChatNodeData>>) {
               ) : (
                 <>
                   <MessageContent content={msg.content} isUser={msg.role === 'user'} />
-                  {msg.status === 'pending' && <span className="stream-cursor" aria-hidden="true" />}
+                  {msg.status === 'pending' && (
+                    <span className="stream-cursor" aria-hidden="true" />
+                  )}
                   {msg.role === 'assistant' && msg.status !== 'pending' && msg.content && (
-                    <MessageActions
-                      content={msg.content}
-                      onRetry={() => handleRetry(index)}
-                    />
+                    <MessageActions content={msg.content} onRetry={() => handleRetry(index)} />
                   )}
                 </>
               )}

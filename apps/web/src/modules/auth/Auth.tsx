@@ -22,9 +22,7 @@ export default function LoginPage({ error }: LoginPageProps) {
   const { data: providers } = useProviders();
   const [activeProvider, setActiveProvider] = useState<string | null>(null);
 
-  const errorMessage = error
-    ? (authErrors[error] ?? authErrors.default)
-    : null;
+  const errorMessage = error ? (authErrors[error] ?? authErrors.default) : null;
 
   function handleSignIn(provider: 'google' | 'github') {
     setActiveProvider(provider);
@@ -59,8 +57,7 @@ export default function LoginPage({ error }: LoginPageProps) {
               Welcome to Relic AI
             </h1>
             <p className="mt-1 text-center text-[12px] text-white/50">
-              Your ideas, your nodes, your branches all waiting for you. Sign in
-              to continue.
+              Your ideas, your nodes, your branches all waiting for you. Sign in to continue.
             </p>
           </div>
 
@@ -97,8 +94,8 @@ export default function LoginPage({ error }: LoginPageProps) {
           </div>
 
           <p className="absolute bottom-10 border-t border-white/10 py-2 text-start text-[11px] text-neutral-600">
-            Terms & Conditions Continuing means <br /> you agree to our Terms of
-            Service and Privacy Policy. Your data stays yours, always.
+            Terms & Conditions Continuing means <br /> you agree to our Terms of Service and Privacy
+            Policy. Your data stays yours, always.
           </p>
         </div>
       </div>

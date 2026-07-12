@@ -1,4 +1,5 @@
-const DEMO_VIDEO = 'https://res.cloudinary.com/dyv9kenuj/video/upload/v1778740598/relicdemov1_1_aurpo2.mp4';
+const DEMO_VIDEO =
+  'https://res.cloudinary.com/dyv9kenuj/video/upload/v1778740598/relicdemov1_1_aurpo2.mp4';
 
 export default function Highlights() {
   return (

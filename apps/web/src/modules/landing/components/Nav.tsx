@@ -57,11 +57,19 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-5 bg-[#F0F0F0]  px-3 py-2 rounded-[3px] transition-colors duration-300 ">
             <Link href="/" className="flex items-center">
               {/* <BiSolidSquare size={23} className="text-[#171717]" /> */}
-              <img src="https://i.pinimg.com/736x/bd/26/66/bd2666c8166b5c90afd47b36f428cc25.jpg" alt="" className="w-6 mr-1 grayscale mix-blend-multiply" />
+              <img
+                src="https://i.pinimg.com/736x/bd/26/66/bd2666c8166b5c90afd47b36f428cc25.jpg"
+                alt=""
+                className="w-6 mr-1 grayscale mix-blend-multiply"
+              />
               <h1 className="text-[19px] font-semibold tracking-[-0.5px] mt-[0.5px]">Relic AI </h1>
             </Link>
             {NAV_LINKS.map((link) => (
-              <NavItem key={link.id} {...link} className="text-[14px] hover:opacity-70  mt-1 transition-opacity tracking-[-0.5px]" />
+              <NavItem
+                key={link.id}
+                {...link}
+                className="text-[14px] hover:opacity-70  mt-1 transition-opacity tracking-[-0.5px]"
+              />
             ))}
           </div>
 
@@ -84,7 +92,9 @@ const Navbar = () => {
 
             <div
               className={`absolute right-0 top-12 mt-2 w-[calc(100vw-2.5rem)] sm:w-94 max-w-sm bg-[#1F1F1F] text-white p-6 shadow-2xl rounded-[4px] border border-black/5 transition-transform duration-500 ease-out z-50 ${
-                isOpen ? 'translate-x-0 pointer-events-auto' : 'translate-x-[200%] pointer-events-none'
+                isOpen
+                  ? 'translate-x-0 pointer-events-auto'
+                  : 'translate-x-[200%] pointer-events-none'
               }`}
             >
               <div className="flex flex-col gap-2 mb-6">
@@ -108,7 +118,10 @@ const Navbar = () => {
                     Twitter
                   </Link>
                 </div>
-                <Link href="#" className="hover:text-white transition-colors font-light text-white/80">
+                <Link
+                  href="#"
+                  className="hover:text-white transition-colors font-light text-white/80"
+                >
                   Privacy policy
                 </Link>
               </div>

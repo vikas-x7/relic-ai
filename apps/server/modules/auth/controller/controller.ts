@@ -15,10 +15,30 @@ import {
   verifyOAuthState,
   verifyRefreshToken,
 } from '../jwt/jwt';
-import { buildAuthorizeUrl, callbackUrl, exchangeCodeForToken, fetchOAuthUser, generatePkce, isProvider, isProviderConfigured, type Provider } from '../oauth/oauth';
-import { findOrCreateUser, findRefreshToken, findUserById, revokeRefreshToken, storeRefreshToken } from '../service/service';
+import {
+  buildAuthorizeUrl,
+  callbackUrl,
+  exchangeCodeForToken,
+  fetchOAuthUser,
+  generatePkce,
+  isProvider,
+  isProviderConfigured,
+  type Provider,
+} from '../oauth/oauth';
+import {
+  findOrCreateUser,
+  findRefreshToken,
+  findUserById,
+  revokeRefreshToken,
+  storeRefreshToken,
+} from '../service/service';
 
-function setAuthCookies(c: Context, accessToken: string, refreshToken: string, refreshTokenMaxAgeSeconds: number) {
+function setAuthCookies(
+  c: Context,
+  accessToken: string,
+  refreshToken: string,
+  refreshTokenMaxAgeSeconds: number,
+) {
   const secure = env.isProd;
   const sameSite = env.isProd ? 'None' : 'Lax';
   const domain = env.cookieDomain || undefined;
@@ -101,7 +121,11 @@ export async function handleCallback(c: Context) {
   }
 
   try {
-    const { accessToken } = await exchangeCodeForToken(provider, code, oauthState.verifier || undefined);
+    const { accessToken } = await exchangeCodeForToken(
+      provider,
+      code,
+      oauthState.verifier || undefined,
+    );
     const userInfo = await fetchOAuthUser(provider, accessToken);
     const user = await findOrCreateUser({
       provider,
@@ -114,7 +138,11 @@ export async function handleCallback(c: Context) {
     const access = await createAccessToken(user);
     const jti = crypto.randomUUID();
     const refresh = await createRefreshToken({ id: user.id, jti });
-    await storeRefreshToken({ jti, userId: user.id, expiresAt: new Date(Date.now() + refreshTokenMaxAge() * 1000) });
+    await storeRefreshToken({
+      jti,
+      userId: user.id,
+      expiresAt: new Date(Date.now() + refreshTokenMaxAge() * 1000),
+    });
 
     setAuthCookies(c, access, refresh, refreshTokenMaxAge());
     return c.redirect(`${env.webUrl}/chat`, 302);
@@ -152,7 +180,11 @@ export async function refreshTokens(c: Context) {
 
   const newJti = crypto.randomUUID();
   const newRefresh = await createRefreshToken({ id: user.id, jti: newJti });
-  await storeRefreshToken({ jti: newJti, userId: user.id, expiresAt: new Date(Date.now() + refreshTokenMaxAge() * 1000) });
+  await storeRefreshToken({
+    jti: newJti,
+    userId: user.id,
+    expiresAt: new Date(Date.now() + refreshTokenMaxAge() * 1000),
+  });
   const newAccess = await createAccessToken(user);
 
   setAuthCookies(c, newAccess, newRefresh, refreshTokenMaxAge());

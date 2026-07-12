@@ -1,14 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {
-  FiEdit2,
-  FiMoreHorizontal,
-  FiSearch,
-  FiSidebar,
-  FiStar,
-  FiTrash2,
-} from 'react-icons/fi';
+import { FiEdit2, FiMoreHorizontal, FiSearch, FiSidebar, FiStar, FiTrash2 } from 'react-icons/fi';
 import { IoCreateOutline } from 'react-icons/io5';
 
 interface Chat {
@@ -97,9 +90,7 @@ export default function Sidebar({ className }: SidebarProps) {
     setMenuChatId(null);
     setChats((prev) =>
       prev
-        .map((c) =>
-          c.id === chat.id ? { ...c, isPinned: !c.isPinned, updatedAt: new Date() } : c,
-        )
+        .map((c) => (c.id === chat.id ? { ...c, isPinned: !c.isPinned, updatedAt: new Date() } : c))
         .sort((a, b) => {
           if (a.isPinned !== b.isPinned) return a.isPinned ? -1 : 1;
           return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
@@ -167,7 +158,11 @@ export default function Sidebar({ className }: SidebarProps) {
               <div className="relative" onMouseLeave={handleMouseLeaveList}>
                 <div
                   className="absolute left-0 right-0 z-0 rounded-[2px] bg-[#1e1e1e] transition-all duration-300 ease-out"
-                  style={{ top: hoverStyle.top, height: hoverStyle.height, opacity: hoverStyle.opacity }}
+                  style={{
+                    top: hoverStyle.top,
+                    height: hoverStyle.height,
+                    opacity: hoverStyle.opacity,
+                  }}
                 />
 
                 {sortedChats.map((chat) => {
@@ -190,7 +185,10 @@ export default function Sidebar({ className }: SidebarProps) {
                           onChange={(e) => setRenameValue(e.target.value)}
                           onBlur={() => submitRename(chat.id)}
                           onKeyDown={(e) => {
-                            if (e.key === 'Enter') { e.preventDefault(); submitRename(chat.id); }
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              submitRename(chat.id);
+                            }
                             if (e.key === 'Escape') setRenamingChatId(null);
                           }}
                           autoFocus
@@ -202,7 +200,9 @@ export default function Sidebar({ className }: SidebarProps) {
                           onClick={() => setActiveChatId(chat.id)}
                           className="flex min-w-0 flex-1 cursor-pointer items-center gap-1.5 px-1 py-1 text-left"
                         >
-                          {chat.isPinned && <FiStar size={12} className="shrink-0 fill-white/50 text-white/50" />}
+                          {chat.isPinned && (
+                            <FiStar size={12} className="shrink-0 fill-white/50 text-white/50" />
+                          )}
                           <span className="truncate">{chat.title}</span>
                         </button>
                       )}
@@ -210,7 +210,10 @@ export default function Sidebar({ className }: SidebarProps) {
                       {!isRenaming && (
                         <button
                           type="button"
-                          onClick={(e) => { e.stopPropagation(); setMenuChatId(isMenuOpen ? null : chat.id); }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setMenuChatId(isMenuOpen ? null : chat.id);
+                          }}
                           className={`flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-[4px] text-white/40 transition-colors hover:bg-white/10 hover:text-white ${
                             isMenuOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                           }`}
@@ -243,7 +246,10 @@ export default function Sidebar({ className }: SidebarProps) {
                           </button>
                           <button
                             type="button"
-                            onClick={() => { setMenuChatId(null); setDeleteTarget(chat); }}
+                            onClick={() => {
+                              setMenuChatId(null);
+                              setDeleteTarget(chat);
+                            }}
                             className="flex w-full cursor-pointer items-center gap-2 rounded-[5px] px-2.5 py-2 text-left text-sm text-red-300 hover:bg-red-500/10 hover:text-red-200"
                           >
                             <FiTrash2 size={14} />
@@ -264,8 +270,12 @@ export default function Sidebar({ className }: SidebarProps) {
                 U
               </div>
               <div className="flex flex-col">
-                <span className="max-w-[120px] truncate text-[13px] font-medium text-white">User</span>
-                <span className="max-w-[120px] truncate text-[11px] text-white/40">user@example.com</span>
+                <span className="max-w-[120px] truncate text-[13px] font-medium text-white">
+                  User
+                </span>
+                <span className="max-w-[120px] truncate text-[11px] text-white/40">
+                  user@example.com
+                </span>
               </div>
             </div>
           </div>

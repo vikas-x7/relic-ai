@@ -107,7 +107,12 @@ export default function FAQ() {
       <div className="pointer-events-none absolute inset-0 z-0 opacity-100">
         <svg className="h-full w-full" id="noice-faq">
           <filter id="noise-filter-faq">
-            <feTurbulence type="fractalNoise" baseFrequency="2" numOctaves="4" stitchTiles="stitch"></feTurbulence>
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="2"
+              numOctaves="4"
+              stitchTiles="stitch"
+            ></feTurbulence>
             <feColorMatrix type="saturate" values="0"></feColorMatrix>
             <feComponentTransfer>
               <feFuncR type="linear" slope="3"></feFuncR>
@@ -136,12 +141,17 @@ export default function FAQ() {
           </div>
 
           <div className="py-6">
-            <p className="text-black/90 font-light leading-relaxed mb-8   ">Everything you need to know about starting, branching, and managing your visual chats with Relic AI. Got any questions?</p>
+            <p className="text-black/90 font-light leading-relaxed mb-8   ">
+              Everything you need to know about starting, branching, and managing your visual chats
+              with Relic AI. Got any questions?
+            </p>
             <button className="flex items-stretch group hover:opacity-80 transition-opacity">
               <div className="bg-transparent px-3 py-2 border border-black flex items-center justify-center">
                 <span className="w-2.5 h-3 bg-black"></span>
               </div>
-              <div className="bg-[#111] text-white px-5 py-2 text-sm font-light border border-[#111]">Contact Us</div>
+              <div className="bg-[#111] text-white px-5 py-2 text-sm font-light border border-[#111]">
+                Contact Us
+              </div>
             </button>
           </div>
         </div>
@@ -151,7 +161,11 @@ export default function FAQ() {
           {/* Tab Navigation */}
           <div className="grid grid-cols-4 border-b border-black/10">
             {tabs.map((tab) => (
-              <button key={tab} onClick={() => handleTabChange(tab)} className={`py-3 text-sm font-light transition-colors ${activeTab === tab ? 'bg-[#111] text-white' : 'hover:bg-black/5'}`}>
+              <button
+                key={tab}
+                onClick={() => handleTabChange(tab)}
+                className={`py-3 text-sm font-light transition-colors ${activeTab === tab ? 'bg-[#111] text-white' : 'hover:bg-black/5'}`}
+              >
                 {tab}
               </button>
             ))}
@@ -168,10 +182,14 @@ export default function FAQ() {
                 <div className="flex items-center gap-4">
                   <div>
                     <h3 className="font-light text-base">{item.q}</h3>
-                    {openIndex === i && <p className="text-sm text-black/60 mt-2 max-w-lg">{item.a}</p>}
+                    {openIndex === i && (
+                      <p className="text-sm text-black/60 mt-2 max-w-lg">{item.a}</p>
+                    )}
                   </div>
                 </div>
-                <span className="text-xl font-light text-black/40">{openIndex === i ? '−' : '+'}</span>
+                <span className="text-xl font-light text-black/40">
+                  {openIndex === i ? '−' : '+'}
+                </span>
               </div>
             ))}
           </div>
