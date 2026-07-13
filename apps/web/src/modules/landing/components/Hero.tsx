@@ -9,9 +9,9 @@ import Image from 'next/image';
 const Hero = () => {
   return (
     <div className="font-cabin text-black px-3 sm:px-12 h-dvh pt-20 pb-6 sm:pt-24 sm:pb-8 ">
-      <div className="w-full h-full flex flex-col justify-between">
-        <div className="md:px-4 mt-23 sm:mt-15 ">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-12">
+      <div className="w-full h-full flex flex-col justify-between ">
+        <div className="md:px-4 mt-23 sm:mt-30 ">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 sm:mb-0">
             <Link
               href="/auth"
               className="inline-flex text-[13px] sm:text-[14px] items-center ml-[-5] justify-center gap-2 bg-[#101010] text-white px-3 py-1 sm:py-1 rounded-[3px] font-medium hover:bg-gray-800 transition-colors w-fit"
@@ -37,8 +37,8 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="flex flex-row sm:flex-col items-start sm:items-end gap-6 sm:gap-3 text-sm text-black font-medium">
-              <Link href="#" className="hover:text-black/50 transition-colors font-light">
+            <div className="hidden sm:flex flex-col items-end text-start gap-3  text-black font-medium">
+              <Link href="#" className="hover:text-black/50 transition-colors font-light ">
                 Canvas
               </Link>
               <Link href="#" className="hover:text-black/50 transition-colors font-light ">
@@ -50,9 +50,6 @@ const Hero = () => {
               <Link href="#" className="hover:text-black/50 transition-colors font-light">
                 Memory
               </Link>
-              <Link href="#" className="hover:text-black/50 transition-colors font-light">
-                Workspace
-              </Link>
             </div>
           </div>
         </div>
@@ -60,7 +57,7 @@ const Hero = () => {
         <div>
           <div className=" sm:px-6 md:px-4">
             <p className="text-sm text-black mb-2 tracking-[-0.5px] leading-none">
-              As we believe at relic ai
+              We believe at Relic AI
             </p>
             <h2 className="text-[1rem] md:text-xl md:text-2xl  mb-8 sm:mb-10 tracking-[-0.5px] sm:tracking-[-1px]">
               A canvas where your thinking has no edges, no dead ends, and no direction it cannot
