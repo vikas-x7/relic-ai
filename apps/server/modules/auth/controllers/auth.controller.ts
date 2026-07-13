@@ -1,7 +1,7 @@
 import type { Context } from 'hono';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import { env } from '../../../config/env';
-import type { AppVariables } from '../types/types';
+import type { AppVariables } from '../types/auth.types';
 import {
   ACCESS_COOKIE_NAME,
   OAUTH_STATE_COOKIE_NAME,
@@ -14,7 +14,7 @@ import {
   refreshTokenMaxAge,
   verifyOAuthState,
   verifyRefreshToken,
-} from '../jwt/jwt';
+} from '../tokens/jwt';
 import {
   buildAuthorizeUrl,
   callbackUrl,
@@ -31,7 +31,7 @@ import {
   findUserById,
   revokeRefreshToken,
   storeRefreshToken,
-} from '../service/service';
+} from '../services/auth.service';
 
 function setAuthCookies(
   c: Context,

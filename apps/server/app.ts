@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-import { createAuthRoutes } from './modules/auth/routes/routes';
+import { createAuthRoutes } from './modules/auth/routes/auth.routes';
 import { env } from './config/env';
 
 export function createApp(): Hono {

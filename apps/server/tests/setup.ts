@@ -1,0 +1,14 @@
+(process.env as Record<string, string>).NODE_ENV = 'test';
+process.env.SERVER_URL = 'http://localhost:3000';
+process.env.WEB_URL = 'http://localhost:3001';
+process.env.CORS_ORIGINS = 'http://localhost:3001';
+process.env.JWT_SECRET = 'test-jwt-secret';
+process.env.REFRESH_TOKEN_SECRET = 'test-refresh-secret';
+process.env.JWT_EXPIRES_IN = '15m';
+process.env.JWT_REFRESH_EXPIRES_IN = '7d';
+process.env.OAUTH_STATE_EXPIRES_IN = '10m';
+process.env.DATABASE_URL = 'postgresql://localhost:5432/test';
+process.env.GOOGLE_CLIENT_ID = 'test-google-client-id';
+process.env.GOOGLE_CLIENT_SECRET = 'test-google-client-secret';
+process.env.GITHUB_CLIENT_ID = 'test-github-client-id';
+process.env.GITHUB_CLIENT_SECRET = 'test-github-client-secret';
