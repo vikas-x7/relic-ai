@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { BiLogoGithub } from 'react-icons/bi';
 import { FcGoogle } from 'react-icons/fc';
 import { useProviders } from '@/src/modules/auth/hooks/useAuth';
+import Image from 'next/image';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -30,18 +31,21 @@ export default function LoginPage({ error }: LoginPageProps) {
   }
 
   return (
-    <div className="font-DM_sans flex min-h-screen bg-black text-white font-cabin">
-      <div className="relative hidden border-r border-white/20 lg:block lg:w-1/2">
-        <img
-          src="https://relicai.in/_next/image?url=%2Fimages%2Frelicailoginimage.jpg&w=2048&q=75"
+    <div className="font-DM_sans flex min-h-dvh bg-black text-white font-cabin">
+      <div className="relative hidden  lg:block lg:w-1/2">
+        <Image
+          width={1200}
+          height={600}
+          priority
+          src="/images/loginImage.webp"
           alt=""
-          className="h-screen w-full object-cover opacity-40"
+          className="h-dvh w-full object-cover opacity-40 grayscale-0"
         />
         <div className="absolute bottom-[3%] left-[3%]">
-          <p className="-mb-3 text-start text-[30px] font-medium -tracking-[2px]">
+          <p className="-mb-3 text-start text-[1.875rem] font-medium -tracking-[0.125rem]">
             Don&apos;t Go with flow
           </p>
-          <h1 className="text-[100px] leading-25 font-semibold -tracking-[8px]">
+          <h1 className="text-[6.25rem] leading-25 font-semibold -tracking-[0.5rem]">
             Start using relic ai
           </h1>
         </div>
@@ -49,20 +53,20 @@ export default function LoginPage({ error }: LoginPageProps) {
       <div className="flex w-full items-center justify-center lg:w-1/2">
         <div className="absolute top-0 left-0 mt-3 ml-3 flex items-center">
           <img src="https://relicai.in/images/logo.png" alt="" className="h-11 w-11" />
-          <h1 className="-ml-2 text-[20px]">Relic ai</h1>
+          <h1 className="-ml-2 text-[1.25rem]">Relic ai</h1>
         </div>
-        <div className="w-[480px] px-6">
+        <div className="w-[480px] px-[1.5em]">
           <div className="mb-8 flex flex-col items-center justify-center">
-            <h1 className="flex items-center gap-2 text-[30px] font-medium -tracking-[1.5px]">
+            <h1 className="flex items-center gap-2 text-[1.875rem] font-medium -tracking-[0.0937rem]">
               Welcome to Relic AI
             </h1>
-            <p className="mt-1 text-center text-[12px] text-white/50">
+            <p className="mt-1 text-center text-[0.75rem] text-white/60">
               Your ideas, your nodes, your branches all waiting for you. Sign in to continue.
             </p>
           </div>
 
           {errorMessage && (
-            <div className="mb-4 border border-red-200 bg-red-50 px-3 py-2 text-left text-xs text-red-700">
+            <div className="mb-4 border border-red-200 bg-red-50 px-[0.75em] py-[0.5em] text-left text-xs text-red-700">
               {errorMessage}
             </div>
           )}
@@ -72,9 +76,9 @@ export default function LoginPage({ error }: LoginPageProps) {
               type="button"
               onClick={() => handleSignIn('google')}
               disabled={!providers?.google || activeProvider !== null}
-              className="w-full rounded-[2px] border border-neutral-300 bg-white py-2 text-[14px] text-black transition disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-[2px] border border-neutral-300 bg-white py-[0.5em] text-[0.875rem] text-black transition disabled:cursor-not-allowed disabled:opacity-60"
             >
-              <span className="flex items-center justify-center gap-1 font-medium -tracking-[0.5px]">
+              <span className="flex items-center justify-center gap-1 font-medium -tracking-[0.03125rem]">
                 <FcGoogle size={19} />
                 {activeProvider === 'google' ? 'Log in...' : 'Continue with Google'}
               </span>
@@ -84,9 +88,9 @@ export default function LoginPage({ error }: LoginPageProps) {
               type="button"
               onClick={() => handleSignIn('github')}
               disabled={!providers?.github || activeProvider !== null}
-              className="w-full rounded-[2px] border border-neutral-300 bg-white py-2 text-[14px] text-black transition disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-[2px] border border-neutral-300 bg-white py-[0.5em] text-[0.875rem] text-black transition disabled:cursor-not-allowed disabled:opacity-60"
             >
-              <span className="flex items-center justify-center gap-1 font-medium -tracking-[0.5px]">
+              <span className="flex items-center justify-center gap-1 font-medium -tracking-[0.03125rem]">
                 <BiLogoGithub size={19} />
                 {activeProvider === 'github' ? 'Log in...' : 'Continue with GitHub'}
               </span>
