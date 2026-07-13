@@ -25,17 +25,17 @@ export default function Integrations() {
   ];
 
   return (
-    <section className="text-white pb-54 ">
+    <section className="text-white pb-20 sm:pb-36 lg:pb-54">
       {/* Header */}
-      <div className="mb-20 flex items-end justify-end px-12 ">
-        <div className="w-4xl text-end">
-          <div className="text-[15px] uppercase ml-7 text-white/50 mb-6 flex items-center gap-2">
+      <div className="mb-12 sm:mb-20 flex items-end justify-end px-4 sm:px-8 lg:px-12">
+        <div className="max-w-4xl w-full text-start sm:text-end">
+          <div className="text-[13px] sm:text-[15px] uppercase text-white/50 mb-4 sm:mb-6 flex items-center sm:justify-end gap-2">
             <span>
               <BsAsterisk />
             </span>{' '}
             INTEGRATIONS
           </div>
-          <h2 className="text-4xl md:text-3xl font-medium leading-[1.1] text-[#FAFAFA] tracking-tighter">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium leading-[1.2] sm:leading-[1.1] text-[#FAFAFA] tracking-tight sm:tracking-tighter">
             Armory bridges the gap between your data and your tools.
             <span> Deploy agents that live where you work, from Slack to GitHub and beyond.</span>
           </h2>
@@ -43,15 +43,15 @@ export default function Integrations() {
       </div>
 
       {/* Logo Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-5 border-t border-dashed border-l border-white/10 ">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border-t border-dashed border-l border-white/10">
         {logos.map((item, index) => {
           const Icon = item.icon; // Component ko variable mein assign kiya
           return (
             <div
               key={index}
-              className="h-42 border-b border-r border-dashed border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 hover:bg-white/5 cursor-pointer"
+              className="h-28 sm:h-36 lg:h-42 border-b border-r border-dashed border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 hover:bg-white/5 cursor-pointer"
             >
-              <Icon className="text-4xl" />
+              <Icon className="text-2xl sm:text-3xl lg:text-4xl" />
             </div>
           );
         })}

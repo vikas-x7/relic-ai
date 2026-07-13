@@ -38,7 +38,7 @@ export default function MovingHanding() {
             {[0, 1].map((group) => (
               <div
                 key={group}
-                className="flex shrink-0 items-center gap-16 pr-16"
+                className="flex shrink-0 items-center gap-8 sm:gap-12 lg:gap-16 pr-8 sm:pr-12 lg:pr-16"
                 aria-hidden={group === 1}
               >
                 {marqueeItemsData.map((item, i) => (

@@ -21,8 +21,8 @@ export default function Feature() {
   return (
     <section>
       <section className=" ">
-        <div className="ml-95 w-3xl border-l border-white/12 border-dashed">
-          <div className="py-25 px-10">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:ml-24 xl:ml-32 lg:max-w-3xl border-l border-white/12 border-dashed">
+          <div className="py-12 sm:py-16 lg:py-25 px-4 sm:px-8 lg:px-10">
             <div className="relative z-10 flex items-start justify-between ">
               <div className="flex items-center gap-3 text-white/70 py-4">
                 <span className="text-[14px] tracking-[-0.05px] uppercase text-white">
@@ -31,8 +31,8 @@ export default function Feature() {
               </div>
             </div>
 
-            <div className="relative z-10  max-w-4xl flex-1 flex flex-col justify-center  ">
-              <h2 className="text-2xl md:text-[32px] text-white/90 leading-relaxed md:leading-9.5 mb-10 font-cabin tracking-[-1.5px]">
+            <div className="relative z-10 max-w-4xl flex-1 flex flex-col justify-center">
+              <h2 className="text-xl sm:text-2xl md:text-[32px] text-white/90 leading-relaxed md:leading-9.5 mb-8 sm:mb-10 font-cabin tracking-[-0.5px] sm:tracking-[-1.5px]">
                 Build a connected knowledge graph of your conversations. track every single thought
                 visually on an infinite canvas.
               </h2>
@@ -52,22 +52,22 @@ export default function Feature() {
                   <path d="M6 14H10V18H6V14ZM10 10H14V14H10V10ZM14 6H18V10H14V6Z" />
                 </svg>
               </div>
-              <div className="bg-white text-black px-8 py-1  font-medium text-sm flex items-center justify-center border border-white border-l-0">
+              <div className="bg-white text-black px-6 sm:px-8 py-1 font-medium text-sm flex items-center justify-center border border-white border-l-0">
                 Try Canvas
               </div>
             </button>
           </div>
         </div>
 
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 border-y border-white/10 border-dashed w-full mt-auto ">
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-y border-white/10 border-dashed w-full mt-auto">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="relative min-h-[220px] font-bricolage flex flex-col p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10 border-dashed "
+              className="relative min-h-[180px] sm:min-h-[220px] font-bricolage flex flex-col p-6 sm:p-8 md:p-12 border-b sm:border-b-0 border-r border-white/10 border-dashed"
             >
               {/* Top Right Bracket Icon ( ┐ ) */}
               <svg
-                className="absolute top-8 right-8 w-4 h-4 text-white/40"
+                className="absolute top-6 right-6 sm:top-8 sm:right-8 w-4 h-4 text-white/40"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -75,11 +75,11 @@ export default function Feature() {
                 <path d="M4 4H20V20" strokeWidth="1" strokeLinecap="square" />
               </svg>
 
-              <div className="mt-12">
-                <h3 className="text-6xl md:text-[70px] font-light tracking-[-5px] text-white mb-6">
+              <div className="mt-8 sm:mt-12">
+                <h3 className="text-4xl sm:text-5xl md:text-[70px] font-light tracking-[-3px] sm:tracking-[-5px] text-white mb-4 sm:mb-6">
                   {stat.value}
                 </h3>
-                <p className="text-white/60 font-mono text-sm tracking-[-1px] leading-relaxed max-w-[220px]">
+                <p className="text-white/60 font-mono text-xs sm:text-sm tracking-[-0.5px] sm:tracking-[-1px] leading-relaxed max-w-[220px]">
                   {stat.description}
                 </p>
               </div>

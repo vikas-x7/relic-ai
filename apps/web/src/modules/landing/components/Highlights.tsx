@@ -3,8 +3,8 @@ const DEMO_VIDEO =
 
 export default function Highlights() {
   return (
-    <section className="relative w-full my-30 px-4 sm:px-6 lg:px-12">
-      <div className="relative w-full h-screen overflow-hidden ">
+    <section className="relative w-full my-12 sm:my-20 lg:my-30 px-4 sm:px-6 lg:px-12">
+      <div className="relative w-full h-[50vh] sm:h-[75vh] lg:h-screen overflow-hidden rounded-lg sm:rounded-xl">
         <video className="w-full h-full object-cover" src={DEMO_VIDEO} autoPlay muted loop />
       </div>
     </section>

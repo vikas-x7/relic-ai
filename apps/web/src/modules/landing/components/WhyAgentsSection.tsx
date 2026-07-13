@@ -59,20 +59,20 @@ const BACKGROUND = 'https://composio.dev/images/constant-evolution-bg.png';
 
 export default function WhyAgentsSection() {
   return (
-    <section className="w-full text-white py-16 px-4 sm:px-6 lg:px-12 mt-20">
-      <div className="mx-auto space-y-12">
+    <section className="w-full text-white py-12 sm:py-16 px-4 sm:px-6 lg:px-12 mt-12 sm:mt-20">
+      <div className="mx-auto space-y-8 sm:space-y-12">
         <div className="space-y-4">
-          <div className="inline-block border border-white/20 px-3 py-1 text-xs  uppercase text-white/70">
+          <div className="inline-block border border-white/20 px-3 py-1 text-xs uppercase text-white/70">
             WHY Relic ai
           </div>
-          <h2 className="text-3xl sm:text-5xl lg:text-[44px] font-normal tracking-[-2.5px] max-w-3xl">
+          <h2 className="text-2xl sm:text-4xl lg:text-[44px] font-normal tracking-[-1.5px] sm:tracking-[-2.5px] max-w-3xl">
             Your agents are smart. <br />
             Their tools should be too.
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12">
-          <div className="lg:col-span-3 lg:sticky lg:top-24 self-start flex flex-col space-y-2 mr-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0">
+          <div className="hidden lg:flex lg:col-span-3 lg:sticky lg:top-24 self-start flex-col space-y-2 lg:mr-8 xl:mr-16">
             {features.map((feature) => (
               <div
                 key={feature.number}
@@ -84,44 +84,44 @@ export default function WhyAgentsSection() {
             ))}
           </div>
 
-          <div className="lg:col-span-9 flex flex-col gap-y-8 lg:gap-y-0 ">
+          <div className="lg:col-span-9 flex flex-col gap-y-8 lg:gap-y-0">
             {features.map((feature, index) => (
               <div
                 key={feature.number}
-                className="lg:sticky bg-black mb-20"
+                className="lg:sticky bg-black mb-12 sm:mb-20"
                 style={{ top: `calc(4rem + ${index * 1.5}rem)`, zIndex: index + 1 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-9 ">
+                <div className="grid grid-cols-1 lg:grid-cols-9">
                   <div
-                    className="lg:col-span-5 relative w-full h-[380px] sm:h-[450px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center p-4 border border-white/10 shadow-2xl"
+                    className="lg:col-span-5 relative w-full h-[260px] sm:h-[360px] lg:h-[450px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center p-4 border border-white/10 shadow-2xl"
                     style={{ backgroundImage: `url(${BACKGROUND})` }}
                   >
                     <img
                       src={feature.image}
                       alt={`${feature.title} preview`}
-                      className="p-20 object-contain rounded shadow-lg border border-white/20"
+                      className="p-6 sm:p-12 lg:p-16 object-contain rounded shadow-lg border border-white/20 max-h-full"
                     />
                   </div>
 
-                  <div className="lg:col-span-4 border border-white/10 p-6 sm:p-8 space-y-6 flex flex-col">
-                    <div className="text-[20px] font-mono bg-black/20 tracking-wider">
+                  <div className="lg:col-span-4 border border-white/10 p-5 sm:p-8 space-y-4 sm:space-y-6 flex flex-col justify-between">
+                    <div className="text-base sm:text-[20px] font-mono bg-black/20 tracking-wider">
                       {feature.number}
                     </div>
 
                     <div className="space-y-2">
-                      <h3 className="text-4xl font-medium tracking-tight text-white">
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-white">
                         {feature.title}
                       </h3>
-                      <p className="text-[15px] text-white/90 leading-relaxed font-light">
+                      <p className="text-sm sm:text-[15px] text-white/90 leading-relaxed font-light">
                         {feature.description}
                       </p>
                     </div>
 
-                    <div className="space-y-3 pt-9 mt-7 border-t border-white/10">
+                    <div className="space-y-2 sm:space-y-3 pt-6 sm:pt-9 mt-4 sm:mt-7 border-t border-white/10">
                       {feature.points.map((point) => (
                         <div
                           key={point}
-                          className="flex items-start gap-3 text-[17px] font-light text-white/80"
+                          className="flex items-start gap-3 text-sm sm:text-[17px] font-light text-white/80"
                         >
                           <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 flex-shrink-0" />
                           <span>{point}</span>
