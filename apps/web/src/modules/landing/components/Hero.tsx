@@ -14,10 +14,10 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 sm:mb-0">
             <Link
               href="/auth"
-              className="inline-flex text-[13px] sm:text-[14px] items-center ml-[-5] justify-center gap-2 bg-[#101010] text-white px-3 py-1 sm:py-1 rounded-[3px] font-medium hover:bg-gray-800 transition-colors w-fit"
+              className="inline-flex text-[13px] sm:text-[14px] items-center ml-[-5] justify-center gap-2 bg-[#010101] text-white px-3 py-1 sm:py-1.5 rounded-[2px] font-medium hover:bg-gray-800 transition-colors w-fit"
             >
-              Getstart now
-              <FiArrowUpRight size={14} />
+              Getstart Now
+              <FiArrowUpRight size={20} />
             </Link>
           </div>
 

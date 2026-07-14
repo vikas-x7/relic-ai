@@ -36,8 +36,8 @@ export default function Integrations() {
             INTEGRATIONS
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium leading-[1.2] sm:leading-[1.1] text-[#FAFAFA] tracking-tight sm:tracking-tighter">
-            Armory bridges the gap between your data and your tools.
-            <span> Deploy agents that live where you work, from Slack to GitHub and beyond.</span>
+            Relic AI bridges the gap between your thoughts and your tools.
+            <span> Connect your canvas and nodes seamlessly across your entire workflow.</span>
           </h2>
         </div>
       </div>

@@ -3,71 +3,68 @@ import React from 'react';
 const features = [
   {
     number: '01',
-    label: 'SMART TOOLS',
-    title: 'Search that thinks',
+    label: 'SPATIAL CANVAS',
+    title: 'A living canvas for your mind',
     description:
-      "Save your agent's context for what matters. Only give it the right tools, at the right time.",
+      'Relic AI replaces linear chat threads with a spatial canvas. Your ideas exist as individual nodes, each a self-contained conversation with full context and memory.',
     points: [
-      'Tools resolved by intent, not configuration',
-      'Proposed execution plans for complex workflows',
-      'Built-in guardrails so your agent gets it right the first time',
+      'Self-contained nodes instead of endless linear threads',
+      'Zoom in to think deep, zoom out to see your full mind map',
+      'Explore side thoughts without derailing your main work',
     ],
     image: 'https://i.pinimg.com/736x/3a/c6/09/3ac6095b83854c091ddcdaa92f22a0a4.jpg',
   },
   {
     number: '02',
-    label: 'CONSTANT EVOLUTION',
-    title: 'Gets better with every run',
+    label: 'INFINITE BRANCHING',
+    title: 'Branch at any moment, mid-thought',
     description:
-      'Your agent refines its context and tool usage with each task, so every run is faster and sharper than the last.',
+      'Create a branch from any exact moment in a conversation. A new node opens carrying all context forward while your original thought stays intact.',
     points: [
-      'Context preserved across every session',
-      'Tool selection improves from past outcomes',
-      'Self-refining prompts and workflows',
+      'Branch mid-sentence or mid-idea at any time',
+      'Full context and memory carried seamlessly to new branches',
+      'Build a living web of connected thinking without disruption',
     ],
     image: 'https://i.pinimg.com/736x/3a/c6/09/3ac6095b83854c091ddcdaa92f22a0a4.jpg',
   },
   {
     number: '03',
-    label: 'END USER AUTH',
-    title: 'Every action, properly scoped',
+    label: 'PERSISTENT MEMORY',
+    title: 'Your genuine AI second brain',
     description:
-      'Authentication that ties every agent action back to the right user, with permissions that follow identity.',
+      'Nothing ever disappears on Relic. Pick up right where you left off weeks later with full context and memory intact — no re-explaining required.',
     points: [
-      'OAuth and SSO handled out of the box',
-      'User-scoped permissions on every tool call',
-      'A full audit trail of agent activity',
+      'Every node and branch lives on your canvas permanently',
+      'The AI remembers exactly what you were building',
+      'A persistent map of your thinking that gets richer over time',
     ],
     image: 'https://i.pinimg.com/736x/3a/c6/09/3ac6095b83854c091ddcdaa92f22a0a4.jpg',
   },
   {
     number: '04',
-    label: 'DYNAMIC SANDBOX',
-    title: 'Run anywhere, safely',
+    label: 'NON-LINEAR THINKING',
+    title: 'Move in every direction, not just forward',
     description:
-      'Ephemeral sandboxes that spin up per task and tear down when done, so agents always work in clean, isolated runtimes.',
+      'Every other AI gives you a thread; Relic gives you a canvas. Every other AI forgets; Relic remembers everything, always.',
     points: [
-      'A fresh isolated runtime per execution',
-      'Environments reset automatically',
-      'Enforced resource limits and guardrails',
+      'Multi-directional exploration shaped entirely by you',
+      'One AI with infinite, connected branches',
+      'A true thinking space powered by AI',
     ],
     image: 'https://i.pinimg.com/736x/3a/c6/09/3ac6095b83854c091ddcdaa92f22a0a4.jpg',
   },
 ];
 
-const BACKGROUND = 'https://composio.dev/images/constant-evolution-bg.png';
+const BACKGROUND = '/images/cardbg.png';
 
 export default function WhyAgentsSection() {
   return (
     <section className="w-full text-white py-12 sm:py-16 px-4 sm:px-6 lg:px-12 mt-12 sm:mt-20">
       <div className="mx-auto space-y-8 sm:space-y-12">
         <div className="space-y-4">
-          <div className="inline-block border border-white/20 px-3 py-1 text-xs uppercase text-white/70">
-            WHY Relic ai
-          </div>
           <h2 className="text-2xl sm:text-4xl lg:text-[44px] font-normal tracking-[-1.5px] sm:tracking-[-2.5px] max-w-3xl">
-            Your agents are smart. <br />
-            Their tools should be too.
+            Your thinking tool should work <br />
+            the way your mind works.
           </h2>
         </div>
 
@@ -84,11 +81,11 @@ export default function WhyAgentsSection() {
             ))}
           </div>
 
-          <div className="lg:col-span-9 flex flex-col gap-y-8 lg:gap-y-0">
+          <div className="lg:col-span-9 flex flex-col gap-y-0">
             {features.map((feature, index) => (
               <div
                 key={feature.number}
-                className="lg:sticky bg-black mb-12 sm:mb-20"
+                className="sticky bg-black mb-12 sm:mb-20"
                 style={{ top: `calc(4rem + ${index * 1.5}rem)`, zIndex: index + 1 }}
               >
                 <div className="grid grid-cols-1 lg:grid-cols-9">

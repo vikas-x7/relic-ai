@@ -1,20 +1,20 @@
 export default function Feature() {
   const stats = [
     {
-      value: '34',
-      description: 'Complete context inheritance for branches.',
+      value: '∞',
+      description: 'Infinite branching from any node or thought.',
     },
     {
       value: '100%',
-      description: 'Complete context inheritance for branches.',
+      description: 'Context inheritance carried to every branch.',
     },
     {
       value: '10x',
-      description: 'Faster brainstorming on a single canvas.',
+      description: 'Faster non-linear exploration on one canvas.',
     },
     {
       value: '0%',
-      description: 'Zero conversation history lost anymore.',
+      description: 'Zero lost ideas or forgotten conversation history.',
     },
   ];
 
