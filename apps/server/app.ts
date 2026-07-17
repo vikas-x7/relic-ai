@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { createAuthRoutes } from './modules/auth/routes/auth.routes';
+import { createChatRoutes } from './modules/chat/routes/chat.routes';
 import { env } from './config/env';
 
 export function createApp(): Hono {
@@ -17,6 +18,7 @@ export function createApp(): Hono {
   );
 
   app.route('/auth', createAuthRoutes());
+  app.route('/conversations', createChatRoutes());
 
   app.get('/health', (c) => c.json({ status: 'ok' }));
 
