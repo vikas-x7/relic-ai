@@ -9,7 +9,7 @@ import {
   ConversationAccessDeniedError,
   ConversationNotFoundError,
   createConversation,
-  createMessage,
+  createUserMessageWithReply,
   deleteConversation,
   getConversation,
   getConversations,
@@ -124,8 +124,8 @@ export async function sendMessageHandler(c: ChatContext) {
   }
 
   try {
-    const message = await createMessage(id, getUserId(c), 'USER', parsed.data.content);
-    return c.json(message, 201);
+    const result = await createUserMessageWithReply(id, getUserId(c), parsed.data.content);
+    return c.json(result, 201);
   } catch (err) {
     return handleServiceError(c, err);
   }

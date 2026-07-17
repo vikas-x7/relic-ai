@@ -7,7 +7,7 @@ const service = jest.requireMock('../services/chat.service') as {
   getConversation: jest.Mock;
   renameConversation: jest.Mock;
   deleteConversation: jest.Mock;
-  createMessage: jest.Mock;
+  createUserMessageWithReply: jest.Mock;
   getMessages: jest.Mock;
 };
 
@@ -20,7 +20,7 @@ jest.mock('../services/chat.service', () => {
     getConversation: jest.fn(),
     renameConversation: jest.fn(),
     deleteConversation: jest.fn(),
-    createMessage: jest.fn(),
+    createUserMessageWithReply: jest.fn(),
     getMessages: jest.fn(),
   };
 });
@@ -201,18 +201,30 @@ describe('chat routes', () => {
     expect(service.deleteConversation).toHaveBeenCalledWith(1, 1);
   });
 
-  it('POST /api/conversations/:id/messages creates a USER message', async () => {
-    const now = new Date();
-    service.createMessage.mockResolvedValue({
-      id: 10,
-      conversationId: 1,
-      role: 'USER',
-      content: 'What is Redis?',
-      webUsed: false,
-      model: null,
-      inputTokens: null,
-      outputTokens: null,
-      createdAt: now,
+  it('POST /api/conversations/:id/messages saves USER message and LLM ASSISTANT reply', async () => {
+    service.createUserMessageWithReply.mockResolvedValue({
+      userMessage: {
+        id: 10,
+        conversationId: 1,
+        role: 'USER',
+        content: 'What is Redis?',
+        webUsed: false,
+        model: null,
+        inputTokens: null,
+        outputTokens: null,
+        createdAt: new Date(),
+      },
+      assistantMessage: {
+        id: 11,
+        conversationId: 1,
+        role: 'ASSISTANT',
+        content: 'Redis is an in-memory data store.',
+        webUsed: false,
+        model: null,
+        inputTokens: null,
+        outputTokens: null,
+        createdAt: new Date(),
+      },
     } as never);
 
     const app = createApp();
@@ -224,9 +236,11 @@ describe('chat routes', () => {
 
     expect(res.status).toBe(201);
     const body = await res.json();
-    expect(body.role).toBe('USER');
-    expect(body.content).toBe('What is Redis?');
-    expect(service.createMessage).toHaveBeenCalledWith(1, 1, 'USER', 'What is Redis?');
+    expect(body.userMessage.role).toBe('USER');
+    expect(body.userMessage.content).toBe('What is Redis?');
+    expect(body.assistantMessage.role).toBe('ASSISTANT');
+    expect(body.assistantMessage.content).toBe('Redis is an in-memory data store.');
+    expect(service.createUserMessageWithReply).toHaveBeenCalledWith(1, 1, 'What is Redis?');
   });
 
   it('POST /api/conversations/:id/messages returns 400 for empty content', async () => {
@@ -238,7 +252,7 @@ describe('chat routes', () => {
     });
 
     expect(res.status).toBe(400);
-    expect(service.createMessage).not.toHaveBeenCalled();
+    expect(service.createUserMessageWithReply).not.toHaveBeenCalled();
   });
 
   it('GET /api/conversations/:id/messages returns history ordered by createdAt asc', async () => {
@@ -284,7 +298,7 @@ describe('chat routes', () => {
     const { ConversationAccessDeniedError } = jest.requireActual<{
       ConversationAccessDeniedError: new () => Error;
     }>('../services/chat.service');
-    service.createMessage.mockImplementation(() => {
+    service.createUserMessageWithReply.mockImplementation(() => {
       throw new ConversationAccessDeniedError();
     });
 

@@ -47,4 +47,12 @@ export const env = {
     clientId: process.env.GITHUB_CLIENT_ID ?? '',
     clientSecret: process.env.GITHUB_CLIENT_SECRET ?? '',
   },
+  llm: {
+    apiKey: required('NVIDIA_API_KEY', process.env.NVIDIA_API_KEY),
+    baseUrl: process.env.LLM_BASE_URL ?? 'https://integrate.api.nvidia.com/v1',
+    model: process.env.LLM_MODEL ?? 'google/diffusiongemma-26b-a4b-it',
+    temperature: Number(process.env.LLM_TEMPERATURE ?? 1),
+    topP: Number(process.env.LLM_TOP_P ?? 0.95),
+    maxTokens: Number(process.env.LLM_MAX_TOKENS ?? 4096),
+  },
 };

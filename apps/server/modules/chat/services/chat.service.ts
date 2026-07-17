@@ -1,4 +1,5 @@
 import { getPrisma } from 'db';
+import { generateReply } from '../../../intelligence/models/model.provider';
 import type { MessageRoleValue } from '../types/chat.types';
 
 export class ConversationNotFoundError extends Error {
@@ -59,17 +60,25 @@ export async function deleteConversation(id: number, userId: number) {
   await prisma.conversation.delete({ where: { id } });
 }
 
-export async function createMessage(
+export async function createUserMessageWithReply(
   conversationId: number,
   userId: number,
-  role: MessageRoleValue,
   content: string,
 ) {
   await requireOwnedConversation(conversationId, userId);
   const prisma = getPrisma();
-  return prisma.message.create({
-    data: { conversationId, role, content },
+
+  const userMessage = await prisma.message.create({
+    data: { conversationId, role: 'USER' satisfies MessageRoleValue, content },
   });
+
+  const reply = await generateReply(content);
+
+  const assistantMessage = await prisma.message.create({
+    data: { conversationId, role: 'ASSISTANT' satisfies MessageRoleValue, content: reply },
+  });
+
+  return { userMessage, assistantMessage };
 }
 
 export async function getMessages(conversationId: number, userId: number) {
