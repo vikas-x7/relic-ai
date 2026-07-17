@@ -16,6 +16,7 @@ model User {
   updatedAt     DateTime       @updatedAt
   accounts      Account[]
   refreshTokens RefreshToken[]
+  conversations Conversation[]
 }
 
 model Account {
@@ -40,4 +41,67 @@ model RefreshToken {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
+}
+
+model Conversation {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  title     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages Message[]
+
+  @@index([userId, updatedAt])
+}
+
+model Message {
+  id             Int         @id @default(autoincrement())
+  conversationId Int
+  role           MessageRole
+  content        String
+  webUsed        Boolean     @default(false)
+  model          String?
+  inputTokens    Int?
+  outputTokens   Int?
+  createdAt      DateTime    @default(now())
+
+  conversation Conversation       @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  citations    MessageCitation[]
+
+  @@index([conversationId, createdAt])
+}
+
+model Source {
+  id          Int      @id @default(autoincrement())
+  url         String
+  title       String
+  domain      String?
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+
+  citations MessageCitation[]
+
+  @@unique([url])
+  @@index([domain])
+}
+
+model MessageCitation {
+  id            Int @id @default(autoincrement())
+  messageId     Int
+  sourceId      Int
+  citationIndex Int
+
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  source  Source  @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, sourceId])
+  @@index([messageId])
+  @@index([sourceId])
 }

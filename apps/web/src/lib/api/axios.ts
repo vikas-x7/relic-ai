@@ -29,8 +29,10 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const isRefreshCall =
+      typeof originalRequest?.url === 'string' && originalRequest.url.includes('/auth/refresh');
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry && !isRefreshCall) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -46,7 +48,9 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError);
-        window.location.href = '/auth';
+        if (!window.location.pathname.startsWith('/auth')) {
+          window.location.href = '/auth';
+        }
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
