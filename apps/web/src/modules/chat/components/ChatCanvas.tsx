@@ -61,7 +61,7 @@ function ChatCanvasInner() {
   );
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-black">
+    <div className="relative h-screen w-full overflow-hidden bg-[#000000]">
       <WelcomeOverlay visible={hasInteracted} />
 
       <ReactFlow

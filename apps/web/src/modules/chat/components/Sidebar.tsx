@@ -20,13 +20,6 @@ const SAMPLE_CHATS: Chat[] = [
     createdAt: new Date('2026-08-10'),
     updatedAt: new Date('2026-08-12'),
   },
-  {
-    id: 'sample-2',
-    title: 'React Flow integration',
-    isPinned: false,
-    createdAt: new Date('2026-08-09'),
-    updatedAt: new Date('2026-08-11'),
-  },
 ];
 
 type SidebarProps = {
@@ -113,15 +106,15 @@ export default function Sidebar({ className }: SidebarProps) {
   return (
     <>
       <aside
-        className={`relative flex flex-col border-white/10 bg-black transition-all duration-300 ease-in-out ${
-          isOpen ? 'w-[260px] border-r' : 'w-0 overflow-hidden border-r-0'
+        className={`relative flex flex-col border-white/10 bg-[#000000] transition-all duration-300 ease-in-out ${
+          isOpen ? 'w-[240px] border-r' : 'w-0 overflow-hidden border-r-0'
         } ${className}`}
       >
-        <div className="flex h-full w-[260px] flex-col">
-          <div className="flex items-center justify-between pr-3">
+        <div className="flex h-full w-[240px] flex-col">
+          <div className="flex items-center justify-between ">
             <div className="flex items-center text-white">
               <img src="/images/logo.png" alt="" className="w-11" />
-              <h1 className="mt-0.5 -ml-1 text-[19px] font-medium tracking-tight">Relic AI</h1>
+              <h1 className="mt-0.5 -ml-2 text-[19px] font-medium tracking-tight">Relic ai</h1>
             </div>
             <button
               onClick={() => setIsOpen(false)}
@@ -135,12 +128,12 @@ export default function Sidebar({ className }: SidebarProps) {
           <div className="shrink-0 px-2 pt-4">
             <button
               onClick={handleNewChat}
-              className="flex w-full cursor-pointer items-center gap-2 rounded-[3px] bg-white/5 px-3 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e]"
+              className="flex w-full cursor-pointer items-center gap-2 rounded-[3px] bg-white/5 px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] font-light"
             >
               <IoCreateOutline size={18} className="mb-0.5 opacity-80" />
               New chat
             </button>
-            <button className="mt-2 flex w-full cursor-pointer items-center gap-2 rounded-[3px] px-3 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] hover:text-white">
+            <button className="mt-1 flex w-full cursor-pointer items-center gap-2 rounded-[3px] px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] hover:text-white font-light">
               <FiSearch size={17} className="opacity-80" />
               Search
             </button>
@@ -148,7 +141,7 @@ export default function Sidebar({ className }: SidebarProps) {
 
           <div className="mt-4 flex-1 overflow-y-auto px-2 pb-4">
             <div className="space-y">
-              <p className="sticky top-0 z-10 mb-2 bg-black px-3 py-1 text-[13px] font-medium text-white/60">
+              <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px] font-medium text-white/60">
                 chats
               </p>
               {sortedChats.length === 0 && (

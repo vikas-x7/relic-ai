@@ -1,5 +1,7 @@
 import { getPrisma } from 'db';
-import { generateReply } from '../../../intelligence/models/model.provider';
+import { saveMessageCitations } from '../../../agent/citations/citation.service';
+import { runChatGraph } from '../../../agent/orchestration/chat.graph';
+import type { HistoryMessage } from '../../../agent/state/chat.state';
 import type { MessageRoleValue } from '../types/chat.types';
 
 export class ConversationNotFoundError extends Error {
@@ -60,6 +62,18 @@ export async function deleteConversation(id: number, userId: number) {
   await prisma.conversation.delete({ where: { id } });
 }
 
+async function loadHistory(conversationId: number, limit = 20): Promise<HistoryMessage[]> {
+  const prisma = getPrisma();
+  const rows = await prisma.message.findMany({
+    where: { conversationId },
+    orderBy: { createdAt: 'desc' },
+    take: limit,
+  });
+  return rows
+    .reverse()
+    .map((row) => ({ role: row.role as HistoryMessage['role'], content: row.content }));
+}
+
 export async function createUserMessageWithReply(
   conversationId: number,
   userId: number,
@@ -68,15 +82,31 @@ export async function createUserMessageWithReply(
   await requireOwnedConversation(conversationId, userId);
   const prisma = getPrisma();
 
+  const history = await loadHistory(conversationId);
+
   const userMessage = await prisma.message.create({
     data: { conversationId, role: 'USER' satisfies MessageRoleValue, content },
   });
 
-  const reply = await generateReply(content);
+  const result = await runChatGraph({
+    conversationId,
+    userId,
+    history,
+    currentQuery: content,
+  });
 
   const assistantMessage = await prisma.message.create({
-    data: { conversationId, role: 'ASSISTANT' satisfies MessageRoleValue, content: reply },
+    data: {
+      conversationId,
+      role: 'ASSISTANT' satisfies MessageRoleValue,
+      content: result.answer,
+      webUsed: result.webUsed,
+    },
   });
+
+  if (result.webUsed && result.citations.length) {
+    await saveMessageCitations(assistantMessage.id, result.citations);
+  }
 
   return { userMessage, assistantMessage };
 }

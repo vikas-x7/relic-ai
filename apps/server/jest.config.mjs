@@ -17,9 +17,7 @@ export default {
       },
     ],
   },
-  transformIgnorePatterns: [
-    'node_modules/(?!@prisma|@/.*\\.ts$|db)',
-  ],
+  transformIgnorePatterns: ['node_modules/(?!@prisma|@langchain|@/.*\\.ts$|db)'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^db$': '<rootDir>/tests/mocks/db.ts',

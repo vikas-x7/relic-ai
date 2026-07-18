@@ -13,3 +13,4 @@ process.env.GOOGLE_CLIENT_SECRET = 'test-google-client-secret';
 process.env.GITHUB_CLIENT_ID = 'test-github-client-id';
 process.env.GITHUB_CLIENT_SECRET = 'test-github-client-secret';
 process.env.NVIDIA_API_KEY = 'test-nvidia-api-key';
+process.env.TAVILY_API_KEY = 'test-tavily-key';

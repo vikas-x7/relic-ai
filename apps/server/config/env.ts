@@ -55,4 +55,8 @@ export const env = {
     topP: Number(process.env.LLM_TOP_P ?? 0.95),
     maxTokens: Number(process.env.LLM_MAX_TOKENS ?? 4096),
   },
+  search: {
+    tavilyApiKey: process.env.TAVILY_API_KEY ?? '',
+    maxResults: Number(process.env.TAVILY_MAX_RESULTS ?? 5),
+  },
 };
