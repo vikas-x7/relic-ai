@@ -91,7 +91,7 @@ export default function FullscreenChat({
                   {msg.status === 'pending' && !msg.content ? (
                     <StreamingDots />
                   ) : (
-                    <MessageContent content={msg.content} />
+                    <MessageContent content={msg.content} citations={msg.citations} />
                   )}
                 </div>
 

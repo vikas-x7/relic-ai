@@ -11,6 +11,7 @@ export interface ChatGraphInput {
   userId: number;
   history: ChatState['history'];
   currentQuery: string;
+  memories: ChatState['memories'];
 }
 
 export interface ChatGraphOutput {

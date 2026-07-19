@@ -1,5 +1,6 @@
 import { Annotation } from '@langchain/langgraph';
 import type { AnswerCitation } from '../citations/citation.types';
+import type { MemoryItem } from '../memory/memory.types';
 import type { SourceEvidence } from '../search/search.types';
 
 export interface HistoryMessage {
@@ -12,6 +13,7 @@ export const ChatState = Annotation.Root({
   userId: Annotation<number>,
   history: Annotation<HistoryMessage[]>,
   currentQuery: Annotation<string>,
+  memories: Annotation<MemoryItem[]>,
 
   needsWebSearch: Annotation<boolean>,
   webUsed: Annotation<boolean>,

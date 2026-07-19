@@ -68,17 +68,21 @@ export function useChatStream({ getEdges, onActivateNode }: UseChatStreamParams)
           }));
         });
 
-        const finalize = (content: string, status?: ChatMessage['status']) => {
+        const finalize = (
+          content: string,
+          status?: ChatMessage['status'],
+          citations?: ChatMessage['citations'],
+        ) => {
           setNodeMessages((prev) => ({
             ...prev,
             [nodeId]: (prev[nodeId] || []).map((msg) =>
-              msg.id === pendingMessage.id ? { ...msg, content, status } : msg,
+              msg.id === pendingMessage.id ? { ...msg, content, status, citations } : msg,
             ),
           }));
         };
 
         try {
-          const finalContent = await streamChat({
+          const { content: finalContent, citations } = await streamChat({
             nodeId,
             messages: conversation,
             signal: abortController.signal,
@@ -87,7 +91,7 @@ export function useChatStream({ getEdges, onActivateNode }: UseChatStreamParams)
 
           reveal.push(finalContent);
           await reveal.waitForDisplay();
-          finalize(finalContent);
+          finalize(finalContent, undefined, citations);
         } catch (error) {
           reveal.stop();
 

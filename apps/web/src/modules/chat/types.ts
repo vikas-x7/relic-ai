@@ -2,11 +2,18 @@ import type { Node } from '@xyflow/react';
 
 export type MessageRole = 'user' | 'assistant';
 
+export type Citation = {
+  citationIndex: number;
+  url: string;
+  title: string;
+};
+
 export type ChatMessage = {
   id?: string;
   role: MessageRole;
   content: string;
   status?: 'pending' | 'error';
+  citations?: Citation[];
 };
 
 export type ChatNodeData = {

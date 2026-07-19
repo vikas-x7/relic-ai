@@ -104,7 +104,11 @@ export default function ChatNode({ data }: NodeProps<Node<ChatNodeData>>) {
                 <StreamingDots />
               ) : (
                 <>
-                  <MessageContent content={msg.content} isUser={msg.role === 'user'} />
+                  <MessageContent
+                    content={msg.content}
+                    isUser={msg.role === 'user'}
+                    citations={msg.citations}
+                  />
                   {msg.status === 'pending' && (
                     <span className="stream-cursor" aria-hidden="true" />
                   )}

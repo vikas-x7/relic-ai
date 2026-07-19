@@ -218,13 +218,14 @@ describe('chat routes', () => {
         id: 11,
         conversationId: 1,
         role: 'ASSISTANT',
-        content: 'Redis is an in-memory data store.',
-        webUsed: false,
+        content: 'Redis is an in-memory data store [1].',
+        webUsed: true,
         model: null,
         inputTokens: null,
         outputTokens: null,
         createdAt: new Date(),
       },
+      citations: [{ citationIndex: 1, url: 'https://redis.io/docs/latest/', title: 'Redis docs' }],
     } as never);
 
     const app = createApp();
@@ -239,7 +240,9 @@ describe('chat routes', () => {
     expect(body.userMessage.role).toBe('USER');
     expect(body.userMessage.content).toBe('What is Redis?');
     expect(body.assistantMessage.role).toBe('ASSISTANT');
-    expect(body.assistantMessage.content).toBe('Redis is an in-memory data store.');
+    expect(body.assistantMessage.webUsed).toBe(true);
+    expect(body.citations).toHaveLength(1);
+    expect(body.citations[0].url).toBe('https://redis.io/docs/latest/');
     expect(service.createUserMessageWithReply).toHaveBeenCalledWith(1, 1, 'What is Redis?');
   });
 

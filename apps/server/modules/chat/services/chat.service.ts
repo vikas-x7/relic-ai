@@ -1,5 +1,9 @@
 import { getPrisma } from 'db';
+import type { AnswerCitation } from '../../../agent/citations/citation.types';
 import { saveMessageCitations } from '../../../agent/citations/citation.service';
+import { extractMemoriesFromExchange } from '../../../agent/memory/memory.extractor';
+import { getRelevantMemories } from '../../../agent/memory/memory.retriever';
+import { persistExtractedMemories } from '../../../agent/memory/memory.service';
 import { runChatGraph } from '../../../agent/orchestration/chat.graph';
 import type { HistoryMessage } from '../../../agent/state/chat.state';
 import type { MessageRoleValue } from '../types/chat.types';
@@ -88,11 +92,14 @@ export async function createUserMessageWithReply(
     data: { conversationId, role: 'USER' satisfies MessageRoleValue, content },
   });
 
+  const memories = await getRelevantMemories(userId);
+
   const result = await runChatGraph({
     conversationId,
     userId,
     history,
     currentQuery: content,
+    memories,
   });
 
   const assistantMessage = await prisma.message.create({
@@ -104,18 +111,52 @@ export async function createUserMessageWithReply(
     },
   });
 
+  let savedCitations: AnswerCitation[] = [];
   if (result.webUsed && result.citations.length) {
     await saveMessageCitations(assistantMessage.id, result.citations);
+    savedCitations = result.citations;
   }
 
-  return { userMessage, assistantMessage };
+  try {
+    const extraction = await extractMemoriesFromExchange(content, result.answer);
+    if (extraction.shouldRemember && extraction.memories.length) {
+      await persistExtractedMemories(userId, extraction.memories);
+    }
+  } catch (error) {
+    console.error('[memory] pipeline failed:', error);
+  }
+
+  return { userMessage, assistantMessage, citations: savedCitations };
 }
 
 export async function getMessages(conversationId: number, userId: number) {
   await requireOwnedConversation(conversationId, userId);
   const prisma = getPrisma();
-  return prisma.message.findMany({
+  const rows = await prisma.message.findMany({
     where: { conversationId },
     orderBy: { createdAt: 'asc' },
+    include: {
+      citations: {
+        orderBy: { citationIndex: 'asc' },
+        include: { source: true },
+      },
+    },
   });
+
+  return rows.map((row) => ({
+    id: row.id,
+    conversationId: row.conversationId,
+    role: row.role,
+    content: row.content,
+    webUsed: row.webUsed,
+    model: row.model,
+    inputTokens: row.inputTokens,
+    outputTokens: row.outputTokens,
+    createdAt: row.createdAt,
+    citations: row.citations.map((c) => ({
+      citationIndex: c.citationIndex,
+      url: c.source.url,
+      title: c.source.title,
+    })),
+  }));
 }
