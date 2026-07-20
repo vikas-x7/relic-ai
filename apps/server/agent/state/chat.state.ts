@@ -9,7 +9,7 @@ export interface HistoryMessage {
 }
 
 export const ChatState = Annotation.Root({
-  conversationId: Annotation<number>,
+  conversationId: Annotation<string>,
   userId: Annotation<number>,
   history: Annotation<HistoryMessage[]>,
   currentQuery: Annotation<string>,

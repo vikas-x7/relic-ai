@@ -7,7 +7,7 @@ import { validateCitationsNode } from '../nodes/validate-citations.node';
 import { ChatState } from '../state/chat.state';
 
 export interface ChatGraphInput {
-  conversationId: number;
+  conversationId: string;
   userId: number;
   history: ChatState['history'];
   currentQuery: string;

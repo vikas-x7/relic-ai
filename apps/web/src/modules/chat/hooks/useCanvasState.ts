@@ -102,5 +102,6 @@ export function useCanvasState({
     setEdgesRef,
     onNodesChange,
     onEdgesChange,
+    syncNodeInteractionHandler,
   };
 }

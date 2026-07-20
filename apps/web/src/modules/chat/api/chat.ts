@@ -7,15 +7,11 @@ type ChatApiMessage = {
 };
 
 type StreamChatParams = {
+  conversationId: string;
   nodeId: string;
   messages: ChatApiMessage[];
   signal: AbortSignal;
   onChunk: (content: string) => void;
-};
-
-type ConversationDto = {
-  id: number;
-  title: string | null;
 };
 
 type MessagePairResponse = {
@@ -24,25 +20,10 @@ type MessagePairResponse = {
   citations?: Citation[];
 };
 
-const conversationIds = new Map<string, number>();
-
 function assertLive(signal: AbortSignal): void {
   if (signal.aborted) {
     throw new DOMException('Aborted', 'AbortError');
   }
-}
-
-async function ensureConversation(nodeId: string, firstMessage: string): Promise<number> {
-  const existing = conversationIds.get(nodeId);
-
-  if (existing) return existing;
-
-  const { data } = await api.post<ConversationDto>('/conversations', {
-    title: firstMessage.slice(0, 200),
-  });
-
-  conversationIds.set(nodeId, data.id);
-  return data.id;
 }
 
 async function revealContent(
@@ -63,6 +44,7 @@ async function revealContent(
 }
 
 export async function streamChat({
+  conversationId,
   nodeId,
   messages,
   signal,
@@ -79,12 +61,9 @@ export async function streamChat({
   let citations: Citation[] = [];
 
   try {
-    const conversationId = await ensureConversation(nodeId, content);
-    assertLive(signal);
-
     const { data } = await api.post<MessagePairResponse>(
       `/conversations/${conversationId}/messages`,
-      { content },
+      { content, nodeId },
       { signal },
     );
 

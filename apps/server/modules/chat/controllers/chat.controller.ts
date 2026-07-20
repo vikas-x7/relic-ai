@@ -4,6 +4,7 @@ import {
   createConversationSchema,
   renameConversationSchema,
   sendMessageSchema,
+  saveCanvasSchema,
 } from '../schemas/chat.schema';
 import {
   ConversationAccessDeniedError,
@@ -12,16 +13,18 @@ import {
   createUserMessageWithReply,
   deleteConversation,
   getConversation,
+  getConversationWithMessages,
   getConversations,
   getMessages,
   renameConversation,
+  saveCanvas,
 } from '../services/chat.service';
 
 type ChatContext = Context<{ Variables: AppVariables }>;
 
-function parseId(value: string | undefined): number | null {
-  const id = Number(value);
-  return Number.isInteger(id) && id > 0 ? id : null;
+function parseId(value: string | undefined): string | null {
+  if (!value || value.trim().length === 0) return null;
+  return value.trim();
 }
 
 function getUserId(c: ChatContext): number {
@@ -77,6 +80,20 @@ export async function getConversationHandler(c: ChatContext) {
   }
 }
 
+export async function getConversationDetailHandler(c: ChatContext) {
+  const id = parseId(c.req.param('id'));
+  if (id === null) {
+    return c.json({ error: 'Invalid conversation id' }, 400);
+  }
+
+  try {
+    const conversation = await getConversationWithMessages(id, getUserId(c));
+    return c.json(conversation);
+  } catch (err) {
+    return handleServiceError(c, err);
+  }
+}
+
 export async function renameConversationHandler(c: ChatContext) {
   const id = parseId(c.req.param('id'));
   if (id === null) {
@@ -124,8 +141,33 @@ export async function sendMessageHandler(c: ChatContext) {
   }
 
   try {
-    const result = await createUserMessageWithReply(id, getUserId(c), parsed.data.content);
+    const result = await createUserMessageWithReply(
+      id,
+      getUserId(c),
+      parsed.data.content,
+      parsed.data.nodeId,
+    );
     return c.json(result, 201);
+  } catch (err) {
+    return handleServiceError(c, err);
+  }
+}
+
+export async function saveCanvasHandler(c: ChatContext) {
+  const id = parseId(c.req.param('id'));
+  if (id === null) {
+    return c.json({ error: 'Invalid conversation id' }, 400);
+  }
+
+  const body = await c.req.json().catch(() => null);
+  const parsed = saveCanvasSchema.safeParse(body);
+  if (!parsed.success) {
+    return c.json({ error: 'Invalid request body' }, 400);
+  }
+
+  try {
+    await saveCanvas(id, getUserId(c), parsed.data.canvas);
+    return c.json({ ok: true });
   } catch (err) {
     return handleServiceError(c, err);
   }

@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react';
 import { streamChat } from '@/src/modules/chat/api/chat';
+import { createConversation } from '@/src/modules/chat/api/conversations';
 import type { Edge } from '@xyflow/react';
 import { getAncestorChain } from '@/src/modules/chat/utils/canvas';
 import { RevealStream } from '@/src/modules/chat/utils/revealStream';
@@ -9,12 +10,21 @@ import type { ChatMessage, NodeMessageMap } from '@/src/modules/chat/types';
 type UseChatStreamParams = {
   getEdges: () => Edge[];
   onActivateNode: (nodeId: string) => void;
+  activeConversationId: string | null;
+  onConversationCreated?: (id: string) => void;
 };
 
-export function useChatStream({ getEdges, onActivateNode }: UseChatStreamParams) {
+export function useChatStream({
+  getEdges,
+  onActivateNode,
+  activeConversationId,
+  onConversationCreated,
+}: UseChatStreamParams) {
   const [nodeMessages, setNodeMessages, nodeMessagesRef] = useRefState<NodeMessageMap>({});
   const [streamingNodeIds, setStreamingNodeIds] = useState<Set<string>>(new Set());
   const abortControllersRef = useRef<Map<string, AbortController>>(new Map());
+  const conversationIdRef = useRef(activeConversationId);
+  conversationIdRef.current = activeConversationId;
 
   const handleStop = useCallback((nodeId: string) => {
     abortControllersRef.current.get(nodeId)?.abort();
@@ -82,7 +92,17 @@ export function useChatStream({ getEdges, onActivateNode }: UseChatStreamParams)
         };
 
         try {
+          // Agar conversationId nahi hai to pehle create karo
+          let convId = conversationIdRef.current;
+          if (!convId) {
+            const newConv = await createConversation(message.slice(0, 200));
+            convId = newConv.id;
+            conversationIdRef.current = convId;
+            onConversationCreated?.(convId);
+          }
+
           const { content: finalContent, citations } = await streamChat({
+            conversationId: convId,
             nodeId,
             messages: conversation,
             signal: abortController.signal,
@@ -111,9 +131,8 @@ export function useChatStream({ getEdges, onActivateNode }: UseChatStreamParams)
         }
       })();
     },
-    // nodeMessagesRef is intentionally excluded — we read it via ref to keep handleSend stable
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [getEdges, onActivateNode, setNodeMessages],
+    [getEdges, onActivateNode, setNodeMessages, onConversationCreated],
   );
 
   return { nodeMessages, setNodeMessages, streamingNodeIds, handleSend, handleStop };

@@ -22,7 +22,7 @@ export class ConversationAccessDeniedError extends Error {
   }
 }
 
-async function requireOwnedConversation(id: number, userId: number) {
+async function requireOwnedConversation(id: string, userId: number) {
   const prisma = getPrisma();
   const conversation = await prisma.conversation.findUnique({ where: { id } });
 
@@ -50,23 +50,48 @@ export async function getConversations(userId: number) {
   });
 }
 
-export async function getConversation(id: number, userId: number) {
+export async function getConversation(id: string, userId: number) {
   return requireOwnedConversation(id, userId);
 }
 
-export async function renameConversation(id: number, userId: number, title: string) {
+export async function getConversationWithMessages(id: string, userId: number) {
+  await requireOwnedConversation(id, userId);
+  const prisma = getPrisma();
+  return prisma.conversation.findUnique({
+    where: { id },
+    include: {
+      messages: {
+        orderBy: { createdAt: 'asc' },
+        include: {
+          citations: {
+            orderBy: { citationIndex: 'asc' },
+            include: { source: true },
+          },
+        },
+      },
+    },
+  });
+}
+
+export async function renameConversation(id: string, userId: number, title: string) {
   await requireOwnedConversation(id, userId);
   const prisma = getPrisma();
   return prisma.conversation.update({ where: { id }, data: { title } });
 }
 
-export async function deleteConversation(id: number, userId: number) {
+export async function deleteConversation(id: string, userId: number) {
   await requireOwnedConversation(id, userId);
   const prisma = getPrisma();
   await prisma.conversation.delete({ where: { id } });
 }
 
-async function loadHistory(conversationId: number, limit = 20): Promise<HistoryMessage[]> {
+export async function saveCanvas(id: string, userId: number, canvas: Record<string, unknown>) {
+  await requireOwnedConversation(id, userId);
+  const prisma = getPrisma();
+  return prisma.conversation.update({ where: { id }, data: { canvas: canvas as never } });
+}
+
+async function loadHistory(conversationId: string, limit = 20): Promise<HistoryMessage[]> {
   const prisma = getPrisma();
   const rows = await prisma.message.findMany({
     where: { conversationId },
@@ -79,9 +104,10 @@ async function loadHistory(conversationId: number, limit = 20): Promise<HistoryM
 }
 
 export async function createUserMessageWithReply(
-  conversationId: number,
+  conversationId: string,
   userId: number,
   content: string,
+  nodeId: string = 'root',
 ) {
   await requireOwnedConversation(conversationId, userId);
   const prisma = getPrisma();
@@ -89,7 +115,7 @@ export async function createUserMessageWithReply(
   const history = await loadHistory(conversationId);
 
   const userMessage = await prisma.message.create({
-    data: { conversationId, role: 'USER' satisfies MessageRoleValue, content },
+    data: { conversationId, nodeId, role: 'USER' satisfies MessageRoleValue, content },
   });
 
   const memories = await getRelevantMemories(userId);
@@ -105,6 +131,7 @@ export async function createUserMessageWithReply(
   const assistantMessage = await prisma.message.create({
     data: {
       conversationId,
+      nodeId,
       role: 'ASSISTANT' satisfies MessageRoleValue,
       content: result.answer,
       webUsed: result.webUsed,
@@ -129,7 +156,7 @@ export async function createUserMessageWithReply(
   return { userMessage, assistantMessage, citations: savedCitations };
 }
 
-export async function getMessages(conversationId: number, userId: number) {
+export async function getMessages(conversationId: string, userId: number) {
   await requireOwnedConversation(conversationId, userId);
   const prisma = getPrisma();
   const rows = await prisma.message.findMany({
@@ -146,6 +173,7 @@ export async function getMessages(conversationId: number, userId: number) {
   return rows.map((row) => ({
     id: row.id,
     conversationId: row.conversationId,
+    nodeId: row.nodeId,
     role: row.role,
     content: row.content,
     webUsed: row.webUsed,

@@ -6,7 +6,15 @@ import { useCanvasConnections } from '@/src/modules/chat/hooks/useCanvasConnecti
 import { useNodeOperations } from '@/src/modules/chat/hooks/useNodeOperations';
 import { useTextSelection, type CanvasOpsRef } from '@/src/modules/chat/hooks/useTextSelection';
 
-export function useChatWorkspace() {
+type UseChatWorkspaceParams = {
+  activeConversationId: string | null;
+  onConversationCreated?: (id: string) => void;
+};
+
+export function useChatWorkspace({
+  activeConversationId,
+  onConversationCreated,
+}: UseChatWorkspaceParams) {
   const reactFlow = useReactFlow();
   const { fitView, getNode, getZoom, setCenter, screenToFlowPosition } = reactFlow;
 
@@ -34,6 +42,8 @@ export function useChatWorkspace() {
   const chatStream = useChatStream({
     getEdges: () => edgesGetterRef.current(),
     onActivateNode: handleNodeFocus,
+    activeConversationId,
+    onConversationCreated,
   });
 
   const canvasState = useCanvasState({
@@ -104,6 +114,8 @@ export function useChatWorkspace() {
   return {
     nodes: canvasState.nodes,
     edges: canvasState.edges,
+    setNodes: canvasState.setNodes,
+    setEdges: canvasState.setEdges,
     onNodesChange: canvasState.onNodesChange,
     onEdgesChange: canvasState.onEdgesChange,
     onConnectEnd: connections.onConnectEnd,
@@ -116,12 +128,14 @@ export function useChatWorkspace() {
     onMoveStart: handleUserInteraction,
     activeNodeId,
     hasInteracted,
+    setHasInteracted,
     expandedNodeId,
     nodeToDelete,
     isNodesPanelOpen,
     setIsNodesPanelOpen,
     handleCloseFullscreen,
     nodeMessages: chatStream.nodeMessages,
+    setNodeMessages: chatStream.setNodeMessages,
     streamingNodeIds: chatStream.streamingNodeIds,
     nodeOperations,
     textSelectionAction: textSelection.textSelectionAction,
@@ -130,6 +144,7 @@ export function useChatWorkspace() {
     handleSend: chatStream.handleSend,
     handleStop: chatStream.handleStop,
     cancelDeleteNode: () => setNodeToDelete(null),
+    syncNodeInteractionHandler: canvasState.syncNodeInteractionHandler,
   };
 }
 

@@ -4,10 +4,12 @@ import type { AppVariables } from '../../auth/types/auth.types';
 import {
   createConversationHandler,
   deleteConversationHandler,
+  getConversationDetailHandler,
   getConversationHandler,
   getMessagesHandler,
   listConversations,
   renameConversationHandler,
+  saveCanvasHandler,
   sendMessageHandler,
 } from '../controllers/chat.controller';
 
@@ -19,7 +21,9 @@ export function createChatRoutes(): Hono<{ Variables: AppVariables }> {
   chat.post('/', createConversationHandler);
   chat.get('/', listConversations);
   chat.get('/:id', getConversationHandler);
+  chat.get('/:id/detail', getConversationDetailHandler);
   chat.patch('/:id', renameConversationHandler);
+  chat.patch('/:id/canvas', saveCanvasHandler);
   chat.delete('/:id', deleteConversationHandler);
 
   chat.post('/:id/messages', sendMessageHandler);

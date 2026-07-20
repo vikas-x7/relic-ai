@@ -50,9 +50,10 @@ enum MessageRole {
 }
 
 model Conversation {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   userId    Int
   title     String?
+  canvas    Json?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -64,7 +65,8 @@ model Conversation {
 
 model Message {
   id             Int         @id @default(autoincrement())
-  conversationId Int
+  conversationId String
+  nodeId         String      @default("root")
   role           MessageRole
   content        String
   webUsed        Boolean     @default(false)
@@ -76,6 +78,7 @@ model Message {
   conversation Conversation       @relation(fields: [conversationId], references: [id], onDelete: Cascade)
   citations    MessageCitation[]
 
+  @@index([conversationId, nodeId])
   @@index([conversationId, createdAt])
 }
 

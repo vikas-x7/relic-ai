@@ -5,7 +5,7 @@ export type ChatVariables = AppVariables;
 export type MessageRoleValue = 'USER' | 'ASSISTANT';
 
 export interface ConversationDto {
-  id: number;
+  id: string;
   userId: number;
   title: string | null;
   createdAt: Date;
@@ -14,7 +14,7 @@ export interface ConversationDto {
 
 export interface MessageDto {
   id: number;
-  conversationId: number;
+  conversationId: string;
   role: MessageRoleValue;
   content: string;
   webUsed: boolean;
