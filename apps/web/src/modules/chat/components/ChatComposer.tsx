@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { FiSquare } from 'react-icons/fi';
 import { IoMdArrowUp } from 'react-icons/io';
 import { IoMicSharp } from 'react-icons/io5';
@@ -18,7 +18,7 @@ type ChatComposerProps = {
   placeholder?: string;
   onCollapse?: () => void;
   collapseTitle?: string;
-  collapseIcon?: ReactNode;
+  collapseIcon?: React.ReactNode;
   onDelete?: () => void;
   canDelete?: boolean;
   onFocus?: () => void;
@@ -81,17 +81,13 @@ export default function ChatComposer({
         <ModelSelector />
 
         <div className="flex items-center gap-2">
-          <DevTooltip content="This feature is under Development phase">
-            <button type="button" className={`${toolButton} nodrag nopan`}>
-              <IoMicSharp size={18} />
-            </button>
-          </DevTooltip>
+          <button type="button" className={`${toolButton} nodrag nopan`}>
+            <IoMicSharp size={18} />
+          </button>
 
-          <DevTooltip content="This feature is under Development phase">
-            <button type="button" className={`${toolButton} nodrag nopan`}>
-              <LiaLinkSolid size={18} />
-            </button>
-          </DevTooltip>
+          <button type="button" className={`${toolButton} nodrag nopan`}>
+            <LiaLinkSolid size={18} />
+          </button>
 
           {onCollapse && (
             <button
@@ -131,18 +127,6 @@ export default function ChatComposer({
             </button>
           )}
         </div>
-      </div>
-    </div>
-  );
-}
-
-function DevTooltip({ content, children }: { content: string; children: ReactNode }) {
-  return (
-    <div className="nodrag nopan group relative">
-      {children}
-      <div className="pointer-events-none absolute bottom-[calc(100%+8px)] left-1/2 z-[200] -translate-x-1/2 rounded-[5px] border border-white/10 bg-[#1a1a1a] px-2.5 py-1.5 text-[11px] whitespace-nowrap text-white/70 opacity-0 shadow-xl transition-opacity duration-150 group-hover:opacity-100">
-        {content}
-        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#1a1a1a]" />
       </div>
     </div>
   );

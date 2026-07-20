@@ -90,19 +90,19 @@ export default function Sidebar({
   return (
     <>
       <aside
-        className={`relative flex flex-col border-white/10 bg-[#000000] transition-all duration-300 ease-in-out ${
-          isOpen ? 'w-[240px] border-r' : 'w-0 overflow-hidden border-r-0'
+        className={`relative flex flex-col border-white/10 bg-[#0F0F0F] transition-all duration-300 ease-in-out ${
+          isOpen ? 'w-[270px] border-r' : 'w-0 overflow-hidden border-r-0'
         } ${className}`}
       >
-        <div className="flex h-full w-[240px] flex-col">
-          <div className="flex items-center justify-between ">
+        <div className="flex h-full w-[270px] flex-col">
+          <div className="flex items-center justify-between border-b border-white/10 ">
             <div className="flex items-center text-white">
               <img src="/images/logo.png" alt="" className="w-11" />
-              <h1 className="mt-0.5 -ml-2 text-[19px] font-medium tracking-tight">Relic ai</h1>
+              <h1 className="mt-0.5 -ml-2 text-[19px] font-medium tracking-tight">Relic AI</h1>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="rounded-md p-1.5 text-white/40 transition-colors hover:bg-white/10 hover:text-white"
+              className="rounded-[5px] p-1 text-white/40 transition-colors hover:bg-[#0099FF] cursor-pointer hover:text-white mr-2"
               title="Close Sidebar"
             >
               <FiSidebar size={18} />
@@ -113,7 +113,7 @@ export default function Sidebar({
             <button
               onClick={onNewChat}
               disabled={isCreatingChat}
-              className="flex w-full cursor-pointer items-center gap-2 rounded-[3px] bg-white/5 px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] font-light disabled:cursor-default disabled:opacity-50"
+              className="flex w-full cursor-pointer items-center gap-2 rounded-[5px]  px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] font-light disabled:cursor-default disabled:opacity-50"
             >
               <IoCreateOutline size={18} className="mb-0.5 opacity-80" />
               {isCreatingChat ? 'Creating...' : 'New chat'}
@@ -124,10 +124,10 @@ export default function Sidebar({
             </button>
           </div>
 
-          <div className="mt-4 flex-1 overflow-y-auto px-2 pb-4">
+          <div className="mt-4 flex-1 overflow-y-auto px-2 pb-4 font-light">
             <div className="space-y">
-              <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px] font-medium text-white/60">
-                chats
+              <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px] font-light text-white/80">
+                Recent conversation
               </p>
 
               {isLoading && (
@@ -221,7 +221,7 @@ export default function Sidebar({
                         {isMenuOpen && (
                           <div
                             onClick={(e) => e.stopPropagation()}
-                            className="absolute top-8 right-1 z-30 w-36 rounded-[7px] bg-[#202020] p-1 shadow-xl shadow-black/50"
+                            className="absolute top-8 right-1  w-36 rounded-[5px] bg-[#202020] p-1 shadow-xl shadow-black/50"
                           >
                             <button
                               type="button"
@@ -255,14 +255,14 @@ export default function Sidebar({
           <div className="flex items-center justify-between border-t border-white/10 px-2 py-1">
             <div className="flex items-center gap-3">
               {avatar ? (
-                <img src={avatar} alt="" className="h-8 w-8 shrink-0 rounded-[5px] object-cover" />
+                <img src={avatar} alt="" className="h-8 w-8 shrink-0 rounded-[4px] object-cover" />
               ) : (
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-white/10 text-sm font-semibold text-white uppercase">
                   {initial}
                 </div>
               )}
               <div className="flex flex-col">
-                <span className="max-w-[120px] truncate text-[13px] font-medium text-white">
+                <span className="max-w-[120px] truncate text-[13px] font-light text-white">
                   {displayName}
                 </span>
                 <span className="max-w-[120px] truncate text-[11px] text-white/40">

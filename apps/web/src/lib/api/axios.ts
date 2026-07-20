@@ -32,6 +32,13 @@ api.interceptors.response.use(
     const isRefreshCall =
       typeof originalRequest?.url === 'string' && originalRequest.url.includes('/auth/refresh');
 
+    console.error('[API Error]', {
+      url: originalRequest?.url,
+      status: error.response?.status,
+      message: error.message,
+      baseURL: process.env.NEXT_PUBLIC_API_URL,
+    });
+
     if (error.response?.status === 401 && !originalRequest._retry && !isRefreshCall) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {

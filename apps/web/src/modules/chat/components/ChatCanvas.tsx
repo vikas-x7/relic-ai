@@ -22,6 +22,7 @@ import NodesSidebar from '@/src/modules/chat/components/NodesSidebar';
 import DeleteConfirmModal from '@/src/modules/chat/components/DeleteConfirmModal';
 import WelcomeOverlay from '@/src/modules/chat/components/WelcomeOverlay';
 import TextSelectionButton from '@/src/modules/chat/components/TextSelectionButton';
+import CreditsBadge from '@/src/modules/chat/components/CreditsBadge';
 import { saveCanvasApi } from '@/src/modules/chat/api/conversations';
 import {
   getConversationDetail,
@@ -279,6 +280,8 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
           maskColor="rgba(255,255,255,0.05)"
         />
       </ReactFlow>
+
+      <CreditsBadge />
 
       <CanvasToolbar
         onZoomOut={() => void zoomOut({ duration: 180 })}

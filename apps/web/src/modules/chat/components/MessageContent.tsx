@@ -33,7 +33,7 @@ export default function MessageContent({ content, isUser, citations }: MessageCo
 
 function renderBlock(block: ReturnType<typeof parseMessageBlocks>[number], citations?: Citation[]) {
   if (block.type === 'heading') {
-    return <h3 className="text-[17px] font-semibold leading-7 text-gray-100">{block.text}</h3>;
+    return <h3 className="text-[17px]  leading-7 text-gray-100">{block.text}</h3>;
   }
 
   if (block.type === 'list') {
