@@ -138,11 +138,12 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
         // Group messages by nodeId
         const messagesByNode: Record<string, (typeof nodeMessages)[string]> = {};
         for (const msg of detail.messages) {
-          if (msg.role !== 'user' && msg.role !== 'assistant') continue;
+          const role = msg.role?.toLowerCase();
+          if (role !== 'user' && role !== 'assistant') continue;
           if (!messagesByNode[msg.nodeId]) messagesByNode[msg.nodeId] = [];
           messagesByNode[msg.nodeId].push({
             id: String(msg.id),
-            role: msg.role as 'user' | 'assistant',
+            role: role as 'user' | 'assistant',
             content: msg.content,
           });
         }

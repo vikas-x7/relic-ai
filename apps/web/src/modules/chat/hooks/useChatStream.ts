@@ -1,6 +1,11 @@
 import { useCallback, useRef, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { streamChat } from '@/src/modules/chat/api/chat';
-import { createConversation } from '@/src/modules/chat/api/conversations';
+import {
+  createConversation,
+  renameConversation,
+  type Conversation,
+} from '@/src/modules/chat/api/conversations';
 import type { Edge } from '@xyflow/react';
 import { getAncestorChain } from '@/src/modules/chat/utils/canvas';
 import { RevealStream } from '@/src/modules/chat/utils/revealStream';
@@ -20,11 +25,13 @@ export function useChatStream({
   activeConversationId,
   onConversationCreated,
 }: UseChatStreamParams) {
+  const queryClient = useQueryClient();
   const [nodeMessages, setNodeMessages, nodeMessagesRef] = useRefState<NodeMessageMap>({});
   const [streamingNodeIds, setStreamingNodeIds] = useState<Set<string>>(new Set());
   const abortControllersRef = useRef<Map<string, AbortController>>(new Map());
   const conversationIdRef = useRef(activeConversationId);
   conversationIdRef.current = activeConversationId;
+  const titleSetRef = useRef(false);
 
   const handleStop = useCallback((nodeId: string) => {
     abortControllersRef.current.get(nodeId)?.abort();
@@ -99,6 +106,19 @@ export function useChatStream({
             convId = newConv.id;
             conversationIdRef.current = convId;
             onConversationCreated?.(convId);
+          }
+
+          // Pehle message ke baad title set karo (agar title nahi hai)
+          if (!titleSetRef.current && convId) {
+            titleSetRef.current = true;
+            const title = message.slice(0, 200);
+            renameConversation(convId, title)
+              .then((updated) => {
+                queryClient.setQueryData<Conversation[]>(['conversations'], (prev) =>
+                  (prev ?? []).map((c) => (c.id === updated.id ? updated : c)),
+                );
+              })
+              .catch(() => {});
           }
 
           const { content: finalContent, citations } = await streamChat({
