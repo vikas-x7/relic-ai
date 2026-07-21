@@ -1,7 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ReactFlow,
   ReactFlowProvider,
@@ -11,7 +10,6 @@ import {
   ConnectionMode,
   useReactFlow,
   useStore,
-  type Node,
   type Edge,
 } from '@xyflow/react';
 import { useChatWorkspace } from '@/src/modules/chat/hooks/useChatWorkspace';
@@ -28,59 +26,30 @@ import {
   getConversationDetail,
   type ConversationDetail,
 } from '@/src/modules/chat/api/conversationDetail';
+import { useConversationDetail } from '@/src/modules/chat/hooks/useConversations';
 import { initialNodes } from '@/src/modules/chat/constants';
-import type { ChatNodeType, ChatNodeData, PersistedCanvas } from '@/src/modules/chat/types';
+import { serializeCanvas, isPersistedCanvas } from '@/src/modules/chat/utils/canvas';
+import type { ChatNodeType } from '@/src/modules/chat/types';
 
 const nodeTypes = { chatNode: ChatNode };
 
 const defaultEdgeOptions = { type: 'floating', animated: true };
-
-function serializeCanvas(nodes: Node<ChatNodeData>[], edges: Edge[]): PersistedCanvas {
-  return {
-    nodes: nodes.map((node) => ({
-      id: node.id,
-      type: node.type,
-      position: node.position,
-      data: {
-        customId: node.data.customId,
-        initialInput: node.data.initialInput,
-      },
-    })),
-    edges: edges.map((edge) => ({
-      id: edge.id,
-      source: edge.source,
-      sourceHandle: edge.sourceHandle,
-      target: edge.target,
-      targetHandle: edge.targetHandle,
-      type: edge.type,
-      animated: edge.animated,
-    })),
-  };
-}
-
-function isPersistedCanvas(value: unknown): value is PersistedCanvas {
-  if (!value || typeof value !== 'object') return false;
-  const canvas = value as PersistedCanvas;
-  return Array.isArray(canvas.nodes) && Array.isArray(canvas.edges);
-}
 
 type ChatCanvasInnerProps = {
   conversationId: string | null;
 };
 
 function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
-  const router = useRouter();
   const { zoomIn, zoomOut, setCenter, getZoom } = useReactFlow();
   const zoomPercent = useStore((state) => Math.round(state.transform[2] * 100));
 
   const loadedConversationIdRef = useRef<string | null>(null);
   const lastSavedCanvasRef = useRef<string | null>(null);
 
-  const handleConversationCreated = useCallback(
-    (id: string) => {
-      router.replace(`/chat/${id}`);
-    },
-    [router],
+  const { data: detail, isLoading } = useConversationDetail(conversationId);
+
+  const isCanvasLoading = Boolean(
+    conversationId && (isLoading || loadedConversationIdRef.current !== conversationId),
   );
 
   const {
@@ -115,7 +84,6 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
     syncNodeInteractionHandler,
   } = useChatWorkspace({
     activeConversationId: conversationId,
-    onConversationCreated: handleConversationCreated,
   });
 
   const handleNodeClick = useCallback(
@@ -125,86 +93,80 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
     [onNodeClick],
   );
 
-  // Load conversation when conversationId changes
+  // Load conversation when detail or conversationId changes
   useEffect(() => {
-    if (!conversationId || loadedConversationIdRef.current === conversationId) return;
+    if (!conversationId) {
+      loadedConversationIdRef.current = null;
+      lastSavedCanvasRef.current = null;
+      setNodeMessages({});
+      setHasInteracted(false);
+      setNodes(syncNodeInteractionHandler(initialNodes, {}, new Set()));
+      setEdges([]);
+      return;
+    }
 
-    let cancelled = false;
+    // Hide welcome overlay immediately when switching to an existing chat
+    setHasInteracted(true);
 
-    void (async () => {
-      try {
-        const detail: ConversationDetail = await getConversationDetail(conversationId);
-        if (cancelled) return;
+    if (!detail || loadedConversationIdRef.current === conversationId) return;
 
-        // Group messages by nodeId
-        const messagesByNode: Record<string, (typeof nodeMessages)[string]> = {};
-        for (const msg of detail.messages) {
-          const role = msg.role?.toLowerCase();
-          if (role !== 'user' && role !== 'assistant') continue;
-          if (!messagesByNode[msg.nodeId]) messagesByNode[msg.nodeId] = [];
-          messagesByNode[msg.nodeId].push({
-            id: String(msg.id),
-            role: role as 'user' | 'assistant',
-            content: msg.content,
+    // Group messages by nodeId
+    const messagesByNode: Record<string, (typeof nodeMessages)[string]> = {};
+    for (const msg of detail.messages) {
+      const role = msg.role?.toLowerCase();
+      if (role !== 'user' && role !== 'assistant') continue;
+      if (!messagesByNode[msg.nodeId]) messagesByNode[msg.nodeId] = [];
+      messagesByNode[msg.nodeId].push({
+        id: String(msg.id),
+        role: role as 'user' | 'assistant',
+        content: msg.content,
+      });
+    }
+
+    // Restore canvas from persisted data
+    const savedCanvas = isPersistedCanvas(detail.canvas) ? detail.canvas : null;
+    const nextNodes = savedCanvas?.nodes.length
+      ? savedCanvas.nodes.map((node): ChatNodeType => ({
+          id: node.id,
+          type: (node.type || 'chatNode') as string,
+          position: node.position,
+          data: {
+            customId: node.data?.customId || node.id,
+            initialInput: node.data?.initialInput,
+          },
+        }))
+      : initialNodes;
+    const nextEdges: Edge[] = savedCanvas?.edges.length ? savedCanvas.edges : [];
+
+    setNodeMessages(messagesByNode);
+    setNodes(syncNodeInteractionHandler(nextNodes, messagesByNode, new Set()));
+    setEdges(nextEdges);
+    loadedConversationIdRef.current = conversationId;
+    lastSavedCanvasRef.current = JSON.stringify(serializeCanvas(nextNodes, nextEdges));
+
+    // Center viewport on restored nodes
+    setTimeout(() => {
+      window.requestAnimationFrame(() => {
+        if (nextNodes.length > 0) {
+          let minX = Infinity,
+            minY = Infinity,
+            maxX = -Infinity,
+            maxY = -Infinity;
+          nextNodes.forEach((n) => {
+            minX = Math.min(minX, n.position.x);
+            minY = Math.min(minY, n.position.y);
+            maxX = Math.max(maxX, n.position.x + 750);
+            maxY = Math.max(maxY, n.position.y + 200);
           });
+          const centerX = (minX + maxX) / 2;
+          const centerY = (minY + maxY) / 2;
+          setCenter(centerX, centerY, { duration: 800, zoom: getZoom() });
         }
-
-        // Restore canvas from persisted data
-        const savedCanvas = isPersistedCanvas(detail.canvas) ? detail.canvas : null;
-        const nextNodes = savedCanvas?.nodes.length
-          ? savedCanvas.nodes.map((node): ChatNodeType => ({
-              id: node.id,
-              type: (node.type || 'chatNode') as string,
-              position: node.position,
-              data: {
-                customId: node.data?.customId || node.id,
-                initialInput: node.data?.initialInput,
-              },
-            }))
-          : initialNodes;
-        const nextEdges: Edge[] = savedCanvas?.edges.length ? savedCanvas.edges : [];
-
-        setNodeMessages(messagesByNode);
-        setHasInteracted(Object.keys(messagesByNode).length > 0);
-        setNodes(syncNodeInteractionHandler(nextNodes, messagesByNode, new Set()));
-        setEdges(nextEdges);
-        loadedConversationIdRef.current = conversationId;
-        lastSavedCanvasRef.current = JSON.stringify(serializeCanvas(nextNodes, nextEdges));
-
-        // Center viewport on restored nodes
-        setTimeout(() => {
-          window.requestAnimationFrame(() => {
-            if (nextNodes.length > 0) {
-              let minX = Infinity,
-                minY = Infinity,
-                maxX = -Infinity,
-                maxY = -Infinity;
-              nextNodes.forEach((n) => {
-                minX = Math.min(minX, n.position.x);
-                minY = Math.min(minY, n.position.y);
-                maxX = Math.max(maxX, n.position.x + 750);
-                maxY = Math.max(maxY, n.position.y + 200);
-              });
-              const centerX = (minX + maxX) / 2;
-              const centerY = (minY + maxY) / 2;
-              setCenter(centerX, centerY, { duration: 800, zoom: getZoom() });
-            }
-          });
-        }, 100);
-      } catch (error) {
-        console.error('[chat] failed to load conversation:', error);
-        setNodeMessages({});
-        setNodes(syncNodeInteractionHandler(initialNodes, {}, new Set()));
-        setEdges([]);
-        loadedConversationIdRef.current = conversationId;
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
+      });
+    }, 100);
   }, [
     conversationId,
+    detail,
     setNodes,
     setEdges,
     setNodeMessages,
@@ -213,13 +175,6 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
     setCenter,
     getZoom,
   ]);
-
-  // Reset loaded ref when conversation changes to null
-  useEffect(() => {
-    if (!conversationId) {
-      loadedConversationIdRef.current = null;
-    }
-  }, [conversationId]);
 
   // Debounced auto-save of canvas state
   useEffect(() => {
@@ -242,11 +197,19 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-[#000000]">
+      {isCanvasLoading && (
+        <div className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-[#000000]">
+          <div className="flex flex-col items-center gap-3">
+            <div className="h-7 w-7 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+          </div>
+        </div>
+      )}
+
       <WelcomeOverlay visible={hasInteracted} />
 
       <ReactFlow
-        nodes={nodes}
-        edges={edges}
+        nodes={isCanvasLoading ? [] : nodes}
+        edges={isCanvasLoading ? [] : edges}
         onNodeClick={handleNodeClick}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}

@@ -1,6 +1,8 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { FiEdit2, FiLogOut, FiMoreHorizontal, FiSearch, FiSidebar, FiTrash2 } from 'react-icons/fi';
 import { IoCreateOutline } from 'react-icons/io5';
 import { useUser, useLogout } from '@/src/modules/auth/hooks/useAuth';
@@ -10,13 +12,14 @@ import {
   useDeleteConversation,
   useRenameConversation,
 } from '@/src/modules/chat/hooks/useConversations';
+import { GoDot } from 'react-icons/go';
+import { IoIosArrowForward } from 'react-icons/io';
 
 type SidebarProps = {
   className?: string;
   activeConversationId: string | null;
   onNewChat: () => void;
   onSelectChat: (id: string) => void;
-  isCreatingChat?: boolean;
 };
 
 function conversationLabel(conversation: Conversation): string {
@@ -28,13 +31,13 @@ export default function Sidebar({
   activeConversationId,
   onNewChat,
   onSelectChat,
-  isCreatingChat = false,
 }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [menuChatId, setMenuChatId] = useState<string | null>(null);
   const [renamingChatId, setRenamingChatId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState('');
   const [deleteTarget, setDeleteTarget] = useState<Conversation | null>(null);
+  const [menuPos, setMenuPos] = useState({ x: 0, y: 0 });
   const [hoverStyle, setHoverStyle] = useState({ top: 0, height: 0, opacity: 0 });
 
   const { data: user } = useUser();
@@ -74,8 +77,12 @@ export default function Sidebar({
 
   const confirmDeleteChat = () => {
     if (!deleteTarget) return;
+    const wasActive = activeConversationId === deleteTarget.id;
     deleteChat.mutate(deleteTarget.id);
     setDeleteTarget(null);
+    if (wasActive) {
+      onNewChat();
+    }
   };
 
   const sortedChats = [...conversations].sort(
@@ -90,14 +97,23 @@ export default function Sidebar({
   return (
     <>
       <aside
-        className={`relative flex flex-col border-white/10 bg-[#0F0F0F] transition-all duration-300 ease-in-out ${
+        className={`relative z-50 flex flex-col border-white/10 bg-[#0F0F0F] transition-all duration-300 ease-in-out ${
           isOpen ? 'w-[270px] border-r' : 'w-0 overflow-hidden border-r-0'
         } ${className}`}
       >
         <div className="flex h-full w-[270px] flex-col">
-          <div className="flex items-center justify-between border-b border-white/10 ">
+          <div className="flex items-center justify-between  ">
             <div className="flex items-center text-white">
-              <img src="/images/logo.png" alt="" className="w-11" />
+              <div className="relative h-11 w-11 shrink-0">
+                <Image
+                  src="/images/logo.png"
+                  alt=""
+                  fill
+                  sizes="44px"
+                  priority
+                  className="object-contain"
+                />
+              </div>
               <h1 className="mt-0.5 -ml-2 text-[19px] font-medium tracking-tight">Relic AI</h1>
             </div>
             <button
@@ -112,11 +128,10 @@ export default function Sidebar({
           <div className="shrink-0 px-2 pt-4">
             <button
               onClick={onNewChat}
-              disabled={isCreatingChat}
-              className="flex w-full cursor-pointer items-center gap-2 rounded-[5px]  px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] font-light disabled:cursor-default disabled:opacity-50"
+              className="flex w-full cursor-pointer items-center gap-2 rounded-[5px]  px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] font-light"
             >
               <IoCreateOutline size={18} className="mb-0.5 opacity-80" />
-              {isCreatingChat ? 'Creating...' : 'New chat'}
+              New chat
             </button>
             <button className="mt-1 flex w-full cursor-pointer items-center gap-2 rounded-[3px] px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] hover:text-white font-light">
               <FiSearch size={17} className="opacity-80" />
@@ -126,8 +141,13 @@ export default function Sidebar({
 
           <div className="mt-4 flex-1 overflow-y-auto px-2 pb-4 font-light">
             <div className="space-y">
-              <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px] font-light text-white/80">
+              <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px] font-light text-white/80 flex items-center gap-1">
+                Pinned
+                <IoIosArrowForward size={10} />
+              </p>
+              <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px] font-light text-white/80 flex items-center gap-1">
                 Recent conversation
+                <IoIosArrowForward size={10} />
               </p>
 
               {isLoading && (
@@ -198,6 +218,7 @@ export default function Sidebar({
                             onClick={() => onSelectChat(chat.id)}
                             className="flex min-w-0 flex-1 cursor-pointer items-center gap-1.5 px-1 py-1 text-left"
                           >
+                            <GoDot className="shrink-0 text-white/50" size={14} />
                             <span className="truncate">{conversationLabel(chat)}</span>
                           </button>
                         )}
@@ -207,6 +228,8 @@ export default function Sidebar({
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              setMenuPos({ x: rect.right - 144, y: rect.bottom + 4 });
                               setMenuChatId(isMenuOpen ? null : chat.id);
                             }}
                             className={`flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-[4px] text-white/40 transition-colors hover:bg-white/10 hover:text-white ${
@@ -218,32 +241,41 @@ export default function Sidebar({
                           </button>
                         )}
 
-                        {isMenuOpen && (
-                          <div
-                            onClick={(e) => e.stopPropagation()}
-                            className="absolute top-8 right-1  w-36 rounded-[5px] bg-[#202020] p-1 shadow-xl shadow-black/50"
-                          >
-                            <button
-                              type="button"
-                              onClick={() => startRename(chat)}
-                              className="flex w-full cursor-pointer items-center gap-2 rounded-[5px] px-2.5 py-2 text-left text-sm text-white/75 hover:bg-white/10 hover:text-white"
-                            >
-                              <FiEdit2 size={14} />
-                              Rename
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setMenuChatId(null);
-                                setDeleteTarget(chat);
+                        {isMenuOpen &&
+                          typeof window !== 'undefined' &&
+                          createPortal(
+                            <div
+                              onClick={(e) => e.stopPropagation()}
+                              style={{
+                                position: 'fixed',
+                                left: menuPos.x,
+                                top: menuPos.y,
+                                zIndex: 9000,
                               }}
-                              className="flex w-full cursor-pointer items-center gap-2 rounded-[5px] px-2.5 py-2 text-left text-sm text-red-300 hover:bg-red-500/10 hover:text-red-200"
+                              className="w-36 rounded-[5px] bg-[#202020] p-1 shadow-xl shadow-black/50"
                             >
-                              <FiTrash2 size={14} />
-                              Delete
-                            </button>
-                          </div>
-                        )}
+                              <button
+                                type="button"
+                                onClick={() => startRename(chat)}
+                                className="flex w-full cursor-pointer items-center gap-2 rounded-[5px] px-2.5 py-2 text-left text-sm text-white/75 hover:bg-white/10 hover:text-white"
+                              >
+                                <FiEdit2 size={14} />
+                                Rename
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setMenuChatId(null);
+                                  setDeleteTarget(chat);
+                                }}
+                                className="flex w-full cursor-pointer items-center gap-2 rounded-[5px] px-2.5 py-2 text-left text-sm text-red-300 hover:bg-red-500/10 hover:text-red-200"
+                              >
+                                <FiTrash2 size={14} />
+                                Delete
+                              </button>
+                            </div>,
+                            document.body,
+                          )}
                       </div>
                     );
                   })}
@@ -255,7 +287,14 @@ export default function Sidebar({
           <div className="flex items-center justify-between border-t border-white/10 px-2 py-1">
             <div className="flex items-center gap-3">
               {avatar ? (
-                <img src={avatar} alt="" className="h-8 w-8 shrink-0 rounded-[4px] object-cover" />
+                <Image
+                  src={avatar}
+                  alt=""
+                  width={32}
+                  height={32}
+                  unoptimized
+                  className="h-8 w-8 shrink-0 rounded-[4px] object-cover"
+                />
               ) : (
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-white/10 text-sm font-semibold text-white uppercase">
                   {initial}

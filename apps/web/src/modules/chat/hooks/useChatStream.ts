@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { streamChat } from '@/src/modules/chat/api/chat';
 import {
@@ -16,14 +16,12 @@ type UseChatStreamParams = {
   getEdges: () => Edge[];
   onActivateNode: (nodeId: string) => void;
   activeConversationId: string | null;
-  onConversationCreated?: (id: string) => void;
 };
 
 export function useChatStream({
   getEdges,
   onActivateNode,
   activeConversationId,
-  onConversationCreated,
 }: UseChatStreamParams) {
   const queryClient = useQueryClient();
   const [nodeMessages, setNodeMessages, nodeMessagesRef] = useRefState<NodeMessageMap>({});
@@ -32,6 +30,11 @@ export function useChatStream({
   const conversationIdRef = useRef(activeConversationId);
   conversationIdRef.current = activeConversationId;
   const titleSetRef = useRef(false);
+
+  // Reset titleSetRef when conversation changes
+  useEffect(() => {
+    titleSetRef.current = false;
+  }, [activeConversationId]);
 
   const handleStop = useCallback((nodeId: string) => {
     abortControllersRef.current.get(nodeId)?.abort();
@@ -99,16 +102,28 @@ export function useChatStream({
         };
 
         try {
-          // Agar conversationId nahi hai to pehle create karo
+          // If no conversationId, create one first
           let convId = conversationIdRef.current;
           if (!convId) {
             const newConv = await createConversation(message.slice(0, 200));
             convId = newConv.id;
             conversationIdRef.current = convId;
-            onConversationCreated?.(convId);
+
+            // Immediately add to React Query cache so sidebar updates
+            queryClient.setQueryData<Conversation[]>(['conversations'], (prev) => [
+              newConv,
+              ...(prev ?? []),
+            ]);
+
+            // Update URL without triggering Next.js navigation (no remount!)
+            window.history.replaceState(
+              { ...window.history.state, __conversationId: convId },
+              '',
+              `/chat/${convId}`,
+            );
           }
 
-          // Pehle message ke baad title set karo (agar title nahi hai)
+          // Set title on first message (if not already set)
           if (!titleSetRef.current && convId) {
             titleSetRef.current = true;
             const title = message.slice(0, 200);
@@ -152,7 +167,7 @@ export function useChatStream({
       })();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [getEdges, onActivateNode, setNodeMessages, onConversationCreated],
+    [getEdges, onActivateNode, setNodeMessages, queryClient],
   );
 
   return { nodeMessages, setNodeMessages, streamingNodeIds, handleSend, handleStop };

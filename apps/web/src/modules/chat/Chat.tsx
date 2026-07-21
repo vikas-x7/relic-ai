@@ -4,7 +4,6 @@ import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Sidebar from '@/src/modules/chat/components/Sidebar';
 import ChatCanvas from '@/src/modules/chat/components/ChatCanvas';
-import { useCreateConversation } from '@/src/modules/chat/hooks/useConversations';
 
 type ChatProps = {
   conversationId?: string;
@@ -12,15 +11,11 @@ type ChatProps = {
 
 function Chat({ conversationId }: ChatProps) {
   const router = useRouter();
-  const createChat = useCreateConversation();
 
   const handleNewChat = useCallback(() => {
-    createChat.mutate(undefined, {
-      onSuccess: (conversation) => {
-        router.push(`/chat/${conversation.id}`);
-      },
-    });
-  }, [createChat, router]);
+    // Simply navigate to /chat — conversation will be created when user sends first message
+    router.push('/chat');
+  }, [router]);
 
   const handleSelectChat = useCallback(
     (id: string) => {
@@ -35,7 +30,6 @@ function Chat({ conversationId }: ChatProps) {
         activeConversationId={conversationId ?? null}
         onNewChat={handleNewChat}
         onSelectChat={handleSelectChat}
-        isCreatingChat={createChat.isPending}
       />
       <ChatCanvas conversationId={conversationId ?? null} />
     </div>

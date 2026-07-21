@@ -81,14 +81,6 @@ export default function ChatComposer({
         <ModelSelector />
 
         <div className="flex items-center gap-2">
-          <button type="button" className={`${toolButton} nodrag nopan`}>
-            <IoMicSharp size={18} />
-          </button>
-
-          <button type="button" className={`${toolButton} nodrag nopan`}>
-            <LiaLinkSolid size={18} />
-          </button>
-
           {onCollapse && (
             <button
               onClick={onCollapse}

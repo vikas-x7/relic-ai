@@ -20,7 +20,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
       <div className="flex min-h-screen items-center justify-center bg-black text-white">
         <div className="flex flex-col items-center gap-3">
           <div className="h-6 w-6 animate-spin rounded-full border-2 border-white/20 border-t-white" />
-          <p className="text-sm text-white/50">Verifying authentication...</p>
+          {/* <p className="text-sm text-white/50">Verifying authentication...</p> */}
         </div>
       </div>
     );
@@ -29,7 +29,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
   if (!data?.user) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-black text-white">
-        <p className="text-sm text-white/50">Redirecting to login...</p>
+        {/* <p className="text-sm text-white/50">Redirecting to login...</p> */}
       </div>
     );
   }

@@ -7,11 +7,22 @@ import {
   type Conversation,
 } from '@/src/modules/chat/api/conversations';
 
+import { getConversationDetail } from '@/src/modules/chat/api/conversationDetail';
+
 export function useConversations() {
   return useQuery({
     queryKey: ['conversations'],
     queryFn: listConversations,
     staleTime: 30 * 1000,
+  });
+}
+
+export function useConversationDetail(id: string | null) {
+  return useQuery({
+    queryKey: ['conversationDetail', id],
+    queryFn: () => getConversationDetail(id!),
+    enabled: Boolean(id),
+    staleTime: 60 * 1000,
   });
 }
 
