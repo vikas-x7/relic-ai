@@ -9,7 +9,6 @@ import {
   MiniMap,
   ConnectionMode,
   useReactFlow,
-  useStore,
   type Edge,
 } from '@xyflow/react';
 import { useChatWorkspace } from '@/src/modules/chat/hooks/useChatWorkspace';
@@ -22,10 +21,6 @@ import WelcomeOverlay from '@/src/modules/chat/components/WelcomeOverlay';
 import TextSelectionButton from '@/src/modules/chat/components/TextSelectionButton';
 import CreditsBadge from '@/src/modules/chat/components/CreditsBadge';
 import { saveCanvasApi } from '@/src/modules/chat/api/conversations';
-import {
-  getConversationDetail,
-  type ConversationDetail,
-} from '@/src/modules/chat/api/conversationDetail';
 import { useConversationDetail } from '@/src/modules/chat/hooks/useConversations';
 import { initialNodes } from '@/src/modules/chat/constants';
 import { serializeCanvas, isPersistedCanvas } from '@/src/modules/chat/utils/canvas';
@@ -35,21 +30,36 @@ const nodeTypes = { chatNode: ChatNode };
 
 const defaultEdgeOptions = { type: 'floating', animated: true };
 
-type ChatCanvasInnerProps = {
+type ChatCanvasProps = {
   conversationId: string | null;
+  onConversationCreated?: (id: string) => void;
 };
 
-function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
+function ChatCanvasInner({ conversationId, onConversationCreated }: ChatCanvasProps) {
   const { zoomIn, zoomOut, setCenter, getZoom } = useReactFlow();
-  const zoomPercent = useStore((state) => Math.round(state.transform[2] * 100));
 
   const loadedConversationIdRef = useRef<string | null>(null);
   const lastSavedCanvasRef = useRef<string | null>(null);
+  const freshConvRef = useRef<string | null>(null);
+  const [freshConvId, setFreshConvId] = useState<string | null>(null);
 
   const { data: detail, isLoading } = useConversationDetail(conversationId);
 
-  const isCanvasLoading = Boolean(
-    conversationId && (isLoading || loadedConversationIdRef.current !== conversationId),
+  // Freshly created conversations already render their (locally added) messages,
+  // so we never blank the canvas or show a loading overlay for them.
+  const isFreshCreated = freshConvId === conversationId;
+  // Only show loading while the detail for the current conversation is actually
+  // being fetched. Returning to an already-cached chat shows instantly (no blink).
+  const isCanvasLoading = Boolean(conversationId && !isFreshCreated && isLoading);
+
+  const handleCreated = useCallback(
+    (createdId: string) => {
+      freshConvRef.current = createdId;
+      loadedConversationIdRef.current = createdId;
+      setFreshConvId(createdId);
+      onConversationCreated?.(createdId);
+    },
+    [onConversationCreated],
   );
 
   const {
@@ -84,6 +94,7 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
     syncNodeInteractionHandler,
   } = useChatWorkspace({
     activeConversationId: conversationId,
+    onConversationCreated: handleCreated,
   });
 
   const handleNodeClick = useCallback(
@@ -98,6 +109,7 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
     if (!conversationId) {
       loadedConversationIdRef.current = null;
       lastSavedCanvasRef.current = null;
+      freshConvRef.current = null;
       setNodeMessages({});
       setHasInteracted(false);
       setNodes(syncNodeInteractionHandler(initialNodes, {}, new Set()));
@@ -105,12 +117,28 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
       return;
     }
 
+    // Navigating to a different (existing) conversation clears the in-session flag
+    if (freshConvRef.current && freshConvRef.current !== conversationId) {
+      freshConvRef.current = null;
+    }
+
     // Hide welcome overlay immediately when switching to an existing chat
     setHasInteracted(true);
 
-    if (!detail || loadedConversationIdRef.current === conversationId) return;
+    // Already restored for this conversation
+    if (loadedConversationIdRef.current === conversationId) return;
 
-    // Group messages by nodeId
+    // Detail not ready yet (fetching from server): clear the previous conversation's
+    // canvas so nothing stale/mixed shows. The loading overlay covers the screen
+    // while this happens, so no default input nodes flicker through.
+    if (!detail) {
+      setNodeMessages({});
+      setNodes([]);
+      setEdges([]);
+      return;
+    }
+
+    // Detail is available (fresh fetch or cached) -> restore this conversation
     const messagesByNode: Record<string, (typeof nodeMessages)[string]> = {};
     for (const msg of detail.messages) {
       const role = msg.role?.toLowerCase();
@@ -178,7 +206,8 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
 
   // Debounced auto-save of canvas state
   useEffect(() => {
-    if (!conversationId || loadedConversationIdRef.current !== conversationId) return;
+    if (!conversationId || isCanvasLoading) return;
+    if (loadedConversationIdRef.current !== conversationId) return;
 
     const canvas = serializeCanvas(nodes, edges);
     const signature = JSON.stringify(canvas);
@@ -193,23 +222,23 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
     }, 600);
 
     return () => window.clearTimeout(timeout);
-  }, [conversationId, nodes, edges]);
+  }, [conversationId, nodes, edges, isCanvasLoading]);
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-[#000000]">
       {isCanvasLoading && (
-        <div className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-[#000000]">
+        <div className="absolute inset-0 z-40 flex flex-col items-center justify-center bg-[#0a0a0a]">
           <div className="flex flex-col items-center gap-3">
-            <div className="h-7 w-7 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+            <div className="h-7 w-7 animate-spin rounded-full border-2 border-white/10 border-t-[#0099FF]" />
           </div>
         </div>
       )}
 
-      <WelcomeOverlay visible={hasInteracted} />
+      {!conversationId && <WelcomeOverlay visible={hasInteracted} />}
 
       <ReactFlow
-        nodes={isCanvasLoading ? [] : nodes}
-        edges={isCanvasLoading ? [] : edges}
+        nodes={nodes}
+        edges={edges}
         onNodeClick={handleNodeClick}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
@@ -300,14 +329,21 @@ function ChatCanvasInner({ conversationId }: ChatCanvasInnerProps) {
   );
 }
 
-type ChatCanvasProps = {
+type OuterChatCanvasProps = {
   conversationId: string | null;
+  onConversationCreated?: (id: string) => void;
 };
 
-export default function ChatCanvas({ conversationId }: ChatCanvasProps) {
+export default function ChatCanvas({
+  conversationId,
+  onConversationCreated,
+}: OuterChatCanvasProps) {
   return (
     <ReactFlowProvider>
-      <ChatCanvasInner conversationId={conversationId} />
+      <ChatCanvasInner
+        conversationId={conversationId}
+        onConversationCreated={onConversationCreated}
+      />
     </ReactFlowProvider>
   );
 }

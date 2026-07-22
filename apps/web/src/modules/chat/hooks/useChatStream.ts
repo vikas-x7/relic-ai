@@ -16,12 +16,14 @@ type UseChatStreamParams = {
   getEdges: () => Edge[];
   onActivateNode: (nodeId: string) => void;
   activeConversationId: string | null;
+  onConversationCreated?: (id: string) => void;
 };
 
 export function useChatStream({
   getEdges,
   onActivateNode,
   activeConversationId,
+  onConversationCreated,
 }: UseChatStreamParams) {
   const queryClient = useQueryClient();
   const [nodeMessages, setNodeMessages, nodeMessagesRef] = useRefState<NodeMessageMap>({});
@@ -29,11 +31,12 @@ export function useChatStream({
   const abortControllersRef = useRef<Map<string, AbortController>>(new Map());
   const conversationIdRef = useRef(activeConversationId);
   conversationIdRef.current = activeConversationId;
-  const titleSetRef = useRef(false);
 
-  // Reset titleSetRef when conversation changes
+  // Title is already set for existing conversations; only allow title set for new chats
+  const titleSetRef = useRef(Boolean(activeConversationId));
+
   useEffect(() => {
-    titleSetRef.current = false;
+    titleSetRef.current = Boolean(activeConversationId);
   }, [activeConversationId]);
 
   const handleStop = useCallback((nodeId: string) => {
@@ -102,12 +105,14 @@ export function useChatStream({
         };
 
         try {
-          // If no conversationId, create one first
+          // If no conversationId, create one first using the first question as initial title
           let convId = conversationIdRef.current;
           if (!convId) {
-            const newConv = await createConversation(message.slice(0, 200));
+            const initialTitle = message.trim().slice(0, 200);
+            const newConv = await createConversation(initialTitle);
             convId = newConv.id;
             conversationIdRef.current = convId;
+            titleSetRef.current = true;
 
             // Immediately add to React Query cache so sidebar updates
             queryClient.setQueryData<Conversation[]>(['conversations'], (prev) => [
@@ -115,25 +120,15 @@ export function useChatStream({
               ...(prev ?? []),
             ]);
 
+            // Notify parent so active conversation state is synced
+            onConversationCreated?.(convId);
+
             // Update URL without triggering Next.js navigation (no remount!)
             window.history.replaceState(
               { ...window.history.state, __conversationId: convId },
               '',
               `/chat/${convId}`,
             );
-          }
-
-          // Set title on first message (if not already set)
-          if (!titleSetRef.current && convId) {
-            titleSetRef.current = true;
-            const title = message.slice(0, 200);
-            renameConversation(convId, title)
-              .then((updated) => {
-                queryClient.setQueryData<Conversation[]>(['conversations'], (prev) =>
-                  (prev ?? []).map((c) => (c.id === updated.id ? updated : c)),
-                );
-              })
-              .catch(() => {});
           }
 
           const { content: finalContent, citations } = await streamChat({

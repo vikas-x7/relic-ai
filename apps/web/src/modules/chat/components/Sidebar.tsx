@@ -20,6 +20,7 @@ type SidebarProps = {
   activeConversationId: string | null;
   onNewChat: () => void;
   onSelectChat: (id: string) => void;
+  isCreatingChat?: boolean;
 };
 
 function conversationLabel(conversation: Conversation): string {
@@ -31,6 +32,7 @@ export default function Sidebar({
   activeConversationId,
   onNewChat,
   onSelectChat,
+  isCreatingChat = false,
 }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [menuChatId, setMenuChatId] = useState<string | null>(null);

@@ -22,7 +22,7 @@ export function useConversationDetail(id: string | null) {
     queryKey: ['conversationDetail', id],
     queryFn: () => getConversationDetail(id!),
     enabled: Boolean(id),
-    staleTime: 60 * 1000,
+    staleTime: 30 * 1000,
   });
 }
 

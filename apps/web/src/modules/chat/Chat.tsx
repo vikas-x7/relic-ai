@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Sidebar from '@/src/modules/chat/components/Sidebar';
 import ChatCanvas from '@/src/modules/chat/components/ChatCanvas';
@@ -11,27 +11,37 @@ type ChatProps = {
 
 function Chat({ conversationId }: ChatProps) {
   const router = useRouter();
+  const [activeConvId, setActiveConvId] = useState<string | null>(conversationId ?? null);
+
+  useEffect(() => {
+    setActiveConvId(conversationId ?? null);
+  }, [conversationId]);
 
   const handleNewChat = useCallback(() => {
-    // Simply navigate to /chat — conversation will be created when user sends first message
+    setActiveConvId(null);
     router.push('/chat');
   }, [router]);
 
   const handleSelectChat = useCallback(
     (id: string) => {
+      setActiveConvId(id);
       router.push(`/chat/${id}`);
     },
     [router],
   );
 
+  const handleConversationCreated = useCallback((id: string) => {
+    setActiveConvId(id);
+  }, []);
+
   return (
     <div className="flex h-screen w-full overflow-hidden bg-black font-cabin text-white">
       <Sidebar
-        activeConversationId={conversationId ?? null}
+        activeConversationId={activeConvId}
         onNewChat={handleNewChat}
         onSelectChat={handleSelectChat}
       />
-      <ChatCanvas conversationId={conversationId ?? null} />
+      <ChatCanvas conversationId={activeConvId} onConversationCreated={handleConversationCreated} />
     </div>
   );
 }

@@ -8,9 +8,13 @@ import { useTextSelection, type CanvasOpsRef } from '@/src/modules/chat/hooks/us
 
 type UseChatWorkspaceParams = {
   activeConversationId: string | null;
+  onConversationCreated?: (id: string) => void;
 };
 
-export function useChatWorkspace({ activeConversationId }: UseChatWorkspaceParams) {
+export function useChatWorkspace({
+  activeConversationId,
+  onConversationCreated,
+}: UseChatWorkspaceParams) {
   const reactFlow = useReactFlow();
   const { fitView, getNode, getZoom, setCenter, screenToFlowPosition } = reactFlow;
 
@@ -39,6 +43,7 @@ export function useChatWorkspace({ activeConversationId }: UseChatWorkspaceParam
     getEdges: () => edgesGetterRef.current(),
     onActivateNode: handleNodeFocus,
     activeConversationId,
+    onConversationCreated,
   });
 
   const canvasState = useCanvasState({
