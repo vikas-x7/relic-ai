@@ -8,6 +8,26 @@ export type Conversation = {
   updatedAt: string;
 };
 
+export type SearchResultConversation = {
+  id: string;
+  title: string | null;
+  updatedAt: string;
+  messages: Array<{
+    id: number;
+    role: string;
+    content: string;
+    nodeId: string;
+    createdAt: string;
+  }>;
+};
+
+export async function searchConversations(q: string): Promise<SearchResultConversation[]> {
+  const { data } = await api.get<SearchResultConversation[]>('/conversations/search', {
+    params: { q },
+  });
+  return data;
+}
+
 export async function listConversations(): Promise<Conversation[]> {
   const { data } = await api.get<Conversation[]>('/conversations');
   return data;

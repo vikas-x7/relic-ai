@@ -10,6 +10,7 @@ import {
   listConversations,
   renameConversationHandler,
   saveCanvasHandler,
+  searchConversationsHandler,
   sendMessageHandler,
 } from '../controllers/chat.controller';
 
@@ -20,6 +21,7 @@ export function createChatRoutes(): Hono<{ Variables: AppVariables }> {
 
   chat.post('/', createConversationHandler);
   chat.get('/', listConversations);
+  chat.get('/search', searchConversationsHandler);
   chat.get('/:id', getConversationHandler);
   chat.get('/:id/detail', getConversationDetailHandler);
   chat.patch('/:id', renameConversationHandler);

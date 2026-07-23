@@ -18,6 +18,7 @@ import {
   getMessages,
   renameConversation,
   saveCanvas,
+  searchConversations,
 } from '../services/chat.service';
 
 type ChatContext = Context<{ Variables: AppVariables }>;
@@ -61,6 +62,20 @@ export async function listConversations(c: ChatContext) {
   try {
     const conversations = await getConversations(getUserId(c));
     return c.json(conversations);
+  } catch (err) {
+    return handleServiceError(c, err);
+  }
+}
+
+export async function searchConversationsHandler(c: ChatContext) {
+  const raw = (c.req.query('q') ?? '').toString().trim();
+  if (!raw) {
+    return c.json([]);
+  }
+
+  try {
+    const results = await searchConversations(getUserId(c), raw);
+    return c.json(results);
   } catch (err) {
     return handleServiceError(c, err);
   }

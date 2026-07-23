@@ -3,7 +3,18 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { FiEdit2, FiLogOut, FiMoreHorizontal, FiSearch, FiSidebar, FiTrash2 } from 'react-icons/fi';
+import { BsPinAngle } from 'react-icons/bs';
+import {
+  FiEdit2,
+  FiEyeOff,
+  FiFolder,
+  FiFolderPlus,
+  FiLogOut,
+  FiMoreHorizontal,
+  FiSearch,
+  FiSidebar,
+  FiTrash2,
+} from 'react-icons/fi';
 import { IoCreateOutline } from 'react-icons/io5';
 import { useUser, useLogout } from '@/src/modules/auth/hooks/useAuth';
 import type { Conversation } from '@/src/modules/chat/api/conversations';
@@ -20,6 +31,7 @@ type SidebarProps = {
   activeConversationId: string | null;
   onNewChat: () => void;
   onSelectChat: (id: string) => void;
+  onOpenSearch: () => void;
   isCreatingChat?: boolean;
 };
 
@@ -32,6 +44,7 @@ export default function Sidebar({
   activeConversationId,
   onNewChat,
   onSelectChat,
+  onOpenSearch,
   isCreatingChat = false,
 }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(true);
@@ -135,7 +148,10 @@ export default function Sidebar({
               <IoCreateOutline size={18} className="mb-0.5 opacity-80" />
               New chat
             </button>
-            <button className="mt-1 flex w-full cursor-pointer items-center gap-2 rounded-[3px] px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] hover:text-white font-light">
+            <button
+              onClick={onOpenSearch}
+              className="mt-1 flex w-full cursor-pointer items-center gap-2 rounded-[3px] px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] hover:text-white font-light"
+            >
               <FiSearch size={17} className="opacity-80" />
               Search
             </button>
@@ -231,7 +247,7 @@ export default function Sidebar({
                             onClick={(e) => {
                               e.stopPropagation();
                               const rect = e.currentTarget.getBoundingClientRect();
-                              setMenuPos({ x: rect.right - 144, y: rect.bottom + 4 });
+                              setMenuPos({ x: rect.right - 176, y: rect.bottom + 4 });
                               setMenuChatId(isMenuOpen ? null : chat.id);
                             }}
                             className={`flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-[4px] text-white/40 transition-colors hover:bg-white/10 hover:text-white ${
@@ -254,25 +270,60 @@ export default function Sidebar({
                                 top: menuPos.y,
                                 zIndex: 9000,
                               }}
-                              className="w-36 rounded-[5px] bg-[#202020] p-1 shadow-xl shadow-black/50"
+                              className="w-44 rounded-[8px] border border-white/10 bg-[#1c1c1c] p-1.5 shadow-2xl shadow-black/80"
                             >
                               <button
                                 type="button"
-                                onClick={() => startRename(chat)}
-                                className="flex w-full cursor-pointer items-center gap-2 rounded-[5px] px-2.5 py-2 text-left text-sm text-white/75 hover:bg-white/10 hover:text-white"
+                                onClick={() => setMenuChatId(null)}
+                                className="flex w-full cursor-pointer items-center gap-2.5 rounded-[6px] px-2.5 py-2 text-left text-[13.5px] font-normal text-white/85 transition-colors hover:bg-white/10 hover:text-white"
                               >
-                                <FiEdit2 size={14} />
+                                <BsPinAngle size={15} className="opacity-75" />
+                                Pin
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setMenuChatId(null)}
+                                className="flex w-full cursor-pointer items-center gap-2.5 rounded-[6px] px-2.5 py-2 text-left text-[13.5px] font-normal text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+                              >
+                                <FiEyeOff size={15} className="opacity-75" />
+                                Mark as unread
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => startRename(chat)}
+                                className="flex w-full cursor-pointer items-center gap-2.5 rounded-[6px] px-2.5 py-2 text-left text-[13.5px] font-normal text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+                              >
+                                <FiEdit2 size={15} className="opacity-75" />
                                 Rename
                               </button>
+                              <button
+                                type="button"
+                                onClick={() => setMenuChatId(null)}
+                                className="flex w-full cursor-pointer items-center gap-2.5 rounded-[6px] px-2.5 py-2 text-left text-[13.5px] font-normal text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+                              >
+                                <FiFolderPlus size={15} className="opacity-75" />
+                                Add to project
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setMenuChatId(null)}
+                                className="flex w-full cursor-pointer items-center gap-2.5 rounded-[6px] px-2.5 py-2 text-left text-[13.5px] font-normal text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+                              >
+                                <FiFolder size={15} className="opacity-75" />
+                                Move to group
+                              </button>
+
+                              <div className="my-1 border-t border-white/10" />
+
                               <button
                                 type="button"
                                 onClick={() => {
                                   setMenuChatId(null);
                                   setDeleteTarget(chat);
                                 }}
-                                className="flex w-full cursor-pointer items-center gap-2 rounded-[5px] px-2.5 py-2 text-left text-sm text-red-300 hover:bg-red-500/10 hover:text-red-200"
+                                className="flex w-full cursor-pointer items-center gap-2.5 rounded-[6px] px-2.5 py-2 text-left text-[13.5px] font-normal text-[#ff6b6b] transition-colors hover:bg-red-500/10 hover:text-red-300"
                               >
-                                <FiTrash2 size={14} />
+                                <FiTrash2 size={15} />
                                 Delete
                               </button>
                             </div>,

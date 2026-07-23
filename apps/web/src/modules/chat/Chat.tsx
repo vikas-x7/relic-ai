@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Sidebar from '@/src/modules/chat/components/Sidebar';
 import ChatCanvas from '@/src/modules/chat/components/ChatCanvas';
+import SearchPanel from '@/src/modules/chat/components/SearchPanel';
 
 type ChatProps = {
   conversationId?: string;
@@ -12,6 +13,7 @@ type ChatProps = {
 function Chat({ conversationId }: ChatProps) {
   const router = useRouter();
   const [activeConvId, setActiveConvId] = useState<string | null>(conversationId ?? null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     setActiveConvId(conversationId ?? null);
@@ -19,12 +21,14 @@ function Chat({ conversationId }: ChatProps) {
 
   const handleNewChat = useCallback(() => {
     setActiveConvId(null);
+    setIsSearchOpen(false);
     router.push('/chat');
   }, [router]);
 
   const handleSelectChat = useCallback(
     (id: string) => {
       setActiveConvId(id);
+      setIsSearchOpen(false);
       router.push(`/chat/${id}`);
     },
     [router],
@@ -40,8 +44,21 @@ function Chat({ conversationId }: ChatProps) {
         activeConversationId={activeConvId}
         onNewChat={handleNewChat}
         onSelectChat={handleSelectChat}
+        onOpenSearch={() => setIsSearchOpen(true)}
       />
-      <ChatCanvas conversationId={activeConvId} onConversationCreated={handleConversationCreated} />
+      <div className="relative flex-1 h-screen overflow-hidden">
+        <ChatCanvas
+          conversationId={activeConvId}
+          onConversationCreated={handleConversationCreated}
+        />
+        {isSearchOpen && (
+          <SearchPanel
+            onClose={() => setIsSearchOpen(false)}
+            onSelectConversation={handleSelectChat}
+            onNewChat={handleNewChat}
+          />
+        )}
+      </div>
     </div>
   );
 }

@@ -156,6 +156,77 @@ export async function createUserMessageWithReply(
   return { userMessage, assistantMessage, citations: savedCitations };
 }
 
+export type SearchResultConversation = {
+  id: string;
+  title: string | null;
+  updatedAt: Date;
+  messages: Array<{
+    id: number;
+    role: string;
+    content: string;
+    nodeId: string;
+    createdAt: Date;
+  }>;
+};
+
+export async function searchConversations(
+  userId: number,
+  query: string,
+): Promise<SearchResultConversation[]> {
+  const prisma = getPrisma();
+
+  const [messages, titleConvs] = await Promise.all([
+    prisma.message.findMany({
+      where: {
+        content: { contains: query, mode: 'insensitive' },
+        conversation: { userId },
+      },
+      orderBy: { createdAt: 'desc' },
+      take: 50,
+      select: {
+        id: true,
+        role: true,
+        content: true,
+        nodeId: true,
+        createdAt: true,
+        conversation: { select: { id: true, title: true, updatedAt: true } },
+      },
+    }),
+    prisma.conversation.findMany({
+      where: { userId, title: { contains: query, mode: 'insensitive' } },
+      orderBy: { updatedAt: 'desc' },
+      take: 20,
+    }),
+  ]);
+
+  const byConversation = new Map<string, SearchResultConversation>();
+  const ensure = (conv: { id: string; title: string | null; updatedAt: Date }) => {
+    let entry = byConversation.get(conv.id);
+    if (!entry) {
+      entry = { id: conv.id, title: conv.title, updatedAt: conv.updatedAt, messages: [] };
+      byConversation.set(conv.id, entry);
+    }
+    return entry;
+  };
+
+  for (const m of messages) {
+    ensure(m.conversation).messages.push({
+      id: m.id,
+      role: m.role,
+      content: m.content,
+      nodeId: m.nodeId,
+      createdAt: m.createdAt,
+    });
+  }
+  for (const c of titleConvs) {
+    ensure(c);
+  }
+
+  return [...byConversation.values()].sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+  );
+}
+
 export async function getMessages(conversationId: string, userId: number) {
   await requireOwnedConversation(conversationId, userId);
   const prisma = getPrisma();
