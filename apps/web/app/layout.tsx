@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Bricolage_Grotesque, Outfit } from 'next/font/google';
+import { Bricolage_Grotesque, Manrope } from 'next/font/google';
 import '@xyflow/react/dist/style.css';
 import './globals.css';
 import Providers from '@/src/lib/query/Providers';
@@ -9,7 +9,7 @@ const bricolage = Bricolage_Grotesque({
   variable: '--font-bricolage',
 });
 
-const cabin = Outfit({
+const cabin = Manrope({
   subsets: ['latin'],
   variable: '--font-cabin',
 });

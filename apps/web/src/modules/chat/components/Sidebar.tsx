@@ -9,14 +9,14 @@ import {
   FiEyeOff,
   FiFolder,
   FiFolderPlus,
-  FiLogOut,
   FiMoreHorizontal,
   FiSearch,
+  FiSettings,
   FiSidebar,
   FiTrash2,
 } from 'react-icons/fi';
 import { IoCreateOutline } from 'react-icons/io5';
-import { useUser, useLogout } from '@/src/modules/auth/hooks/useAuth';
+import { useUser } from '@/src/modules/auth/hooks/useAuth';
 import type { Conversation } from '@/src/modules/chat/api/conversations';
 import {
   useConversations,
@@ -32,7 +32,7 @@ type SidebarProps = {
   onNewChat: () => void;
   onSelectChat: (id: string) => void;
   onOpenSearch: () => void;
-  isCreatingChat?: boolean;
+  onOpenSettings?: () => void;
 };
 
 function conversationLabel(conversation: Conversation): string {
@@ -45,7 +45,7 @@ export default function Sidebar({
   onNewChat,
   onSelectChat,
   onOpenSearch,
-  isCreatingChat = false,
+  onOpenSettings,
 }: SidebarProps) {
   const [isOpen, setIsOpen] = useState(true);
   const [menuChatId, setMenuChatId] = useState<string | null>(null);
@@ -59,7 +59,6 @@ export default function Sidebar({
   const { data: conversations = [], isLoading, isError, refetch } = useConversations();
   const renameChat = useRenameConversation();
   const deleteChat = useDeleteConversation();
-  const logout = useLogout();
 
   useEffect(() => {
     if (!menuChatId) return;
@@ -143,21 +142,21 @@ export default function Sidebar({
           <div className="shrink-0 px-2 pt-4">
             <button
               onClick={onNewChat}
-              className="flex w-full cursor-pointer items-center gap-2 rounded-[5px]  px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] font-light"
+              className="flex w-full cursor-pointer items-center gap-2 rounded-[5px]  px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e]"
             >
-              <IoCreateOutline size={18} className="mb-0.5 opacity-80" />
+              <IoCreateOutline size={18} className="mb-0.5 opacity-80 " />
               New chat
             </button>
             <button
               onClick={onOpenSearch}
-              className="mt-1 flex w-full cursor-pointer items-center gap-2 rounded-[3px] px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] hover:text-white font-light"
+              className="mt-1 flex w-full cursor-pointer items-center gap-2 rounded-[3px] px-2 py-2 text-left text-sm text-gray-200 transition-colors hover:bg-[#1e1e1e] hover:text-white "
             >
               <FiSearch size={17} className="opacity-80" />
               Search
             </button>
           </div>
 
-          <div className="mt-4 flex-1 overflow-y-auto px-2 pb-4 font-light">
+          <div className="mt-4 flex-1 overflow-y-auto px-2 pb-4 ">
             <div className="space-y">
               <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px] font-light text-white/80 flex items-center gap-1">
                 Pinned
@@ -234,7 +233,7 @@ export default function Sidebar({
                           <button
                             type="button"
                             onClick={() => onSelectChat(chat.id)}
-                            className="flex min-w-0 flex-1 cursor-pointer items-center gap-1.5 px-1 py-1 text-left"
+                            className="flex min-w-0 flex-1 cursor-pointer items-center gap-1 px-1 py-1 text-left"
                           >
                             <GoDot className="shrink-0 text-white/50" size={14} />
                             <span className="truncate">{conversationLabel(chat)}</span>
@@ -362,15 +361,18 @@ export default function Sidebar({
                 </span>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => logout.mutate()}
-              disabled={logout.isPending || !user}
-              className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-white/40 transition-colors hover:bg-white/10 hover:text-white disabled:cursor-default disabled:opacity-40"
-              title="Log out"
-            >
-              <FiLogOut size={15} />
-            </button>
+            <div className="flex items-center gap-1">
+              {onOpenSettings && (
+                <button
+                  type="button"
+                  onClick={onOpenSettings}
+                  className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-md text-white/40 transition-colors hover:bg-white/10 hover:text-white"
+                  title="Settings"
+                >
+                  <FiSettings size={15} />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </aside>
