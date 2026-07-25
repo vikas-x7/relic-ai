@@ -9,6 +9,7 @@ import {
   MiniMap,
   ConnectionMode,
   useReactFlow,
+  useStore,
   type Edge,
 } from '@xyflow/react';
 import { useChatWorkspace } from '@/src/modules/chat/hooks/useChatWorkspace';
@@ -21,6 +22,7 @@ import WelcomeOverlay from '@/src/modules/chat/components/WelcomeOverlay';
 import TextSelectionButton from '@/src/modules/chat/components/TextSelectionButton';
 import CreditsBadge from '@/src/modules/chat/components/CreditsBadge';
 import { saveCanvasApi } from '@/src/modules/chat/api/conversations';
+import { useUser } from '@/src/modules/auth/hooks/useAuth';
 import { useConversationDetail } from '@/src/modules/chat/hooks/useConversations';
 import { initialNodes } from '@/src/modules/chat/constants';
 import { serializeCanvas, isPersistedCanvas } from '@/src/modules/chat/utils/canvas';
@@ -36,14 +38,27 @@ type ChatCanvasProps = {
 };
 
 function ChatCanvasInner({ conversationId, onConversationCreated }: ChatCanvasProps) {
-  const { zoomIn, zoomOut, setCenter, getZoom } = useReactFlow();
+  const { setCenter, getZoom, zoomTo } = useReactFlow();
+
+  const zoom = useStore((s) => s.transform[2]);
+
+  const handleZoomIn = useCallback(() => {
+    void zoomTo(Math.min(getZoom() + 0.01, 100));
+  }, [getZoom, zoomTo]);
+
+  const handleZoomOut = useCallback(() => {
+    void zoomTo(Math.max(getZoom() - 0.01, 0.01));
+  }, [getZoom, zoomTo]);
 
   const loadedConversationIdRef = useRef<string | null>(null);
   const lastSavedCanvasRef = useRef<string | null>(null);
   const freshConvRef = useRef<string | null>(null);
   const [freshConvId, setFreshConvId] = useState<string | null>(null);
+  const [canvasMode, setCanvasMode] = useState<'select' | 'pan'>('pan');
 
   const { data: detail, isLoading } = useConversationDetail(conversationId);
+  const { data: userData } = useUser();
+  const welcomeUserName = userData?.user?.name || null;
 
   // Freshly created conversations already render their (locally added) messages,
   // so we never blank the canvas or show a loading overlay for them.
@@ -110,6 +125,9 @@ function ChatCanvasInner({ conversationId, onConversationCreated }: ChatCanvasPr
       loadedConversationIdRef.current = null;
       lastSavedCanvasRef.current = null;
       freshConvRef.current = null;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCanvasMode('pan');
+      void zoomTo(0.83);
       setNodeMessages({});
       setHasInteracted(false);
       setNodes(syncNodeInteractionHandler(initialNodes, {}, new Set()));
@@ -202,6 +220,7 @@ function ChatCanvasInner({ conversationId, onConversationCreated }: ChatCanvasPr
     syncNodeInteractionHandler,
     setCenter,
     getZoom,
+    zoomTo,
   ]);
 
   // Debounced auto-save of canvas state
@@ -234,7 +253,7 @@ function ChatCanvasInner({ conversationId, onConversationCreated }: ChatCanvasPr
         </div>
       )}
 
-      {!conversationId && <WelcomeOverlay visible={hasInteracted} />}
+      {!conversationId && <WelcomeOverlay visible={hasInteracted} userName={welcomeUserName} />}
 
       <ReactFlow
         nodes={nodes}
@@ -246,6 +265,10 @@ function ChatCanvasInner({ conversationId, onConversationCreated }: ChatCanvasPr
         onPaneClick={onPaneClick}
         onNodeDragStart={onNodeDragStart}
         onMoveStart={onMoveStart}
+        panOnDrag={canvasMode === 'pan'}
+        panOnScroll={canvasMode === 'pan'}
+        zoomOnDoubleClick={false}
+        selectionOnDrag={false}
         isValidConnection={() => false}
         nodeTypes={nodeTypes}
         connectionMode={ConnectionMode.Loose}
@@ -276,8 +299,11 @@ function ChatCanvasInner({ conversationId, onConversationCreated }: ChatCanvasPr
       <CreditsBadge />
 
       <CanvasToolbar
-        onZoomOut={() => void zoomOut({ duration: 180 })}
-        onZoomIn={() => void zoomIn({ duration: 180 })}
+        tool={canvasMode}
+        onToolChange={setCanvasMode}
+        zoom={zoom}
+        onZoomOut={handleZoomOut}
+        onZoomIn={handleZoomIn}
         onArrangeNodes={nodeOperations.handleArrangeNodes}
         onFocusActiveNode={nodeOperations.handleFocusActiveNode}
         isSidebarOpen={isNodesPanelOpen}

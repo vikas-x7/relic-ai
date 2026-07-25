@@ -11,7 +11,7 @@ export default function WelcomeOverlay({ visible, userName }: WelcomeOverlayProp
   return (
     <div
       aria-hidden={visible}
-      className={`pointer-events-none absolute top-70 right-130 z-20 flex left-84 items-center text-white transition-all duration-500 ease-out ${
+      className={`pointer-events-none absolute top-60  z-20 flex left-73 items-center text-white transition-all duration-500 ease-out ${
         visible ? '-translate-y-4 scale-95 opacity-0' : 'translate-y-0 scale-100 opacity-100'
       }`}
     >
@@ -22,7 +22,7 @@ export default function WelcomeOverlay({ visible, userName }: WelcomeOverlayProp
             <h1 className="-ml-[16px] text-[35px] font-semibold -tracking-[1px]">Relic AI</h1>
           </div>
         </div>
-        <p className="-mt-3 px-5">Welcome back {userName || 'User'} to relic ai</p>
+        <p className="-mt-3 px-5">Welcome back {userName?.split(' ')[0] || 'User'} to relic ai</p>
       </div>
     </div>
   );

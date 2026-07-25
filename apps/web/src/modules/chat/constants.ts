@@ -29,7 +29,7 @@ export const initialNodes: ChatNodeType[] = [
   {
     id: INITIAL_NODE_ID,
     type: 'chatNode',
-    position: { x: 510, y: 550 },
+    position: { x: 510, y: 480 },
     data: { customId: INITIAL_NODE_ID },
   },
 ];

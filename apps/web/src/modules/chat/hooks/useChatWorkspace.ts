@@ -28,7 +28,7 @@ export function useChatWorkspace({
   const opsRef = useRef<CanvasOpsRef | null>(null);
   const edgesGetterRef = useRef<() => Edge[]>(() => []);
 
-  const handleUserInteraction = useCallback(() => setHasInteracted(true), []);
+  const handleUserInteraction = useCallback(() => {}, []);
   const handleNodeFocus = useCallback((nodeId: string) => setActiveNodeId(nodeId), []);
   const handleResponseHeightChange = useCallback(() => {}, []);
 
@@ -45,6 +45,14 @@ export function useChatWorkspace({
     activeConversationId,
     onConversationCreated,
   });
+
+  const handleSendMessage = useCallback(
+    (nodeId: string, message: string) => {
+      setHasInteracted(true);
+      chatStream.handleSend(nodeId, message);
+    },
+    [chatStream, setHasInteracted],
+  );
 
   const canvasState = useCanvasState({
     handlersRef,
@@ -73,7 +81,7 @@ export function useChatWorkspace({
   });
 
   const handlers: NodeHandlers = {
-    onSend: chatStream.handleSend,
+    onSend: handleSendMessage,
     onStop: chatStream.handleStop,
     onExpand: handleExpand,
     onRequestDelete: nodeOperations.handleDeleteNode,
@@ -141,7 +149,7 @@ export function useChatWorkspace({
     textSelectionAction: textSelection.textSelectionAction,
     handleCreateNodeFromSelection: textSelection.handleCreateNodeFromSelection,
     setTextSelectionAction: textSelection.setTextSelectionAction,
-    handleSend: chatStream.handleSend,
+    handleSend: handleSendMessage,
     handleStop: chatStream.handleStop,
     cancelDeleteNode: () => setNodeToDelete(null),
     syncNodeInteractionHandler: canvasState.syncNodeInteractionHandler,

@@ -60,7 +60,7 @@ export default function ChatComposer({
     'flex h-8 w-8 cursor-pointer items-center justify-center rounded-[5px] border border-[#303030] transition-colors hover:bg-[#303030] hover:text-white';
 
   return (
-    <div className="border-t border-[#1f1f1f] bg-[#121212] px-4 pt-10 pb-5 shadow-lg">
+    <div className="border-t border-[#1f1f1f] px-3 pt-10 pb-5 shadow-lg ">
       <textarea
         ref={textareaRef}
         rows={1}

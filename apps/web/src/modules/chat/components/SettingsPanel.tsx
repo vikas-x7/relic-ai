@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { FcGoogle } from 'react-icons/fc';
 import { MdVerified } from 'react-icons/md';
@@ -23,18 +23,27 @@ export default function SettingsPanel({ onClose }: SettingsPanelProps) {
   const [activeTab, setActiveTab] = useState<SettingsTabId>('account');
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   const jobsCreatedCount = conversations?.length || 0;
+
+  const handleClose = useCallback(() => {
+    if (isClosing) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 220);
+  }, [isClosing, onClose]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && !isLogoutModalOpen) {
-        onClose();
+        handleClose();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose, isLogoutModalOpen]);
+  }, [handleClose, isLogoutModalOpen]);
 
   // Find active item info
   let activeItemInfo = { label: 'Account', icon: SETTINGS_GROUPS[0].items[0].icon };
@@ -50,15 +59,21 @@ export default function SettingsPanel({ onClose }: SettingsPanelProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/15 backdrop-blur-sm p-4 sm:p-6"
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 sm:p-6 ${
+        isClosing ? 'animate-backdrop-out' : 'animate-backdrop-in'
+      }`}
       onClick={(e) => {
         if (e.target === e.currentTarget && !isLogoutModalOpen) {
-          onClose();
+          handleClose();
         }
       }}
     >
       {/* Settings Popup Modal Box */}
-      <div className="relative w-full max-w-[70vw] h-[90vh] bg-[#181818] rounded-[10px] shadow-2xl overflow-hidden flex font-cabin text-white">
+      <div
+        className={`relative w-full max-w-[70vw]  h-[90vh] bg-[#181818] rounded-[10px] shadow-2xl overflow-hidden flex font-cabin text-white ${
+          isClosing ? 'animate-modal-out' : 'animate-modal-pop'
+        }`}
+      >
         {/* Settings Sidebar on Left */}
         <SettingsSidebar activeTab={activeTab} onSelectTab={setActiveTab} />
 
@@ -67,7 +82,7 @@ export default function SettingsPanel({ onClose }: SettingsPanelProps) {
           {/* Sleek Close Button inside popup */}
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="absolute top-4 right-5 z-20 flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-white/50 transition-colors hover:bg-white/10 hover:text-white"
             title="Close"
           >
@@ -97,7 +112,11 @@ export default function SettingsPanel({ onClose }: SettingsPanelProps) {
                         />
                       ) : (
                         <div className="h-24 w-24 rounded-2xl bg-neutral-800 ring-4 ring-[#1F1F1F] flex items-center justify-center text-4xl font-semibold text-neutral-300 shadow-lg">
-                          {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                          {(
+                            user?.email?.trim().charAt(0) ||
+                            user?.name?.charAt(0) ||
+                            'U'
+                          ).toUpperCase()}
                         </div>
                       )}
                     </div>

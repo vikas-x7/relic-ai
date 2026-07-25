@@ -151,7 +151,7 @@ export default function ChatNode({ data }: NodeProps<Node<ChatNodeData>>) {
         style={{ ...baseHandleStyle, left: 25, top: 20 }}
       />
 
-      {!messages.length && (
+      {customId === 'root' && !messages.length && (
         <NodeExamples
           onSelect={(prompt) => {
             onInteract?.();

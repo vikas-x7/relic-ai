@@ -54,6 +54,7 @@ export default function Sidebar({
   const [deleteTarget, setDeleteTarget] = useState<Conversation | null>(null);
   const [menuPos, setMenuPos] = useState({ x: 0, y: 0 });
   const [hoverStyle, setHoverStyle] = useState({ top: 0, height: 0, opacity: 0 });
+  const [imageError, setImageError] = useState(false);
 
   const { data: user } = useUser();
   const { data: conversations = [], isLoading, isError, refetch } = useConversations();
@@ -106,7 +107,7 @@ export default function Sidebar({
   const displayName = user?.user?.name?.trim() || 'User';
   const displayEmail = user?.user?.email ?? '';
   const avatar = user?.user?.avatar;
-  const initial = displayName.charAt(0).toUpperCase();
+  const avatarInitial = (displayEmail.trim().charAt(0) || displayName.charAt(0)).toUpperCase();
 
   return (
     <>
@@ -246,7 +247,7 @@ export default function Sidebar({
                             onClick={(e) => {
                               e.stopPropagation();
                               const rect = e.currentTarget.getBoundingClientRect();
-                              setMenuPos({ x: rect.right - 176, y: rect.bottom + 4 });
+                              setMenuPos({ x: rect.right - 16, y: rect.bottom + 4 });
                               setMenuChatId(isMenuOpen ? null : chat.id);
                             }}
                             className={`flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-[4px] text-white/40 transition-colors hover:bg-white/10 hover:text-white ${
@@ -267,6 +268,8 @@ export default function Sidebar({
                                 position: 'fixed',
                                 left: menuPos.x,
                                 top: menuPos.y,
+                                transform: 'translateY(-110%)',
+
                                 zIndex: 9000,
                               }}
                               className="w-44 rounded-[8px] border border-white/10 bg-[#1c1c1c] p-1.5 shadow-2xl shadow-black/80"
@@ -338,18 +341,19 @@ export default function Sidebar({
 
           <div className="flex items-center justify-between border-t border-white/10 px-2 py-1">
             <div className="flex items-center gap-3">
-              {avatar ? (
+              {avatar && !imageError ? (
                 <Image
                   src={avatar}
                   alt=""
                   width={32}
                   height={32}
                   unoptimized
+                  onError={() => setImageError(true)}
                   className="h-8 w-8 shrink-0 rounded-[4px] object-cover"
                 />
               ) : (
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-white/10 text-sm font-semibold text-white uppercase">
-                  {initial}
+                  {avatarInitial}
                 </div>
               )}
               <div className="flex flex-col">
