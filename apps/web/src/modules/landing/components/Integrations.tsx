@@ -25,11 +25,11 @@ export default function Integrations() {
   ];
 
   return (
-    <section className="text-white pb-20 sm:pb-36 lg:pb-54">
+    <section className="text-black pb-20 sm:pb-36 lg:pb-54">
       {/* Header */}
       <div className="mb-12 sm:mb-20 flex items-end justify-end px-4 sm:px-8 lg:px-12">
         <div className="max-w-4xl w-full text-start sm:text-end">
-          <div className="text-[13px] sm:text-[15px] uppercase text-white/50 mb-4 sm:mb-6 flex items-center sm:justify-end gap-2">
+          <div className="text-[13px] sm:text-[15px] uppercase text-black/50 mb-4 sm:mb-6 flex items-center sm:justify-end gap-2">
             <span>
               <BsAsterisk />
             </span>{' '}
@@ -49,7 +49,7 @@ export default function Integrations() {
           return (
             <div
               key={index}
-              className="h-28 sm:h-36 lg:h-42 border-b border-r border-dashed border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 hover:bg-white/5 cursor-pointer"
+              className="h-28 sm:h-36 lg:h-42 border-b border-r border-dashed border-white/10 flex items-center justify-center text-black/60 hover:text-black transition-all duration-300 hover:bg-white/5 cursor-pointer"
             >
               <Icon className="text-2xl sm:text-3xl lg:text-4xl" />
             </div>

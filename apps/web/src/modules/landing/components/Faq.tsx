@@ -103,8 +103,8 @@ export default function FAQ() {
   };
 
   return (
-    <section className="relative overflow-hidden w-full bg-white text-[#111] font-cabin border-t border-black/10 py-16 sm:py-28 lg:py-40">
-      <div className="pointer-events-none absolute inset-0 z-0 opacity-100">
+    <section className="relative overflow-hidden w-full  text-[#111] font-cabin border-t border-black/10 py-16 sm:py-28 lg:py-40">
+      {/* <div className="pointer-events-none absolute inset-0 z-0 opacity-100">
         <svg className="h-full w-full" id="noice-faq">
           <filter id="noise-filter-faq">
             <feTurbulence
@@ -128,7 +128,7 @@ export default function FAQ() {
           </filter>
           <rect width="100%" height="100%" filter="url(#noise-filter-faq)"></rect>
         </svg>
-      </div>
+      </div> */}
 
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 border-t border-black/10">
         {/* Left Side: Header */}

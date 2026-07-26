@@ -88,54 +88,69 @@ export default function Build() {
         </svg>
       ),
     },
+    {
+      title: 'Fast Cycles',
+      description:
+        'Transition from prototype to production in weeks, not months, with our pre-built frameworks.',
+      icon: (
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="20" cy="20" r="14" stroke="white" strokeWidth="1.2" strokeDasharray="3 3" />
+          <circle cx="20" cy="20" r="10" stroke="white" strokeWidth="1.2" />
+          {/* Lightning bolt */}
+          <path
+            d="M21 13L15 21H20L19 27L25 19H20L21 13Z"
+            stroke="white"
+            strokeWidth="1.2"
+            fill="none"
+            strokeLinejoin="round"
+          />
+        </svg>
+      ),
+    },
   ];
 
   return (
-    <section className="">
-      <div className="grid grid-cols-1 lg:grid-cols-2 border-t border-dashed border-white/20">
-        <div className="w-full h-[300px] sm:h-[450px] lg:h-auto lg:min-h-screen overflow-hidden group border-b lg:border-b-0 lg:border-r border-white/10 border-dashed">
+    <section className="px-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 border-t border-dashed border-white/20 mt-40">
+        <div className="w-full h-[300px] sm:h-[450px] lg:h-auto lg:min-h-[50vh] overflow-hidden group  ">
           <img
             src="https://i.pinimg.com/originals/9c/14/86/9c14863b9e64ffc65cdfda4cdc9a0b99.gif"
             alt="Built for the long term"
-            className="w-full h-full object-cover"
+            className="w-full h-[80vh] object-cover rounded-[8px]"
           />
         </div>
 
         {/* Right Side: Text & Features */}
-        <div className="flex flex-col justify-center py-12 lg:py-16">
+        <div className=" ">
           {/* Top Header */}
-          <div className="mb-10 sm:mb-16 px-4 sm:px-8 lg:px-10">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white/90 tracking-[-1px] sm:tracking-[-2px] leading-tight">
+          <div className="mb-10 sm:mb-1 px-4 sm:px-8 lg:px-10">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black/90 tracking-[-1px] sm:tracking-[-2px] leading-tight">
               Built for the long term
             </h2>
-            <p className="text-sm md:text-base text-white/60 mt-4 sm:mt-6 max-w-xl leading-relaxed font-light">
+            <p className="text-sm md:text-base text-black/60 mt-4 sm:mt-6 max-w-xl leading-relaxed font-light">
               We don&apos;t just ship code; we architect neural ecosystems. Our approach combines
               rigorous testing with rapid deployment cycles.
             </p>
           </div>
 
           {/* Grid of features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 border-t border-white/10 px-4 sm:px-8 lg:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 mt-20 gap-y-20 border-t border-white/10 px-4 sm:px-8 lg:px-10">
             {features.map((feature, index) => {
-              // Custom borders for grid layout
-              const borderClass =
-                index === 0
-                  ? 'border-b md:border-r border-white/10 py-6 sm:py-10 md:pr-6'
-                  : index === 1
-                    ? 'border-b border-white/10 py-6 sm:py-10 md:pl-10 md:pr-6'
-                    : index === 2
-                      ? 'border-b md:border-b-0 md:border-r border-white/10 py-6 sm:py-10 md:pr-6'
-                      : '';
-
               return (
-                <div key={index} className={`group ${borderClass}`}>
-                  <div className="mb-4 sm:mb-6 transform transition-transform text-white duration-300 group-hover:scale-105">
-                    {feature.icon}
+                <div key={index}>
+                  <div className="mb-4 sm:mb-6 transform transition-transform text-black duration-300 group-hover:scale-105">
+                    <h1>1</h1>
                   </div>
-                  <h4 className="font-mono text-base sm:text-lg font-bold text-white/80 uppercase tracking-tight">
+                  <h4 className=" text-base sm:text-lg  text-black/80 uppercase tracking-tight">
                     {feature.title}
                   </h4>
-                  <p className="text-xs sm:text-sm text-white/60 mt-2 sm:mt-3 leading-relaxed font-light">
+                  <p className="text-xs sm:text-sm text-black/60 mt-2 sm:mt-3 leading-relaxed font-light">
                     {feature.description}
                   </p>
                 </div>

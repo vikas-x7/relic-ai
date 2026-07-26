@@ -6,6 +6,7 @@ import { HiOutlineX } from 'react-icons/hi';
 import { MdArrowForward } from 'react-icons/md';
 import { LiaGripLinesSolid } from 'react-icons/lia';
 import { BiSolidSquare } from 'react-icons/bi';
+import { FiLogIn } from 'react-icons/fi';
 
 const NAV_LINKS = [
   { name: 'Works', id: 'works' },
@@ -45,7 +46,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="font-cabin fixed top-0 left-0 right-0 z-50 px-2 sm:px-12 ">
+    <nav className="font-cabin fixed top-0 left-0 right-0 z-50 px-2 sm:px-20 ">
       <div className="bg-[#F0F0F0] rounded-[2px] text-black w-full h-8 text-center flex items-center justify-center overflow-hidden px-4 mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
         <p className="flex items-center gap-2  text-xs sm:text-sm whitespace-nowrap">
           Relic ai the beta version is here <MdArrowForward />
@@ -68,7 +69,7 @@ const Navbar = () => {
               <NavItem
                 key={link.id}
                 {...link}
-                className="text-[14px] hover:opacity-70  mt-1 transition-opacity tracking-[-0.5px]"
+                className="text-[14px] hover:opacity-70  mt-1 transition-opacity tracking-[-0.2px]"
               />
             ))}
           </div>
@@ -82,12 +83,14 @@ const Navbar = () => {
 
           <div className="relative">
             <button
-              className="text-sm flex items-center gap-2 tracking-[-0.5px] sm:tracking-[-0.5px] cursor-pointer bg-[#F0F0F0] px-3 py-1.5 rounded-[3px] backdrop-blur-md"
+              className="text-sm flex items-center gap-2 tracking-[-0.5px] sm:tracking-[-0.2px] cursor-pointer bg-[#F0F0F0] px-3 py-1.5 rounded-[3px] backdrop-blur-md"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle Menu"
             >
-              <span>Menu</span>
-              {isOpen ? <HiOutlineX size={24} /> : <LiaGripLinesSolid size={24} />}
+              <span>Login</span>
+
+              <FiLogIn />
+              {/* {isOpen ? <HiOutlineX size={24} /> : <LiaGripLinesSolid size={24} />} */}
             </button>
 
             <div

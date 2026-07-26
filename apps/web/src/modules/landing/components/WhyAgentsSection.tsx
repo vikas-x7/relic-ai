@@ -59,12 +59,12 @@ const BACKGROUND = '/images/cardbg.png';
 
 export default function WhyAgentsSection() {
   return (
-    <section className="w-full text-white py-12 sm:py-16 px-4 sm:px-6 lg:px-12 mt-12 sm:mt-20">
+    <section className="w-full text-black py-12 sm:py-16 px-4 sm:px-6 lg:px-12 mt-12 sm:mt-20">
       <div className="mx-auto space-y-8 sm:space-y-12">
         <div className="space-y-4">
-          <h2 className="text-2xl sm:text-4xl lg:text-[44px] font-normal tracking-[-1.5px] sm:tracking-[-2.5px] max-w-3xl">
+          <h2 className="text-2xl sm:text-4xl lg:text-[36px] font-medium tracking-[-1.5px] sm:tracking-[-1.5px] max-w-3xl">
             Your thinking tool should work <br />
-            the way your mind works.
+            the our mind works.
           </h2>
         </div>
 
@@ -73,10 +73,10 @@ export default function WhyAgentsSection() {
             {features.map((feature) => (
               <div
                 key={feature.number}
-                className="text-left px-4 py-3.5 flex items-center gap-4 text-[13px] tracking-wider border-l-2 border-blue-500 bg-white/5 text-white font-light"
+                className="text-left px-4 py-3.5 flex items-center gap-4 text-[13px] tracking-wider border-l-2 border-blue-500 bg-white/5 text-black font-light"
               >
-                <span className="text-blue-400">{feature.number}</span>
-                <span>{feature.label}</span>
+                <span className="text-black">{feature.number}</span>
+                <span className="font-medium tracking-[-0.01px]">{feature.label}</span>
               </div>
             ))}
           </div>
@@ -85,12 +85,12 @@ export default function WhyAgentsSection() {
             {features.map((feature, index) => (
               <div
                 key={feature.number}
-                className="sticky bg-black mb-12 sm:mb-20"
+                className="sticky bg-[#FCFCFB] mb-12 sm:mb-20 rounded-2xl"
                 style={{ top: `calc(4rem + ${index * 1.5}rem)`, zIndex: index + 1 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-9">
+                <div className="grid grid-cols-1 lg:grid-cols-9 ">
                   <div
-                    className="lg:col-span-5 relative w-full h-[260px] sm:h-[360px] lg:h-[450px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center p-4 border border-white/10 shadow-2xl"
+                    className="lg:col-span-5 relative w-full h-[260px] sm:h-[360px] lg:h-[450px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center p-4 border border-white/10 shadow-2xl rounded-l-2xl"
                     style={{ backgroundImage: `url(${BACKGROUND})` }}
                   >
                     <img
@@ -100,16 +100,16 @@ export default function WhyAgentsSection() {
                     />
                   </div>
 
-                  <div className="lg:col-span-4 border border-white/10 p-5 sm:p-8 space-y-4 sm:space-y-6 flex flex-col justify-between">
-                    <div className="text-base sm:text-[20px] font-mono bg-black/20 tracking-wider">
+                  <div className="lg:col-span-4 border border-white/10 p-5 sm:p-8 space-y-4 sm:space-y-6 flex flex-col justify-between rounded-2xl">
+                    <div className="text-base sm:text-[20px] font-mono  tracking-wider">
                       {feature.number}
                     </div>
 
                     <div className="space-y-2">
-                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-white">
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-black">
                         {feature.title}
                       </h3>
-                      <p className="text-sm sm:text-[15px] text-white/90 leading-relaxed font-light">
+                      <p className="text-sm sm:text-[15px] text-black/90 leading-relaxed font-light">
                         {feature.description}
                       </p>
                     </div>
@@ -118,7 +118,7 @@ export default function WhyAgentsSection() {
                       {feature.points.map((point) => (
                         <div
                           key={point}
-                          className="flex items-start gap-3 text-sm sm:text-[17px] font-light text-white/80"
+                          className="flex items-start gap-3 text-sm sm:text-[17px] font-light text-black/80"
                         >
                           <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 flex-shrink-0" />
                           <span>{point}</span>

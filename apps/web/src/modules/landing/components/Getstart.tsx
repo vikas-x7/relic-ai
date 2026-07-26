@@ -1,7 +1,7 @@
 export default function Getstart() {
   return (
     <div className="relative h-[60vh] sm:h-[80vh] md:h-[100vh] overflow-hidden bg-white text-black font-cabin">
-      <div className="pointer-events-none absolute inset-0 z-0 opacity-100">
+      {/* <div className="pointer-events-none absolute inset-0 z-0 opacity-100">
         <svg className="h-full w-full" id="noice-getstart">
           <filter id="noise-filter-getstart">
             <feTurbulence
@@ -25,7 +25,7 @@ export default function Getstart() {
           </filter>
           <rect width="100%" height="100%" filter="url(#noise-filter-getstart)"></rect>
         </svg>
-      </div>
+      </div> */}
 
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center">
         <p className="mb-2 text-[16px] font-medium tracking-tight sm:text-[24px] md:text-[30px] md:-tracking-[1px]">

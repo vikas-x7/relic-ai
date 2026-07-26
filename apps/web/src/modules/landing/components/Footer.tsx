@@ -2,133 +2,75 @@
 
 import React from 'react';
 import Link from 'next/link';
-// React Icons import
-import {
-  FaXTwitter,
-  FaLinkedinIn,
-  FaDiscord,
-  FaRedditAlien,
-  FaInstagram,
-  FaYoutube,
-} from 'react-icons/fa6';
+import { FaLinkedinIn, FaXTwitter } from 'react-icons/fa6';
+import { FiArrowUpRight } from 'react-icons/fi';
 import Image from 'next/image';
 
 const Footer = () => {
   return (
-    <footer className="w-full overflow-hidden border-t border-white/10 bg-black pt-12 text-white md:pt-20 font-cabin">
-      <div className="">
-        {/* Main Grid: image_650155.png layout */}
-        <div className="mb-12 sm:mb-16 grid grid-cols-1 gap-8 sm:gap-12 md:grid-cols-4 px-4 sm:px-8 lg:px-12">
-          {/* Brand & Socials Section */}
-          <div className="space-y-2 md:col-span-2">
-            <div className="flex items-center gap-2 select-none">
-              <h1 className="text-[24px] -tracking-[2px] md:text-[32px]">Relic ai</h1>
+    <div className="font-cabin text-black px-3 sm:px-12 h-dvh pt-20 pb-6 sm:pt-24 sm:pb-8 ">
+      <div className="w-full h-full flex flex-col justify-between ">
+        <div className="md:px-4 mt-23 sm:mt-30 ">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-10 sm:mb-0">
+            <Link
+              href="/auth"
+              className="inline-flex text-[13px] sm:text-[14px] items-center ml-[-5] justify-center gap-2 bg-[#010101] text-white px-3 py-1 sm:py-1.5 rounded-[2px] font-medium hover:bg-gray-800 transition-colors w-fit"
+            >
+              Getstart Now
+              <FiArrowUpRight size={20} />
+            </Link>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-8 mb-12">
+            <div className="flex items-center gap-3">
+              <Image
+                width={100}
+                height={100}
+                priority
+                src="/images/pinktree.jpg"
+                alt="Based in India"
+                className="w-8 sm:w-10"
+              />
+              <div className="text-[0.7rem] md:text-[0.85rem] text-black">
+                <p>Based In The Beautiful</p>
+                <p>India & Online Worldwide</p>
+              </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-white/50">
-              Breathing canvas where your conversations don&apos;t just{' '}
-              <br className="hidden sm:block" />
-              happen, they grow.
+            <div className="hidden sm:flex flex-col items-end text-start gap-3  text-black font-medium">
+              <Link href="#" className="hover:text-black/50 transition-colors font-light ">
+                Canvas
+              </Link>
+              <Link href="#" className="hover:text-black/50 transition-colors font-light ">
+                Nodes
+              </Link>
+              <Link href="#" className="hover:text-black/50 transition-colors font-light">
+                Branching
+              </Link>
+              <Link href="#" className="hover:text-black/50 transition-colors font-light">
+                Memory
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div className=" sm:px-6 md:px-4">
+            <p className="text-sm text-black mb-2 tracking-[-0.5px] leading-none">
+              We believe at Relic AI
             </p>
-
-            {/* Social Icons using React Icons */}
-            <div className="flex items-center gap-3 pt-2">
-              <Link
-                href="https://x.com/Relic__ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-[2px] border border-white/10 text-white/50 transition-all hover:bg-white/5 hover:text-white"
-              >
-                <FaXTwitter size={14} />
-              </Link>
-              <Link
-                href="https://www.linkedin.com/company/relic-ai/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-[2px] border border-white/10 text-white/50 transition-all hover:bg-white/5 hover:text-white"
-              >
-                <FaLinkedinIn size={14} />
-              </Link>
-
-              <Link
-                href="https://www.instagram.com/relic__ai/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-[2px] border border-white/10 text-white/50 transition-all hover:bg-white/5 hover:text-white"
-              >
-                <FaInstagram size={14} />
-              </Link>
-            </div>
+            <h2 className="text-[1rem] md:text-xl md:text-2xl  mb-8 sm:mb-10 tracking-[-0.5px] sm:tracking-[-1px]">
+              A canvas where your thinking has no edges, no dead ends, and no direction it cannot
+              explore.
+            </h2>
           </div>
 
-          {/* Product Section */}
-          <div className="space-y-4">
-            <h3 className="text-sm text-white">Company</h3>
-            <ul className="flex flex-col gap-3 text-[13px] md:text-sm">
-              <li>
-                <Link href="#" className="text-white/50 transition-colors hover:text-white">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-white/50 transition-colors hover:text-white">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-white/50 transition-colors hover:text-white">
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company Section */}
-          <div className="space-y-4">
-            <h3 className="text-sm text-white">Feature</h3>
-            <ul className="flex flex-col gap-3 text-[13px] md:text-sm">
-              <li>
-                <Link href="#" className="text-white/50 transition-colors hover:text-white">
-                  Canvas Nodes
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-white/50 transition-colors hover:text-white">
-                  Branching
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-white/50 transition-colors hover:text-white">
-                  Persistent Memory
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-white/50 transition-colors hover:text-white">
-                  Multi AI Models
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Copyright Line */}
-        <div className="flex flex-col items-center justify-between gap-3 border-t border-white/5 py-6 text-[12px] text-white/30 md:flex-row px-4 sm:px-8 lg:px-12">
-          <p>© 2026 Relic AI. All rights reserved.</p>
-          <p>Designed and built by Relic AI.</p>
+          <h1 className="text-[17vw] sm:text-[18vw] md:text-[17.3vw] text-[#010101] font-bold overflow-hidden tracking-[-4.5px] sm:tracking-[-20px] md:tracking-[-20px] ml-[-4px] sm:ml-[-10px] leading-[0.8] sm:leading-[200px] md:leading-[250px] whitespace-nowrap select-none px-1">
+            Relicaicanvas ai
+          </h1>
         </div>
       </div>
-
-      {/* Visual Image Section */}
-      <div className="relative mt-6 w-full overflow-hidden opacity-80 md:mt-8">
-        <img
-          src="https://relicai.in/_next/image?url=%2Fimages%2Frelicfooter.jpg&w=2048&q=75"
-          alt=""
-          className="block h-auto w-full object-cover"
-        />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/10 to-transparent" />
-      </div>
-    </footer>
+    </div>
   );
 };
 

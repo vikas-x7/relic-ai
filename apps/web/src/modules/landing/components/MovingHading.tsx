@@ -28,12 +28,12 @@ export default function MovingHanding() {
         .animate-marquee-loop {
           display: flex;
           width: max-content;
-          animation: marquee 90s linear infinite;
+          animation: marquee 110s linear infinite;
         }
       `}</style>
 
-      <section className="w-full overflow-hidden border-y border-dashed border-white/12 bg-black py-8">
-        <div className="relative w-full overflow-hidden">
+      <section className="w-full overflow-hidden border-y border-dashed border-black/20 py-8 px-40 mt-30">
+        <div className="relative  overflow-hidden ">
           <div className="animate-marquee-loop">
             {[0, 1].map((group) => (
               <div
@@ -42,17 +42,14 @@ export default function MovingHanding() {
                 aria-hidden={group === 1}
               >
                 {marqueeItemsData.map((item, i) => (
-                  <div
-                    key={`${group}-${i}`}
-                    className="flex shrink-0 items-center justify-center opacity-40 transition-opacity duration-300 hover:opacity-100"
-                  >
+                  <div key={`${group}-${i}`} className="flex shrink-0 items-center justify-center ">
                     <img
                       src={item.src}
                       alt={group === 0 ? `${item.name}-logo` : ''}
-                      className="h-6 w-auto max-w-full object-contain brightness-200 contrast-200 grayscale"
+                      className="h-6 w-auto max-w-full object-contain"
                     />
 
-                    <span className="ml-3 text-[16px] font-medium tracking-tight text-white md:text-[18px]">
+                    <span className="ml-3 text-[16px] font-medium tracking-tight text-black md:text-[15px]">
                       {item.name}
                     </span>
                   </div>
