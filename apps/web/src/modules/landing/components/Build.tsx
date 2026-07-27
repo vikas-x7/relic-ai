@@ -116,7 +116,7 @@ export default function Build() {
   ];
 
   return (
-    <section className="px-10">
+    <section className="px-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 border-t border-dashed border-white/20 mt-40">
         <div className="w-full h-[300px] sm:h-[450px] lg:h-auto lg:min-h-[50vh] overflow-hidden group  ">
           <img
@@ -133,24 +133,24 @@ export default function Build() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black/90 tracking-[-1px] sm:tracking-[-2px] leading-tight">
               Built for the long term
             </h2>
-            <p className="text-sm md:text-base text-black/60 mt-4 sm:mt-6 max-w-xl leading-relaxed font-light">
+            <p className="text-sm md:text-base text-black/90 mt-4 sm:mt-6 max-w-xl leading-relaxed font-light">
               We don&apos;t just ship code; we architect neural ecosystems. Our approach combines
               rigorous testing with rapid deployment cycles.
             </p>
           </div>
 
           {/* Grid of features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 mt-20 gap-y-20 border-t border-white/10 px-4 sm:px-8 lg:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 mt-20 gap-16  px-4 sm:px-8 lg:px-10">
             {features.map((feature, index) => {
               return (
                 <div key={index}>
                   <div className="mb-4 sm:mb-6 transform transition-transform text-black duration-300 group-hover:scale-105">
                     <h1>1</h1>
                   </div>
-                  <h4 className=" text-base sm:text-lg  text-black/80 uppercase tracking-tight">
+                  <h4 className=" text-base sm:text-lg  text-black/90  tracking-tight">
                     {feature.title}
                   </h4>
-                  <p className="text-xs sm:text-sm text-black/60 mt-2 sm:mt-3 leading-relaxed font-light">
+                  <p className="text-xs sm:text-sm text-black/70 mt-2 sm:mt-3 leading-relaxed ">
                     {feature.description}
                   </p>
                 </div>

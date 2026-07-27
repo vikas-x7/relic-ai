@@ -3,8 +3,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { FiSquare } from 'react-icons/fi';
 import { IoMdArrowUp } from 'react-icons/io';
-import { IoMicSharp } from 'react-icons/io5';
-import { LiaLinkSolid } from 'react-icons/lia';
 import { FiTrash2 } from 'react-icons/fi';
 import { CHAT_INPUT_MAX_HEIGHT, CHAT_TEXT_INTERACTION_CLASS } from '@/src/modules/chat/constants';
 import ModelSelector from '@/src/modules/chat/components/ModelSelector';
@@ -60,7 +58,7 @@ export default function ChatComposer({
     'flex h-8 w-8 cursor-pointer items-center justify-center rounded-[5px] border border-[#303030] transition-colors hover:bg-[#303030] hover:text-white';
 
   return (
-    <div className="border-t border-[#1f1f1f] px-3 pt-10 pb-5 shadow-lg ">
+    <div className="border-t border-[#1f1f1f] px-3 py-3 shadow-lg">
       <textarea
         ref={textareaRef}
         rows={1}

@@ -15,7 +15,7 @@ import Footer from '@/src/modules/landing/components/Footer';
 function Landing() {
   return (
     <>
-      <div className="px-10 ">
+      <div className="">
         <Nav />
 
         <Herosection />

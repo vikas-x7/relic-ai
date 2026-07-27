@@ -55,11 +55,11 @@ const features = [
   },
 ];
 
-const BACKGROUND = '/images/cardbg.png';
+const BACKGROUND = 'https://i.pinimg.com/736x/31/3a/96/313a96507971b3aa64e0753f6e205520.jpg';
 
 export default function WhyAgentsSection() {
   return (
-    <section className="w-full text-black py-12 sm:py-16 px-4 sm:px-6 lg:px-12 mt-12 sm:mt-20">
+    <section className="w-full text-black py-12 sm:py-16  sm:px-6 lg:px-20 mt-12 sm:mt-20 ">
       <div className="mx-auto space-y-8 sm:space-y-12">
         <div className="space-y-4">
           <h2 className="text-2xl sm:text-4xl lg:text-[36px] font-medium tracking-[-1.5px] sm:tracking-[-1.5px] max-w-3xl">
@@ -85,42 +85,42 @@ export default function WhyAgentsSection() {
             {features.map((feature, index) => (
               <div
                 key={feature.number}
-                className="sticky bg-[#FCFCFB] mb-12 sm:mb-20 rounded-2xl"
-                style={{ top: `calc(4rem + ${index * 1.5}rem)`, zIndex: index + 1 }}
+                className="sticky  mb-12 sm:mb-20 overflow-hidden "
+                style={{ top: `calc(7rem + ${index * 1.5}rem)`, zIndex: index + 1 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-9 ">
+                <div className="grid grid-cols-1 lg:grid-cols-9 items-stretch min-h-[420px]">
                   <div
-                    className="lg:col-span-5 relative w-full h-[260px] sm:h-[360px] lg:h-[450px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center p-4 border border-white/10 shadow-2xl rounded-l-2xl"
+                    className="lg:col-span-5 relative w-full h-[260px] sm:h-[360px] lg:h-full min-h-[300px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center "
                     style={{ backgroundImage: `url(${BACKGROUND})` }}
                   >
                     <img
                       src={feature.image}
                       alt={`${feature.title} preview`}
-                      className="p-6 sm:p-12 lg:p-16 object-contain rounded shadow-lg border border-white/20 max-h-full"
+                      className="p-4 sm:p-8 lg:p-12 object-contain  "
                     />
                   </div>
 
-                  <div className="lg:col-span-4 border border-white/10 p-5 sm:p-8 space-y-4 sm:space-y-6 flex flex-col justify-between rounded-2xl">
-                    <div className="text-base sm:text-[20px] font-mono  tracking-wider">
-                      {feature.number}
+                  <div className="lg:col-span-4 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between bg-[#FCFCFB] border-t lg:border-t-0 lg:border-l border-black/10">
+                    <div className="space-y-4">
+                      <div className="text-sm  text-black font-bricolage">{feature.number}</div>
+
+                      <div className="space-y-2.5">
+                        <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-black leading-snug">
+                          {feature.title}
+                        </h3>
+                        <p className="text-sm sm:text-[15px] text-black/70 leading-relaxed">
+                          {feature.description}
+                        </p>
+                      </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-black">
-                        {feature.title}
-                      </h3>
-                      <p className="text-sm sm:text-[15px] text-black/90 leading-relaxed font-light">
-                        {feature.description}
-                      </p>
-                    </div>
-
-                    <div className="space-y-2 sm:space-y-3 pt-6 sm:pt-9 mt-4 sm:mt-7 border-t border-white/10">
+                    <div className="space-y-2.5 pt-6 border-t border-black/10">
                       {feature.points.map((point) => (
                         <div
                           key={point}
-                          className="flex items-start gap-3 text-sm sm:text-[17px] font-light text-black/80"
+                          className="flex items-start gap-3 text-xs sm:text-sm text-black/75 leading-snug"
                         >
-                          <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 flex-shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-black/60 mt-1.5 flex-shrink-0" />
                           <span>{point}</span>
                         </div>
                       ))}

@@ -48,7 +48,7 @@ export default function Hero() {
   }, [charIndex, isDeleting, placeholderIndex]);
 
   return (
-    <section className="relative text-black font-cabin px-10 h-screen flex flex-col  justify-center">
+    <section className="relative text-black font-cabin  flex flex-col py-20 mt-20 mb-10 px-20">
       <div className="">
         <div className="flex items-center gap-3">
           <Image
@@ -80,14 +80,14 @@ export default function Hero() {
           </Link>
         </div>
       </div>
-      <div className=" ">
+      <div className="mt-[-30px] ">
         <div className="">
           <div className="w-full flex-col items-center justify-center">
             {/* <p className="mb-2 inline-block rounded-4xl border border-black/10 border-dashed px-4 py-1 text-[10px] tracking-[0] backdrop-blur-md md:mb-6 md:px-4 md:py-1.5 md:text-[13px] md:-tracking-[0.1px] text-black/80">
               A canvas where every thought gets its own space to grow
             </p> */}
 
-            <h1 className="text-[23px]  font-medium -tracking-[4px] text-[#252724] md:text-3xl md:text-[54px] md:leading-14 ">
+            <h1 className="text-[23px]  font-medium -tracking-[3.5px] text-black md:text-3xl md:text-[54px] md:leading-14 ">
               Your thoughts Don&apos;t Flow in a Straight <br /> Line Your AI should not Either
             </h1>
 
@@ -101,7 +101,7 @@ export default function Hero() {
                 onClick={() =>
                   document.getElementById('demo-video')?.scrollIntoView({ behavior: 'smooth' })
                 }
-                className="mr-3 flex cursor-pointer items-center gap-1 bg-[#1d1d1c] text-white rounded-[6px] border border-black/10 px-3 py-1 text-[10px] font-medium   md:px-8 md:py-2 md:text-[14px] "
+                className="mr-3 flex cursor-pointer items-center gap-1 bg-[#000000] text-white rounded-[6px] px-3 py-1 text-[10px] font-medium   md:px-8 md:py-2 md:text-[14px] "
               >
                 See How it work
               </button>
