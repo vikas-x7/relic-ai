@@ -103,9 +103,9 @@ export default function FAQ() {
   };
 
   return (
-    <section className="relative overflow-hidden w-full  text-[#111] font-cabin ">
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 border-y border-dashed border-black/10 ">
-        <div className=" py-8 sm:py-12 border-b md:border-b-0 md:border-r border-dashed border-black/10 flex flex-col justify-between px-20">
+    <section className="relative overflow-hidden w-full text-[#111] font-cabin">
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 items-start border-y border-dashed border-black/10">
+        <div className="py-8 sm:py-12 border-b md:border-b-0 md:border-r border-dashed border-black/10 flex flex-col justify-between px-20 md:sticky md:top-24">
           <div>
             <span className="text-xs tracking-[0.2em] font-medium">FAQ</span>
             <h2 className="text-3xl sm:text-5xl lg:text-6xl leading-tight sm:leading-13 tracking-[-1.5px] sm:tracking-[-3px] mb-6 sm:mb-10 mt-3">
@@ -114,7 +114,7 @@ export default function FAQ() {
           </div>
 
           <div className="py-4 sm:py-6">
-            <p className="text-black/90  text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
+            <p className="text-black/90 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
               Everything you need to know about starting, branching, and managing your visual chats
               with Relic AI. Got any questions?
             </p>
@@ -130,14 +130,16 @@ export default function FAQ() {
         </div>
 
         {/* Right Side: Tabs and Accordion */}
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           {/* Tab Navigation */}
           <div className="grid grid-cols-2 sm:grid-cols-4 border-b border-dashed border-black/10 pr-20">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => handleTabChange(tab)}
-                className={`py-3 text-xs sm:text-base font-normal transition-colors  ${activeTab === tab ? 'bg-[#111] text-white' : 'hover:bg-black/5'}`}
+                className={`py-3 text-xs sm:text-base font-normal transition-colors ${
+                  activeTab === tab ? 'bg-[#111] text-white' : 'hover:bg-black/5'
+                }`}
               >
                 {tab}
               </button>
@@ -150,19 +152,25 @@ export default function FAQ() {
               <div
                 key={i}
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="flex items-center justify-between p-4 sm:p-6 lg:p-8 border-b border-dashed border-black/10 hover:bg-black/5 cursor-pointer transition-colors "
+                className="flex flex-col justify-center p-4 sm:p-6 lg:p-8 border-b border-dashed border-black/10 hover:bg-black/5 cursor-pointer transition-colors"
               >
-                <div className="flex items-center gap-4">
-                  <div>
-                    <h3 className="text-sm sm:text-base">{item.q}</h3>
-                    {openIndex === i && (
-                      <p className="text-xs sm:text-sm text-black/50 mt-2 ">{item.a}</p>
-                    )}
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-sm sm:text-base font-medium text-[#111]">{item.q}</h3>
+                  <span className="text-lg sm:text-xl font-light text-black/40 ml-2 select-none flex-shrink-0">
+                    {openIndex === i ? '−' : '+'}
+                  </span>
+                </div>
+                <div
+                  className={`grid transition-[grid-template-rows,opacity,margin] duration-300 ease-in-out ${
+                    openIndex === i
+                      ? 'grid-rows-[1fr] opacity-100 mt-2.5'
+                      : 'grid-rows-[0fr] opacity-0 mt-0'
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="text-xs sm:text-sm text-black/60 leading-relaxed">{item.a}</p>
                   </div>
                 </div>
-                <span className="text-lg sm:text-xl font-light text-black/40 ml-2">
-                  {openIndex === i ? '−' : '+'}
-                </span>
               </div>
             ))}
           </div>
