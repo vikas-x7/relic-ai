@@ -6,6 +6,7 @@
     "PORT",
     "SERVER_URL",
     "WEB_URL",
+    "COOKIE_DOMAIN",
     "JWT_SECRET",
     "JWT_EXPIRES_IN",
     "REFRESH_TOKEN_SECRET",

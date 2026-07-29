@@ -61,8 +61,17 @@ function setAuthCookies(
 }
 
 function clearAuthCookies(c: Context) {
-  deleteCookie(c, ACCESS_COOKIE_NAME, { path: '/' });
-  deleteCookie(c, REFRESH_COOKIE_NAME, { path: '/' });
+  const domain = env.cookieDomain || undefined;
+
+  deleteCookie(c, ACCESS_COOKIE_NAME, {
+    path: '/',
+    domain,
+  });
+
+  deleteCookie(c, REFRESH_COOKIE_NAME, {
+    path: '/',
+    domain,
+  });
 }
 
 export function getProviderAvailability(c: Context) {
@@ -104,7 +113,10 @@ export async function handleCallback(c: Context) {
 
   const stateParam = c.req.query('state') ?? '';
   const stateCookie = getCookie(c, OAUTH_STATE_COOKIE_NAME) ?? '';
-  deleteCookie(c, OAUTH_STATE_COOKIE_NAME, { path: '/' });
+  deleteCookie(c, OAUTH_STATE_COOKIE_NAME, {
+    path: '/',
+    domain: env.cookieDomain || undefined,
+  });
 
   if (!stateCookie || stateParam !== stateCookie) {
     return c.redirect(`${env.webUrl}/auth?auth=error&reason=invalid_state`, 302);

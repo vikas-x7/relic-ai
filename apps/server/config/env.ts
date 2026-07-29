@@ -36,7 +36,7 @@ export const env = {
     accessSecret: required('JWT_SECRET', process.env.JWT_SECRET),
     refreshSecret: required('REFRESH_TOKEN_SECRET', process.env.REFRESH_TOKEN_SECRET),
     accessExpiresIn: parseDuration(process.env.JWT_EXPIRES_IN, '15m'),
-    refreshExpiresIn: parseDuration(process.env.JWT_REFRESH_EXPIRES_IN, '7d'),
+    refreshExpiresIn: parseDuration(process.env.JWT_REFRESH_EXPIRES_IN, '15d'),
     stateExpiresIn: parseDuration(process.env.OAUTH_STATE_EXPIRES_IN, '10m'),
   },
   google: {
