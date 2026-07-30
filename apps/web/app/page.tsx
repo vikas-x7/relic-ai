@@ -1,10 +1,12 @@
 import Landing from '@/src/modules/landing/Landing';
-import Image from 'next/image';
+import PublicOnlyGuard from '@/src/modules/auth/guards/PublicOnlyGuard';
 
 export default function Home() {
   return (
     <div>
-      <Landing />
+      <PublicOnlyGuard>
+        <Landing />
+      </PublicOnlyGuard>
     </div>
   );
 }

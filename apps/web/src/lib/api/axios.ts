@@ -55,7 +55,9 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError);
-        if (!window.location.pathname.startsWith('/auth')) {
+        const pathname = window.location.pathname;
+        const onPublicPage = pathname === '/' || pathname.startsWith('/auth');
+        if (!onPublicPage) {
           window.location.href = '/auth';
         }
         return Promise.reject(refreshError);
