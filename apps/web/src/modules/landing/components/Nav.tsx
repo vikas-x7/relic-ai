@@ -61,9 +61,9 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-5 bg-[#F0F0F0] px-3 py-2 rounded-[3px] transition-colors duration-300">
             <Link href="/" className="flex items-center">
               <img
-                src="https://i.pinimg.com/736x/bd/26/66/bd2666c8166b5c90afd47b36f428cc25.jpg"
+                src="https://i.pinimg.com/736x/ae/ab/b5/aeabb51bc53443992e48787480e292e5.jpg"
                 alt="Relic AI"
-                className="w-6 mr-1 grayscale mix-blend-multiply"
+                className="w-5 mr-1 grayscale mix-blend-multiply"
               />
               <h1 className="text-[19px] font-semibold tracking-[-1px] mt-[0.5px]">Relic AI</h1>
             </Link>

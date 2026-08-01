@@ -12,7 +12,7 @@ const features = [
       'Zoom in to think deep, zoom out to see your full mind map',
       'Explore side thoughts without derailing your main work',
     ],
-    image: 'https://i.pinimg.com/736x/3a/c6/09/3ac6095b83854c091ddcdaa92f22a0a4.jpg',
+    image: 'https://i.pinimg.com/1200x/2e/c2/e7/2ec2e75d3c281bb4577a5006c4a13f11.jpg',
   },
   {
     number: '02',
@@ -25,7 +25,7 @@ const features = [
       'Full context and memory carried seamlessly to new branches',
       'Build a living web of connected thinking without disruption',
     ],
-    image: 'https://i.pinimg.com/736x/3a/c6/09/3ac6095b83854c091ddcdaa92f22a0a4.jpg',
+    image: 'https://i.pinimg.com/1200x/bc/e0/af/bce0afb2ef17f6fc0baae79d5db25697.jpg',
   },
   {
     number: '03',
@@ -38,24 +38,11 @@ const features = [
       'The AI remembers exactly what you were building',
       'A persistent map of your thinking that gets richer over time',
     ],
-    image: 'https://i.pinimg.com/736x/3a/c6/09/3ac6095b83854c091ddcdaa92f22a0a4.jpg',
-  },
-  {
-    number: '04',
-    label: 'NON-LINEAR THINKING',
-    title: 'Move in every direction, not just forward',
-    description:
-      'Every other AI gives you a thread; Relic gives you a canvas. Every other AI forgets; Relic remembers everything, always.',
-    points: [
-      'Multi-directional exploration shaped entirely by you',
-      'One AI with infinite, connected branches',
-      'A true thinking space powered by AI',
-    ],
-    image: 'https://i.pinimg.com/736x/3a/c6/09/3ac6095b83854c091ddcdaa92f22a0a4.jpg',
+    image: 'https://i.pinimg.com/1200x/f8/11/58/f81158f704053a31cc719a957bba19ce.jpg',
   },
 ];
 
-const BACKGROUND = 'https://i.pinimg.com/736x/31/3a/96/313a96507971b3aa64e0753f6e205520.jpg';
+const BACKGROUND = 'https://i.pinimg.com/1200x/fe/7c/26/fe7c26ef1f496ba92c0f5bb2567cf942.jpg';
 
 export default function WhyAgentsSection() {
   return (
@@ -73,10 +60,10 @@ export default function WhyAgentsSection() {
             {features.map((feature) => (
               <div
                 key={feature.number}
-                className="text-left px-4 py-3.5 flex items-center gap-4 text-[13px] tracking-wider border-l-2 border-blue-500 bg-white/5 text-black font-light"
+                className="text-left px-4 py-3.5 flex items-center gap-3 text-[13px] tracking-wider  bg-white/5 text-black font-light"
               >
-                <span className="text-black">{feature.number}</span>
-                <span className="font-medium tracking-[-0.01px]">{feature.label}</span>
+                <span className="text-black text-xl">{feature.number}</span>
+                <span className="font-medium tracking-[-0.01px] text-[13px]">{feature.label}</span>
               </div>
             ))}
           </div>
@@ -88,21 +75,21 @@ export default function WhyAgentsSection() {
                 className="sticky mb-12 sm:mb-20 overflow-hidden shadow-sm lg:shadow-none"
                 style={{ top: `calc(5rem + ${index * 1.25}rem)`, zIndex: index + 1 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-9 items-stretch min-h-[360px] sm:min-h-[420px] rounded-lg lg:rounded-none overflow-hidden border border-black/10">
+                <div className="grid grid-cols-1 lg:grid-cols-9 items-stretch min-h-[360px] sm:min-h-[420px] rounded-lg lg:rounded-none overflow-hidden ">
                   <div
-                    className="lg:col-span-5 relative w-full h-[220px] sm:h-[320px] lg:h-full min-h-[220px] sm:min-h-[300px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center"
+                    className="lg:col-span-5 relative w-full h-[220px] sm:h-[320px] lg:h-full min-h-[220px] sm:min-h-[300px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center p-10"
                     style={{ backgroundImage: `url(${BACKGROUND})` }}
                   >
                     <img
                       src={feature.image}
                       alt={`${feature.title} preview`}
-                      className="p-4 sm:p-8 lg:p-12 object-contain max-h-full"
+                      className="object-contain max-h-full rounded-xl border-[5px] border-white/30 shadow-lg"
                     />
                   </div>
 
-                  <div className="lg:col-span-4 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between bg-[#FCFCFB] border-t lg:border-t-0 lg:border-l border-black/10">
+                  <div className="lg:col-span-4 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between bg-white border-t lg:border-t-0 lg:border-l border-black/10">
                     <div className="space-y-4">
-                      <div className="text-sm text-black font-bricolage">{feature.number}</div>
+                      <div className="text-sm text-black">{feature.number}</div>
 
                       <div className="space-y-2.5">
                         <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-black leading-snug">

@@ -1,3 +1,5 @@
+import { MdArrowForwardIos } from 'react-icons/md';
+
 export default function Feature() {
   const stats = [
     {
@@ -34,16 +36,8 @@ export default function Feature() {
           </h2>
 
           <button className="flex items-stretch w-fit group hover:opacity-80 transition-opacity cursor-pointer">
-            <div className="bg-[#0a0a0a] p-1.5 sm:p-3 border border-black/80 flex items-center justify-center">
-              <svg
-                width="20"
-                height="10"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="text-white"
-              >
-                <path d="M6 14H10V18H6V14ZM10 10H14V14H10V10ZM14 6H18V10H14V6Z" />
-              </svg>
+            <div className="bg-[#0a0a0a] p-1.5 sm:px-3 sm:p-3 border border-black/80 flex items-center justify-center">
+              <MdArrowForwardIos className="text-white text-[10px]" />
             </div>
             <div className="bg-white text-black px-3 sm:px-8 py-1 font-medium  text-[10px] sm:text-sm flex items-center justify-center border border-black border-l-0">
               Try Canvas

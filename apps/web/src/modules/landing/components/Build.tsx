@@ -130,7 +130,7 @@ export default function Build() {
         <div className="flex flex-col justify-between">
           {/* Top Header */}
           <div className="mb-6 sm:mb-8">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black/90 tracking-[-1px] sm:tracking-[-2px] leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-black/90 tracking-[-1px] sm:tracking-[-3px] leading-tight">
               Built for the long term
             </h2>
             <p className="text-sm md:text-base text-black/90 mt-4 sm:mt-6 max-w-xl leading-relaxed font-light">
@@ -140,12 +140,12 @@ export default function Build() {
           </div>
 
           {/* Grid of features */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 mt-6 sm:mt-10 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 mt-6 sm:mt-4 gap-6 sm:gap-8">
             {features.map((feature, index) => {
               return (
                 <div key={index}>
                   <div className="mb-4 sm:mb-6 transform transition-transform text-black duration-300 group-hover:scale-105">
-                    <h1>1</h1>
+                    <h1 className="text-[30px]">{index + 1}</h1>
                   </div>
                   <h4 className="text-base sm:text-lg text-black/90 tracking-tight">
                     {feature.title}

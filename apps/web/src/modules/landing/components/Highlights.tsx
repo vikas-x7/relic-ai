@@ -17,6 +17,7 @@ export default function Highlights() {
           playsInline
         />
       </div>
+      {/* <img src="https://i.pinimg.com/1200x/fe/7c/26/fe7c26ef1f496ba92c0f5bb2567cf942.jpg" alt="" className="w-full rounded-2xl" /> */}
     </section>
   );
 }
