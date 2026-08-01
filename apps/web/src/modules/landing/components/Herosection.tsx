@@ -97,18 +97,12 @@ export default function Hero() {
             </p>
 
             <div className="mx-auto mt-4 flex w-full items-center justify-start md:mt-8 md:w-full">
-              <button
+              <Link
                 onClick={() =>
                   document.getElementById('demo-video')?.scrollIntoView({ behavior: 'smooth' })
                 }
                 className="mr-3 flex cursor-pointer items-center gap-1 bg-[#000000] text-white rounded-[6px] px-3 py-1 text-[10px] font-medium   md:px-8 md:py-2 md:text-[14px] "
-              >
-                See How it work
-              </button>
-
-              <Link
-                href="/chat"
-                className="flex items-center gap-1 px-2 py-1 text-[10px] font-medium  text-black md:px-7 md:py-1.5 md:text-[14px]"
+                href={'/chat'}
               >
                 Get start now <MdArrowForward />
               </Link>

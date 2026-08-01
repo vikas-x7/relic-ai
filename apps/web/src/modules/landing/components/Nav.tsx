@@ -82,53 +82,16 @@ const Navbar = () => {
           </div>
 
           <div className="relative">
-            <button
+            <Link
               className="text-sm flex items-center gap-2 tracking-[-0.5px] sm:tracking-[-0.2px] cursor-pointer bg-[#F0F0F0] px-3 py-1.5 rounded-[3px] backdrop-blur-md"
-              onClick={() => setIsOpen(!isOpen)}
+
               aria-label="Toggle Menu"
+              href={'/auth'}
             >
               <span>Login</span>
 
               <FiLogIn />
-              {/* {isOpen ? <HiOutlineX size={24} /> : <LiaGripLinesSolid size={24} />} */}
-            </button>
-
-            <div
-              className={`absolute right-0 top-12 mt-2 w-[calc(100vw-2.5rem)] sm:w-94 max-w-sm bg-[#1F1F1F] text-white p-6 shadow-2xl rounded-[4px] border border-black/5 transition-transform duration-500 ease-out z-50 ${
-                isOpen
-                  ? 'translate-x-0 pointer-events-auto'
-                  : 'translate-x-[200%] pointer-events-none'
-              }`}
-            >
-              <div className="flex flex-col gap-2 mb-6">
-                {NAV_LINKS.map((link) => (
-                  <button
-                    key={link.id}
-                    onClick={() => handleSmoothScroll(link.id)}
-                    className="text-[22px] sm:text-[25px] font-light tracking-[-1px] text-left text-white/80 hover:text-white transition-colors"
-                  >
-                    {link.name}
-                  </button>
-                ))}
-              </div>
-
-              <div className="border-t border-white/10 pt-4 flex flex-col sm:flex-row justify-between gap-4 text-[14px] sm:text-[15px] text-white">
-                <div className="flex gap-4 font-light text-white/80">
-                  <Link href="#" className="hover:text-white transition-colors">
-                    LinkedIn
-                  </Link>
-                  <Link href="#" className="hover:text-white transition-colors">
-                    Twitter
-                  </Link>
-                </div>
-                <Link
-                  href="#"
-                  className="hover:text-white transition-colors font-light text-white/80"
-                >
-                  Privacy policy
-                </Link>
-              </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
