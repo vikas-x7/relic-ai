@@ -52,7 +52,7 @@ export default function Feature() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-dashed border-black/20 w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-y border-dashed border-black/20 w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
         {stats.map((stat, index) => (
           <div
             key={index}

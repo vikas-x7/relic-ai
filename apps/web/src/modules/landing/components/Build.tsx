@@ -117,8 +117,8 @@ export default function Build() {
 
   return (
     <section className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 border-t border-dashed border-black/20 mt-16 sm:mt-24 md:mt-32 pt-12 sm:pt-16">
-        <div className="w-full h-[280px] sm:h-[400px] lg:h-[500px] overflow-hidden group">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12  mt-16 sm:mt-24 md:mt-32 pt-12 sm:pt-16">
+        <div className="w-full h-[280px] sm:h-[400px] lg:h-[570px] overflow-hidden group">
           <img
             src="https://i.pinimg.com/originals/9c/14/86/9c14863b9e64ffc65cdfda4cdc9a0b99.gif"
             alt="Built for the long term"
