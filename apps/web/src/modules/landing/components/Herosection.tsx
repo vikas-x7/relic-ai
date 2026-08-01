@@ -48,7 +48,7 @@ export default function Hero() {
   }, [charIndex, isDeleting, placeholderIndex]);
 
   return (
-    <section className="relative text-black font-cabin flex flex-col py-12 sm:py-16 md:py-20 mt-16 sm:mt-20 mb-6 sm:mb-10 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+    <section className="relative text-black font-cabin mt-30 flex flex-col py-12 sm:py-16 md:py-20 sm:mt-16 sm:mt-20 mb-6 sm:mb-10 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
       <div className="flex items-center justify-between w-full mb-8 sm:mb-12">
         <div className="flex items-center gap-3">
           <Image
@@ -83,7 +83,7 @@ export default function Hero() {
 
       <div className="w-full">
         <div className="w-full flex flex-col items-start justify-center">
-          <h1 className="text-[23px] tracking-[-1.5px] font-medium md:-tracking-[3.5px] text-black md:text-3xl md:text-[54px] md:leading-14">
+          <h1 className="text-[23px] tracking-[-1.5px] leading-7 font-medium md:-tracking-[3.5px] text-black md:text-3xl md:text-[54px] md:leading-14">
             Your thoughts Don&apos;t Flow in a Straight <br /> Line Your AI should not Either
           </h1>
 

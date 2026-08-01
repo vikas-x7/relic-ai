@@ -7,7 +7,7 @@ export default function Highlights() {
       id="demo-video"
       className="relative w-full my-6 sm:my-10 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20"
     >
-      <div className="relative w-full h-[40vh] sm:h-[60vh] lg:h-[100vh] max-h-[850px] overflow-hidden rounded-lg sm:rounded-xl shadow-2xl bg-black/5">
+      <div className="relative w-full   lg:h-[100vh] max-h-[850px] overflow-hidden rounded-[5px] sm:rounded-[10px] shadow-2xl bg-black/5">
         <video
           className="w-full h-full object-cover"
           src={DEMO_VIDEO}
