@@ -116,20 +116,20 @@ export default function Build() {
   ];
 
   return (
-    <section className="px-20">
-      <div className="grid grid-cols-1 lg:grid-cols-2 border-t border-dashed border-white/20 mt-40">
-        <div className="w-full h-[300px] sm:h-[450px] lg:h-auto lg:min-h-[50vh] overflow-hidden group  ">
+    <section className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 border-t border-dashed border-black/20 mt-16 sm:mt-24 md:mt-32 pt-12 sm:pt-16">
+        <div className="w-full h-[280px] sm:h-[400px] lg:h-[500px] overflow-hidden group">
           <img
             src="https://i.pinimg.com/originals/9c/14/86/9c14863b9e64ffc65cdfda4cdc9a0b99.gif"
             alt="Built for the long term"
-            className="w-full h-[80vh] object-cover rounded-[8px]"
+            className="w-full h-full object-cover rounded-[8px]"
           />
         </div>
 
         {/* Right Side: Text & Features */}
-        <div className=" ">
+        <div className="flex flex-col justify-between">
           {/* Top Header */}
-          <div className="mb-10 sm:mb-1 px-4 sm:px-8 lg:px-10">
+          <div className="mb-6 sm:mb-8">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black/90 tracking-[-1px] sm:tracking-[-2px] leading-tight">
               Built for the long term
             </h2>
@@ -140,25 +140,22 @@ export default function Build() {
           </div>
 
           {/* Grid of features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 mt-20 gap-16  px-4 sm:px-8 lg:px-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 mt-6 sm:mt-10 gap-6 sm:gap-8">
             {features.map((feature, index) => {
               return (
                 <div key={index}>
                   <div className="mb-4 sm:mb-6 transform transition-transform text-black duration-300 group-hover:scale-105">
                     <h1>1</h1>
                   </div>
-                  <h4 className=" text-base sm:text-lg  text-black/90  tracking-tight">
+                  <h4 className="text-base sm:text-lg text-black/90 tracking-tight">
                     {feature.title}
                   </h4>
-                  <p className="text-xs sm:text-sm text-black/70 mt-2 sm:mt-3 leading-relaxed ">
+                  <p className="text-xs sm:text-sm text-black/70 mt-2 sm:mt-3 leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
               );
             })}
-
-            {/* Empty block for grid symmetry on desktop */}
-            <div className="py-10 md:pl-10 pr-6 hidden md:block opacity-0 pointer-events-none" />
           </div>
         </div>
       </div>

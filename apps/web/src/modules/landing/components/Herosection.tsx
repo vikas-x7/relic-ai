@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 import { IoIosArrowDown, IoMdArrowUp, IoMdPlay } from 'react-icons/io';
-import { MdArrowForward, MdOutlineFullscreenExit } from 'react-icons/md';
+import { MdArrowForward, MdOutlineArrowOutward, MdOutlineFullscreenExit } from 'react-icons/md';
 import { CiMemoPad } from 'react-icons/ci';
 import { IoAddOutline, IoMicOutline } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
@@ -48,8 +48,8 @@ export default function Hero() {
   }, [charIndex, isDeleting, placeholderIndex]);
 
   return (
-    <section className="relative text-black font-cabin  flex flex-col py-20 mt-20 mb-10 px-20">
-      <div className="">
+    <section className="relative text-black font-cabin flex flex-col py-12 sm:py-16 md:py-20 mt-16 sm:mt-20 mb-6 sm:mb-10 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+      <div className="flex items-center justify-between w-full mb-8 sm:mb-12">
         <div className="flex items-center gap-3">
           <Image
             width={100}
@@ -57,19 +57,19 @@ export default function Hero() {
             priority
             src="/images/pinktree.jpg"
             alt="Based in India"
-            className="w-8 sm:w-10"
+            className="w-6 sm:w-10"
           />
-          <div className="text-[0.7rem] md:text-[0.85rem] text-black">
+          <div className="text-[0.5rem] md:text-[0.85rem] text-black">
             <p>Based In The Beautiful</p>
             <p>India & Online Worldwide</p>
           </div>
         </div>
 
-        <div className="hidden sm:flex flex-col items-end text-start gap-3  text-black font-medium">
-          <Link href="#" className="hover:text-black/50 transition-colors font-light ">
+        <div className="hidden sm:flex flex-col items-end text-start gap-3 text-black font-medium">
+          <Link href="#" className="hover:text-black/50 transition-colors font-light">
             Canvas
           </Link>
-          <Link href="#" className="hover:text-black/50 transition-colors font-light ">
+          <Link href="#" className="hover:text-black/50 transition-colors font-light">
             Nodes
           </Link>
           <Link href="#" className="hover:text-black/50 transition-colors font-light">
@@ -80,81 +80,29 @@ export default function Hero() {
           </Link>
         </div>
       </div>
-      <div className="mt-[-30px] ">
-        <div className="">
-          <div className="w-full flex-col items-center justify-center">
-            {/* <p className="mb-2 inline-block rounded-4xl border border-black/10 border-dashed px-4 py-1 text-[10px] tracking-[0] backdrop-blur-md md:mb-6 md:px-4 md:py-1.5 md:text-[13px] md:-tracking-[0.1px] text-black/80">
-              A canvas where every thought gets its own space to grow
-            </p> */}
 
-            <h1 className="text-[23px]  font-medium -tracking-[3.5px] text-black md:text-3xl md:text-[54px] md:leading-14 ">
-              Your thoughts Don&apos;t Flow in a Straight <br /> Line Your AI should not Either
-            </h1>
+      <div className="w-full">
+        <div className="w-full flex flex-col items-start justify-center">
+          <h1 className="text-[23px] tracking-[-1.5px] font-medium md:-tracking-[3.5px] text-black md:text-3xl md:text-[54px] md:leading-14">
+            Your thoughts Don&apos;t Flow in a Straight <br /> Line Your AI should not Either
+          </h1>
 
-            <p className="mt-3 text-[9px]  md:text-[1rem]  text-black/60  -tracking-[0.1px]">
-              Relic AI gives your ideas a canvas. Start a conversation, branch mid-thought, and
-              <br /> build a living map of your thinking without ever losing
-            </p>
+          <p className="mt-3 text-[9px] md:text-[1rem] text-black/90 -tracking-[0.1px]">
+            Relic AI gives your ideas a canvas. Start a conversation, branch mid-thought, and
+            <br /> build a living map of your thinking without ever losing
+          </p>
 
-            <div className="mx-auto mt-4 flex w-full items-center justify-start md:mt-8 md:w-full">
-              <Link
-                onClick={() =>
-                  document.getElementById('demo-video')?.scrollIntoView({ behavior: 'smooth' })
-                }
-                className="mr-3 flex cursor-pointer items-center gap-1 bg-[#000000] text-white rounded-[6px] px-3 py-1 text-[10px] font-medium   md:px-8 md:py-2 md:text-[14px] "
-                href={'/chat'}
-              >
-                Get start now <MdArrowForward />
-              </Link>
-            </div>
-
-            {/* <MovingHanding /> */}
-            {/* <div className="relative mx-auto mt-5 inline-block w-[330px] p-0.5 md:w-full md:max-w-2xl mt-20">
-              <span className="absolute top-0 left-0 h-2 w-2 border-t-2 border-l-2 border-black/70 md:h-4 md:w-4" />
-              <span className="absolute top-0 right-0 h-2 w-2 border-t-2 border-r-2 border-black/70 md:h-4 md:w-4" />
-              <span className="absolute bottom-0 left-0 h-2 w-2 border-b-2 border-l-2 border-black/70 md:h-4 md:w-4" />
-              <span className="absolute right-0 bottom-0 h-2 w-2 border-r-2 border-b-2 border-black/70 md:h-4 md:w-4" />
-
-              <div className="w-full backdrop-blur-md">
-                <div className="relative flex flex-col border border-black/10 shadow-xl">
-                  <textarea
-                    className="h-10 w-full resize-none bg-transparent px-3 pt-2 text-[8px] leading-relaxed  placeholder-black/80 outline-none md:h-20 md:px-4 md:pt-4 md:text-[14px]"
-                    rows={3}
-                    placeholder={currentPlaceholder + '|'}
-                  />
-
-                  <div className="flex flex-row items-center justify-between border-t border-black/20 px-3 py-1 sm:px-4 md:py-2">
-                    <div className="flex items-center">
-                      <button className="flex items-center gap-1 rounded-sm border border-[#191919] px-2 py-1 text-[8px] font-medium  transition-colors hover:bg-white/5 md:gap-2 md:text-[12px]">
-                        <FcGoogle className="text-[9px] md:text-[14px]" />
-                        <span>Gemma 2</span>
-                        <IoIosArrowDown className="opacity-70" />
-                      </button>
-                    </div>
-
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <div className="flex items-center gap-1 sm:gap-2">
-                        <button className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[#191919]  transition-colors hover:bg-white/5 sm:h-7 sm:w-7">
-                          <MdOutlineFullscreenExit className="text-[13px] md:text-[18px]" />
-                        </button>
-
-                        <button className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[#191919]  transition-colors hover:bg-white/5 sm:h-7 sm:w-7">
-                          <IoMicOutline className="text-[13px] md:text-[18px]" />
-                        </button>
-
-                        <button className="flex h-6 w-6 items-center justify-center rounded-[2px] border border-[#191919]  transition-colors hover:bg-white/5 sm:h-7 sm:w-7">
-                          <IoAddOutline className="text-[13px] md:text-[18px]" />
-                        </button>
-                      </div>
-
-                      <button className="flex h-5 w-5 items-center justify-center rounded-[2px] bg-white text-black transition-transform hover:scale-105 active:scale-95 sm:h-7 sm:w-7">
-                        <IoMdArrowUp className="text-[13px] md:text-[18px]" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
+          <div className="mx-auto mt-4 flex w-full items-center justify-start md:mt-8 md:w-full">
+            <Link
+              onClick={() =>
+                document.getElementById('demo-video')?.scrollIntoView({ behavior: 'smooth' })
+              }
+              className="mr-3 flex cursor-pointer items-center gap-1.5 bg-[#000000] text-white rounded-[3px] px-3 py-1 text-[10px] font-medium md:px-8 md:py-2 md:text-[14px]"
+              href={'/chat'}
+            >
+              Get start now
+              <MdOutlineArrowOutward size={20} />
+            </Link>
           </div>
         </div>
       </div>

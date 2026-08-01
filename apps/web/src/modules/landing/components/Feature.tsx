@@ -19,74 +19,63 @@ export default function Feature() {
   ];
 
   return (
-    <section>
-      <section className=" ">
-        <div className="mx-auto max-w-5xl sm:px-6 lg:ml-24 xl:ml-32 lg:max-w-3xl border-l border-dashed border-black/20 px-20 ">
-          <div className="py-12 sm:py-16 lg:py-25 px-4 sm:px-8">
-            <div className="relative z-10 flex items-start justify-between ">
-              <div className="flex items-center gap-3 text-black/70 py-4">
-                <span className="text-[14px] tracking-[-0.05px] uppercase text-black">
-                  Statistics
-                </span>
-              </div>
-            </div>
-
-            <div className="relative z-10 max-w-4xl flex-1 flex flex-col justify-center">
-              <h2 className="text-xl sm:text-2xl md:text-[32px] text-black/90 leading-relaxed md:leading-9 mb-8 sm:mb-10 font-cabin tracking-[-0.5px] sm:tracking-[-1.5px] font-medium">
-                Build a connected knowledge graph of conversations. track single thought on an
-                infinite canvas.
-              </h2>
-            </div>
-
-            {/* View Report Button */}
-            <button className="flex items-stretch w-fit group hover:opacity-80 transition-opacity cursor-pointer">
-              <div className="bg-[#0a0a0a] px-3 py-3 border border-black/80 flex items-center justify-center">
-                {/* Abstract dot icon inside the button */}
-                <svg
-                  width="14"
-                  height="10"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="text-white"
-                >
-                  <path d="M6 14H10V18H6V14ZM10 10H14V14H10V10ZM14 6H18V10H14V6Z" />
-                </svg>
-              </div>
-              <div className="bg-white text-black px-6 sm:px-8 py-1 font-medium text-sm flex items-center justify-center border border-black border-l-0">
-                Try Canvas
-              </div>
-            </button>
+    <section className="w-full text-black">
+      <div className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 sm:py-16 lg:py-20">
+        <div className="max-w-4xl border-l border-dashed border-black/20 pl-4 sm:pl-8 md:pl-12 py-4">
+          <div className="flex items-center gap-3 text-black/70 py-4">
+            <span className="text-[14px] tracking-[-0.05px] uppercase text-black">Statistics</span>
           </div>
-        </div>
 
-        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border  border-dashed border-black/20  w-full mt-auto px-20">
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="relative min-h-[180px] sm:min-h-[220px]  flex flex-col p-6 sm:p-8 md:p-12 border-b sm:border-b-0 border-x border-dashed border-black/20 "
-            >
-              {/* Top Right Bracket Icon ( ┐ ) */}
+          <h2 className="text-xl sm:text-2xl md:text-[32px] text-black/90 leading-relaxed md:leading-9 mb-8 sm:mb-10 font-cabin tracking-[-0.5px] sm:tracking-[-1.5px] font-medium">
+            Build a connected knowledge graph of conversations. track single thought on an infinite
+            canvas.
+          </h2>
+
+          <button className="flex items-stretch w-fit group hover:opacity-80 transition-opacity cursor-pointer">
+            <div className="bg-[#0a0a0a] px-3 py-3 border border-black/80 flex items-center justify-center">
               <svg
-                className="absolute top-6 right-6 sm:top-8 sm:right-8 w-4 h-4 text-black/40"
+                width="14"
+                height="10"
                 viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
+                fill="currentColor"
+                className="text-white"
               >
-                <path d="M4 4H20V20" strokeWidth="1" strokeLinecap="square" />
+                <path d="M6 14H10V18H6V14ZM10 10H14V14H10V10ZM14 6H18V10H14V6Z" />
               </svg>
-
-              <div className="mt-8 sm:mt-12">
-                <h3 className="text-4xl sm:text-5xl md:text-[70px] font-light tracking-[-3px] sm:tracking-[-5px] text-black mb-4 sm:mb-6 font-bricolage">
-                  {stat.value}
-                </h3>
-                <p className="text-black/80  text-xs sm:text-base tracking-[-0.5px]  leading-relaxed max-w-[220px]">
-                  {stat.description}
-                </p>
-              </div>
             </div>
-          ))}
+            <div className="bg-white text-black px-6 sm:px-8 py-1 font-medium text-sm flex items-center justify-center border border-black border-l-0">
+              Try Canvas
+            </div>
+          </button>
         </div>
-      </section>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-dashed border-black/20 w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+        {stats.map((stat, index) => (
+          <div
+            key={index}
+            className="relative min-h-[180px] sm:min-h-[220px] flex flex-col p-6 sm:p-8 md:p-12 border-b sm:border-b-0 border-r border-dashed border-black/20 last:border-r-0"
+          >
+            <svg
+              className="absolute top-6 right-6 sm:top-8 sm:right-8 w-4 h-4 text-black/40"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <path d="M4 4H20V20" strokeWidth="1" strokeLinecap="square" />
+            </svg>
+
+            <div className="mt-8 sm:mt-12">
+              <h3 className="text-4xl sm:text-5xl md:text-[70px] font-light tracking-[-3px] sm:tracking-[-5px] text-black mb-4 sm:mb-6 font-bricolage">
+                {stat.value}
+              </h3>
+              <p className="text-black/80 text-xs sm:text-base tracking-[-0.5px] leading-relaxed max-w-[220px]">
+                {stat.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

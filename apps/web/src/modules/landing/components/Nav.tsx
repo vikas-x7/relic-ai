@@ -11,8 +11,8 @@ import { FiLogIn } from 'react-icons/fi';
 const NAV_LINKS = [
   { name: 'Works', id: 'works' },
   { name: 'About', id: 'about' },
-  { name: 'Labs', id: 'labs' },
-  { name: 'Contact', id: 'contact' },
+  { name: 'FAQ', id: 'labs' },
+  { name: 'Pricing', id: 'contact' },
 ];
 
 const Navbar = () => {
@@ -46,54 +46,88 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="font-cabin fixed top-0 left-0 right-0 z-50 px-2 sm:px-20 ">
-      <div className="bg-[#F0F0F0] rounded-[2px] text-black w-full h-8 text-center flex items-center justify-center overflow-hidden px-4 mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-        <p className="flex items-center gap-2  text-xs sm:text-sm whitespace-nowrap">
-          Relic ai the beta version is here <MdArrowForward />
-        </p>
-      </div>
+    <nav className="font-cabin fixed top-0 left-0 right-0 z-50">
+      <div className="max-w-[1640px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 ">
+        {/* Banner */}
+        <div className="bg-[#F0F0F0] rounded-[2px] text-black w-full h-8 text-center flex items-center justify-center overflow-hidden px-4 mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+          <p className="flex items-center gap-2 text-xs sm:text-sm whitespace-nowrap">
+            Relic ai the beta version is here <MdArrowForward />
+          </p>
+        </div>
 
-      <div className="container mx-auto">
-        <div className="flex h-12  items-center justify-between">
-          <div className="hidden lg:flex items-center gap-5 bg-[#F0F0F0]  px-3 py-2 rounded-[3px] transition-colors duration-300 ">
+        {/* Main Navbar */}
+        <div className="flex h-12 items-center justify-between mt-1">
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-5 bg-[#F0F0F0] px-3 py-2 rounded-[3px] transition-colors duration-300">
             <Link href="/" className="flex items-center">
-              {/* <BiSolidSquare size={23} className="text-[#171717]" /> */}
               <img
                 src="https://i.pinimg.com/736x/bd/26/66/bd2666c8166b5c90afd47b36f428cc25.jpg"
-                alt=""
+                alt="Relic AI"
                 className="w-6 mr-1 grayscale mix-blend-multiply"
               />
-              <h1 className="text-[19px] font-semibold tracking-[-0.5px] mt-[0.5px]">Relic AI </h1>
+              <h1 className="text-[19px] font-semibold tracking-[-1px] mt-[0.5px]">Relic AI</h1>
             </Link>
             {NAV_LINKS.map((link) => (
               <NavItem
                 key={link.id}
                 {...link}
-                className="text-[14px] hover:opacity-70  mt-1 transition-opacity tracking-[-0.2px]"
+                className="text-[14px] hover:opacity-70 mt-1 transition-opacity tracking-[-0.2px] cursor-pointer"
               />
             ))}
           </div>
 
-          <div className="flex lg:hidden items-center gap-2 bg-black/5 px-3 py-1.5 rounded-[3px] backdrop-blur-md">
+          {/* Mobile Brand */}
+          <div className="flex lg:hidden items-center gap-2 bg-[#F0F0F0] px-3 py-1.5 rounded-[3px] backdrop-blur-md">
             <Link href="/" className="flex items-center gap-2">
-              <BiSolidSquare size={20} className="text-[#000000]" />
-              <h1 className="text-[16px] font-bold tracking-[-1px]">Relic ai </h1>
+              <img
+                src="https://i.pinimg.com/736x/bd/26/66/bd2666c8166b5c90afd47b36f428cc25.jpg"
+                alt="Relic AI"
+                className="w-5 mr-1 grayscale mix-blend-multiply"
+              />
+              <h1 className="text-[16px] font-bold tracking-[-1px]">Relic AI</h1>
             </Link>
           </div>
 
-          <div className="relative">
+          {/* Right Action & Mobile Menu Toggle */}
+          <div className="flex items-center gap-2">
             <Link
-              className="text-sm flex items-center gap-2 tracking-[-0.5px] sm:tracking-[-0.2px] cursor-pointer bg-[#F0F0F0] px-3 py-1.5 rounded-[3px] backdrop-blur-md"
-
-              aria-label="Toggle Menu"
+              className="hidden lg:flex text-sm items-center gap-2 tracking-[-0.5px] sm:tracking-[-0.2px] cursor-pointer bg-[#F0F0F0] px-3 py-1.5 rounded-[3px] backdrop-blur-md text-black hover:opacity-80 transition-opacity"
               href={'/auth'}
             >
               <span>Login</span>
+              <FiLogIn />
+            </Link>
 
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden flex items-center justify-center p-2 bg-[#F0F0F0] rounded-[3px] text-black hover:bg-black/10 transition-colors"
+              aria-label="Toggle navigation menu"
+            >
+              {isOpen ? <HiOutlineX size={20} /> : <LiaGripLinesSolid size={20} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Dropdown Menu */}
+        {isOpen && (
+          <div className="lg:hidden mt-2 bg-[#F0F0F0] p-4 rounded-[4px] shadow-lg flex flex-col gap-3 border border-black/10 animate-backdrop-in">
+            {NAV_LINKS.map((link) => (
+              <NavItem
+                key={link.id}
+                {...link}
+                className="text-left text-sm font-medium text-black/80 hover:text-black py-1 transition-colors border-b border-black/5"
+              />
+            ))}
+            <Link
+              href={'/auth'}
+              onClick={() => setIsOpen(false)}
+              className="text-left text-sm font-semibold text-black hover:opacity-80 py-1.5 transition-colors flex items-center justify-between"
+            >
+              <span>Login</span>
               <FiLogIn />
             </Link>
           </div>
-        </div>
+        )}
       </div>
     </nav>
   );

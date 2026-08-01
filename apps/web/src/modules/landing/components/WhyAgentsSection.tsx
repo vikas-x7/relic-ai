@@ -59,7 +59,7 @@ const BACKGROUND = 'https://i.pinimg.com/736x/31/3a/96/313a96507971b3aa64e0753f6
 
 export default function WhyAgentsSection() {
   return (
-    <section className="w-full text-black py-12 sm:py-16  sm:px-6 lg:px-20 mt-12 sm:mt-20 ">
+    <section className="w-full text-black py-12 sm:py-16 md:py-20 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-12 sm:mt-20">
       <div className="mx-auto space-y-8 sm:space-y-12">
         <div className="space-y-4">
           <h2 className="text-2xl sm:text-4xl lg:text-[36px] font-medium tracking-[-1.5px] sm:tracking-[-1.5px] max-w-3xl">
@@ -85,24 +85,24 @@ export default function WhyAgentsSection() {
             {features.map((feature, index) => (
               <div
                 key={feature.number}
-                className="sticky  mb-12 sm:mb-20 overflow-hidden "
-                style={{ top: `calc(7rem + ${index * 1.5}rem)`, zIndex: index + 1 }}
+                className="sticky mb-12 sm:mb-20 overflow-hidden shadow-sm lg:shadow-none"
+                style={{ top: `calc(5rem + ${index * 1.25}rem)`, zIndex: index + 1 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-9 items-stretch min-h-[420px]">
+                <div className="grid grid-cols-1 lg:grid-cols-9 items-stretch min-h-[360px] sm:min-h-[420px] rounded-lg lg:rounded-none overflow-hidden border border-black/10">
                   <div
-                    className="lg:col-span-5 relative w-full h-[260px] sm:h-[360px] lg:h-full min-h-[300px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center "
+                    className="lg:col-span-5 relative w-full h-[220px] sm:h-[320px] lg:h-full min-h-[220px] sm:min-h-[300px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center"
                     style={{ backgroundImage: `url(${BACKGROUND})` }}
                   >
                     <img
                       src={feature.image}
                       alt={`${feature.title} preview`}
-                      className="p-4 sm:p-8 lg:p-12 object-contain  "
+                      className="p-4 sm:p-8 lg:p-12 object-contain max-h-full"
                     />
                   </div>
 
                   <div className="lg:col-span-4 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between bg-[#FCFCFB] border-t lg:border-t-0 lg:border-l border-black/10">
                     <div className="space-y-4">
-                      <div className="text-sm  text-black font-bricolage">{feature.number}</div>
+                      <div className="text-sm text-black font-bricolage">{feature.number}</div>
 
                       <div className="space-y-2.5">
                         <h3 className="text-xl sm:text-2xl lg:text-3xl font-semibold tracking-tight text-black leading-snug">
@@ -114,7 +114,7 @@ export default function WhyAgentsSection() {
                       </div>
                     </div>
 
-                    <div className="space-y-2.5 pt-6 border-t border-black/10">
+                    <div className="space-y-2.5 pt-4 sm:pt-6 border-t border-black/10">
                       {feature.points.map((point) => (
                         <div
                           key={point}

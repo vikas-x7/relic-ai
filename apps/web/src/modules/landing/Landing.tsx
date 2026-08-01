@@ -15,13 +15,13 @@ import Faq from './components/Faq';
 
 function Landing() {
   return (
-    <>
-      <div className="">
+    <div className="w-full bg-white text-black min-h-screen relative overflow-x-clip">
+      <div className="max-w-[1640px] mx-auto w-full relative">
         <Nav />
 
         <Herosection />
         <Highlights />
-        <div className=" relative font-cabin">
+        <div className="relative font-cabin">
           <WhyAgentsSection />
           <MovingHanding />
           <Feature />
@@ -31,7 +31,7 @@ function Landing() {
         <Getstart />
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
 

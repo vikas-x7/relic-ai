@@ -8,18 +8,18 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="font-cabin text-black w-full min-h-screen pt-16 sm:pt-24 pb-0 flex flex-col justify-between bg-white border-t border-black/5"
+      className="font-cabin text-black w-full pt-12 sm:pt-16 md:pt-24 pb-0 flex flex-col justify-between bg-white border-t border-black/5"
     >
-      <div className=" mx-auto w-full flex-1 flex flex-col justify-between pb-0">
+      <div className="w-full flex-1 flex flex-col justify-between pb-0">
         {/* Upper Footer Links & Brand */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12 pt-4 pb-12 sm:pb-16 px-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pt-4 pb-12 sm:pb-16 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
           {/* Brand & Socials Section */}
-          <div className="space-y-4 md:col-span-2">
+          <div className="space-y-4 sm:col-span-2 md:col-span-2">
             <div className="flex items-center gap-1 select-none">
               <img
                 src="https://i.pinimg.com/736x/bd/26/66/bd2666c8166b5c90afd47b36f428cc25.jpg"
                 alt="Relic AI Logo"
-                className="w-8 h-8 md:w-8 md:h- object-contain"
+                className="w-8 h-8 md:w-8 md:h-8 object-contain"
               />
               <h1 className="text-2xl md:text-3xl font-bold tracking-[-2px]">Relic AI</h1>
             </div>
@@ -62,28 +62,7 @@ const Footer = () => {
 
           {/* Company Section */}
           <div className="space-y-4">
-            <h3 className="text-sm  text-black">Company</h3>
-            <ul className="flex flex-col gap-2.5 text-sm">
-              <li>
-                <Link href="#" className="text-black/60 transition-colors hover:text-black">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-black/60 transition-colors hover:text-black">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-black/60 transition-colors hover:text-black">
-                  Terms of Service
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="text-sm  text-black">Company</h3>
+            <h3 className="text-sm text-black">Company</h3>
             <ul className="flex flex-col gap-2.5 text-sm">
               <li>
                 <Link href="#" className="text-black/60 transition-colors hover:text-black">
@@ -105,7 +84,7 @@ const Footer = () => {
 
           {/* Features Section */}
           <div className="space-y-4">
-            <h3 className="text-sm text-black ">Features</h3>
+            <h3 className="text-sm text-black">Features</h3>
             <ul className="flex flex-col gap-2.5 text-sm">
               <li>
                 <Link href="#" className="text-black/60 transition-colors hover:text-black">

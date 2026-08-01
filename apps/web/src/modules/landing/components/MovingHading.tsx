@@ -32,17 +32,17 @@ export default function MovingHanding() {
         }
       `}</style>
 
-      <section className="w-full overflow-hidden border-y border-dashed border-black/20 py-8 px-20  mt-30">
-        <div className="relative  overflow-hidden ">
+      <section className="w-full overflow-hidden border-y border-dashed border-black/20 py-6 sm:py-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-16 sm:mt-24 md:mt-30">
+        <div className="relative overflow-hidden">
           <div className="animate-marquee-loop">
             {[0, 1].map((group) => (
               <div
                 key={group}
-                className="flex shrink-0 items-center gap-8 sm:gap-12 lg:gap-16 pr-8 sm:pr-12 lg:pr-16"
+                className="flex shrink-0 items-center gap-6 sm:gap-10 lg:gap-16 pr-6 sm:pr-10 lg:pr-16"
                 aria-hidden={group === 1}
               >
                 {marqueeItemsData.map((item, i) => (
-                  <div key={`${group}-${i}`} className="flex shrink-0 items-center justify-center ">
+                  <div key={`${group}-${i}`} className="flex shrink-0 items-center justify-center">
                     <img
                       src={item.src}
                       alt={group === 0 ? `${item.name}-logo` : ''}
