@@ -1,11 +1,11 @@
 export default function Getstart() {
   return (
-    <div className="relative py-16 sm:py-24 md:py-32 overflow-hidden bg-white text-black font-cabin">
-      <div className="flex flex-col items-center justify-center px-4 sm:px-8 text-center max-w-4xl mx-auto">
+    <div className="my-20 sm:my-20 relative py-16 sm:py-24 md:py-32 overflow-hidden bg-white text-black font-cabin">
+      <div className="flex flex-col items-center justify-center px-4 sm:px-8 text-center max-w-6xl mx-auto">
         <p className="text-base text-black mb-2 tracking-[-0.5px] leading-none">
           We believe at Relic AI
         </p>
-        <h2 className="text-[1rem] md:text-xl md:text-2xl mb-8 sm:mb-10 tracking-[-0.5px] sm:tracking-[-0.5px]">
+        <h2 className="text-[12px] md:text-xl md:text-2xl mb-4 sm:mb-10  sm:tracking-[-0.5px]">
           A canvas where your thinking has no edges no dead ends and no direction it cannot explore
         </h2>
 
