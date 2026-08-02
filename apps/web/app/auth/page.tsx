@@ -3,17 +3,12 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Auth from '@/src/modules/auth/Auth';
-import PublicOnlyGuard from '@/src/modules/auth/guards/PublicOnlyGuard';
 
 function AuthContent() {
   const searchParams = useSearchParams();
   const error = searchParams.get('reason') ?? undefined;
 
-  return (
-    <PublicOnlyGuard>
-      <Auth error={error} />
-    </PublicOnlyGuard>
-  );
+  return <Auth error={error} />;
 }
 
 export default function AuthPage() {

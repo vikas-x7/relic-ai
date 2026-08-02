@@ -57,8 +57,9 @@ export default function Hero() {
             priority
             src="/images/pinktree.jpg"
             alt="Based in India"
-            className="w-6 sm:w-10"
+            className="w-6 sm:w-10 "
           />
+
           <div className="text-[0.5rem] md:text-[0.85rem] text-black">
             <p>Based In The Beautiful</p>
             <p>India & Online Worldwide</p>
@@ -83,7 +84,7 @@ export default function Hero() {
 
       <div className="w-full">
         <div className="w-full flex flex-col items-start justify-center">
-          <h1 className="text-[23px] tracking-[-1.5px] leading-7 font-medium md:-tracking-[3.5px] text-black md:text-3xl md:text-[54px] md:leading-14">
+          <h1 className="text-[23px] tracking-[-1.5px] leading-7 font-semibold md:-tracking-[3.5px] text-black md:text-3xl md:text-[54px] md:leading-14">
             Your thoughts Don&apos;t Flow in a Straight <br /> Line Your AI should not Either
           </h1>
 
