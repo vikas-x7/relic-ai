@@ -25,7 +25,7 @@ export function useLogout() {
     mutationFn: logout,
     onSuccess: () => {
       queryClient.clear();
-      window.location.href = '/auth';
+      window.location.href = '/';
     },
   });
 }

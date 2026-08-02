@@ -28,6 +28,9 @@ function Landing() {
           <Build />
         </div>
 
+        <Pricing />
+        <Faq />
+
         <Getstart />
         <Footer />
       </div>

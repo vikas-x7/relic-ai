@@ -77,7 +77,7 @@ export default function WhyAgentsSection() {
               >
                 <div className="grid grid-cols-1 lg:grid-cols-9 items-stretch min-h-[360px] sm:min-h-[420px] rounded-lg lg:rounded-none overflow-hidden ">
                   <div
-                    className="lg:col-span-5 relative w-full h-[220px] sm:h-[320px] lg:h-full min-h-[220px] sm:min-h-[300px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center p-10"
+                    className="lg:col-span-5 relative w-full h-[220px] sm:h-[320px] lg:h-full min-h-[220px] sm:min-h-[300px] bg-cover bg-center bg-no-repeat overflow-hidden flex items-center justify-center p-10 rounded-xl"
                     style={{ backgroundImage: `url(${BACKGROUND})` }}
                   >
                     <img
@@ -87,7 +87,7 @@ export default function WhyAgentsSection() {
                     />
                   </div>
 
-                  <div className="lg:col-span-4 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between bg-white border-t lg:border-t-0 lg:border-l border-black/10">
+                  <div className="lg:col-span-4 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between bg-white border-t lg:border-t-0  border-black/10">
                     <div className="space-y-4">
                       <div className="text-sm text-black">{feature.number}</div>
 

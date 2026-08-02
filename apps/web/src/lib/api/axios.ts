@@ -9,6 +9,12 @@ const api = axios.create({
 });
 
 let isRefreshing = false;
+let suppressAuthRedirect = false;
+
+export function setAuthRedirectSuppressed(value: boolean) {
+  suppressAuthRedirect = value;
+}
+
 let failedQueue: Array<{
   resolve: (value: unknown) => void;
   reject: (reason?: unknown) => void;
@@ -57,7 +63,7 @@ api.interceptors.response.use(
         processQueue(refreshError);
         const pathname = window.location.pathname;
         const onPublicPage = pathname === '/' || pathname.startsWith('/auth');
-        if (!onPublicPage) {
+        if (!suppressAuthRedirect && !onPublicPage) {
           window.location.href = '/auth';
         }
         return Promise.reject(refreshError);

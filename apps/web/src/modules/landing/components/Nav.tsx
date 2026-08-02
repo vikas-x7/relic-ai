@@ -11,8 +11,8 @@ import { FiLogIn } from 'react-icons/fi';
 const NAV_LINKS = [
   { name: 'Works', id: 'works' },
   { name: 'About', id: 'about' },
-  { name: 'FAQ', id: 'labs' },
-  { name: 'Pricing', id: 'contact' },
+  { name: 'FAQ', id: 'faq' },
+  { name: 'Pricing', id: 'pricing' },
 ];
 
 const Navbar = () => {
@@ -36,7 +36,11 @@ const Navbar = () => {
 
   const handleSmoothScroll = (id: string) => {
     setIsOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(id);
+    if (!el) return;
+    const navOffset = 96;
+    const top = el.getBoundingClientRect().top + window.scrollY - navOffset;
+    window.scrollTo({ top, behavior: 'smooth' });
   };
 
   const NavItem = ({ name, id, className }: { name: string; id: string; className?: string }) => (
@@ -59,7 +63,7 @@ const Navbar = () => {
         <div className="flex h-12 items-center justify-between mt-1">
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-5 bg-[#F0F0F0] px-3 py-2 rounded-[3px] transition-colors duration-300">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center ">
               <img
                 src="https://i.pinimg.com/736x/ae/ab/b5/aeabb51bc53443992e48787480e292e5.jpg"
                 alt="Relic AI"
@@ -115,7 +119,7 @@ const Navbar = () => {
               <NavItem
                 key={link.id}
                 {...link}
-                className="text-left text-sm font-medium text-black/80 hover:text-black py-1 transition-colors border-b border-black/5"
+                className="text-left text-sm font-medium text-black/80 hover:text-black py-1 transition-colors border-b border-black/5 cursor-pointer"
               />
             ))}
             <Link
