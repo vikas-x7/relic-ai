@@ -2,9 +2,6 @@
 import { useState } from 'react';
 
 const FAQ_ITEMS: { q: string; a: string }[] = [
-  // Overview
-
-  // Features
   {
     q: 'Can I branch my conversation?',
     a: 'Yes, you can create a new branch from any single message.',
@@ -25,7 +22,7 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
     q: 'Can I share my canvas workspace?',
     a: 'Yes, you can easily share your canvas with friends and colleagues.',
   },
-  // Workflow
+
   {
     q: 'Does the new branch inherit parent context?',
     a: 'The new branch inherits all context from the parent message automatically.',
@@ -46,7 +43,6 @@ const FAQ_ITEMS: { q: string; a: string }[] = [
     q: 'Can I rename conversation node titles?',
     a: 'Yes, you can double-click any node header to rename it.',
   },
-  // Billing
 ];
 
 function AccordionItem({
@@ -87,14 +83,14 @@ export default function FAQ() {
   const rightItems = FAQ_ITEMS.slice(half);
 
   return (
-    <section id="faq" className="w-full text-[#111] font-cabin  scroll-mt-[10rem]">
+    <section id="faq" className="w-full text-[#111] font-cabin   scroll-mt-[40rem] mt-30">
       <div className="flex justify-between items-start px-4 sm:px-24 py-20">
         <div>
           <h2 className="text-3xl sm:text-5xl leading-tight tracking-[-1.5px] sm:tracking-[-3px] font-medium mb-2">
             Frequently Asked Questions
           </h2>
           <p className="text-black/90 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto">
-            branching, and managing your visual chats with Relic AI. Got any questions?
+            Branching, and managing your visual chats with Relic AI. Got any questions?
           </p>
           <button className="flex items-stretch group hover:opacity-80 transition-opacity">
             <div className="bg-transparent px-3 py-2 border border-black flex items-center justify-center">
@@ -108,7 +104,6 @@ export default function FAQ() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-14 px-4 sm:px-19  ">
-        {/* Left column */}
         <div className="">
           {leftItems.map((item, i) => (
             <AccordionItem
@@ -120,7 +115,6 @@ export default function FAQ() {
           ))}
         </div>
 
-        {/* Right column */}
         <div className=" ">
           {rightItems.map((item, idx) => {
             const globalIndex = half + idx;
