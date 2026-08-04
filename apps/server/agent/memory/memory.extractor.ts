@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { getChatModel } from '../models/model.provider';
+import { logger, redactError } from '../../lib/logger';
 import { MEMORY_EXTRACTION_PROMPT } from '../prompts/memory-extraction.prompt';
 import type { MemoryExtractionResult } from './memory.types';
 
@@ -52,7 +53,7 @@ export async function extractMemoriesFromExchange(
       memories: parsed.data.memories,
     };
   } catch (error) {
-    console.error('[memory] extraction failed:', error);
+    logger.error({ err: redactError(error) }, 'Memory extraction failed');
     return nothingToRemember;
   }
 }

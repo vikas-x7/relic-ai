@@ -1,5 +1,6 @@
 import type { Context } from 'hono';
 import type { AppVariables } from '../../auth/types/auth.types';
+import { logger, redactError } from '../../../lib/logger';
 import {
   createConversationSchema,
   renameConversationSchema,
@@ -39,7 +40,10 @@ function handleServiceError(c: ChatContext, err: unknown) {
   if (err instanceof ConversationAccessDeniedError) {
     return c.json({ error: err.message }, 403);
   }
-  console.error('[chat] unexpected error:', err);
+  logger.error(
+    { requestId: c.get('requestId') ?? undefined, err: redactError(err) },
+    'Unexpected error in chat route',
+  );
   return c.json({ error: 'Internal server error' }, 500);
 }
 

@@ -2,6 +2,7 @@ import { HTTPException } from 'hono/http-exception';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import type { Context } from 'hono';
 import { AppError } from './AppError';
+import { logger, redactError } from '../lib/logger';
 
 const INTERNAL_SERVER_ERROR_CODE = 'INTERNAL_SERVER_ERROR';
 const INTERNAL_SERVER_ERROR_MESSAGE = 'Something went wrong';
@@ -78,12 +79,18 @@ export function createErrorHandler() {
     const path = c.req.path;
     const requestIdValue = c.get('requestId') ?? crypto.randomUUID();
 
-    console.error(
-      `[error] ${requestIdValue} ${method} ${path} failed with ${statusCode} ${errorCode}`,
+    logger.error(
+      {
+        requestId: requestIdValue,
+        method,
+        path,
+        statusCode,
+        errorCode,
+        clientMessage: message,
+        err: redactError(err),
+      },
+      'Request failed',
     );
-    console.error(`[error] ${requestIdValue} internal message:`, err?.message ?? 'no message');
-    console.error(`[error] ${requestIdValue} client message:`, message);
-    console.error(`[error] ${requestIdValue} stack:`, err?.stack ?? 'no stack');
 
     const errorPayload: Record<string, unknown> = {
       code: errorCode,

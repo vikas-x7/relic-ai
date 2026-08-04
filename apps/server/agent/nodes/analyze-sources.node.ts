@@ -1,5 +1,6 @@
 import { HumanMessage } from '@langchain/core/messages';
 import { getChatModel } from '../models/model.provider';
+import { logger, redactError } from '../../lib/logger';
 import { ANALYZE_SOURCES_PROMPT } from '../prompts/analyze-sources.prompt';
 import type { SourceEvidence } from '../search/search.types';
 import type { ChatState } from '../state/chat.state';
@@ -37,7 +38,7 @@ export async function analyzeSourcesNode(state: ChatState): Promise<Partial<Chat
       results = indexes.map((i) => results[i - 1]);
     }
   } catch (err) {
-    console.error('[ai-engine] analyze-sources failed, keeping all results:', err);
+    logger.error({ err: redactError(err) }, 'Analyze-sources failed, keeping all results');
   }
 
   const sources: SourceEvidence[] = results.slice(0, MAX_SOURCES);

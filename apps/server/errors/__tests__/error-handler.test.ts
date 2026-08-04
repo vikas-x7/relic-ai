@@ -3,6 +3,7 @@ import { Hono } from 'hono';
 import { HTTPException } from 'hono/http-exception';
 import { requestId } from 'hono/request-id';
 import { createApp } from '@/app';
+import { logger } from '@/lib/logger';
 import {
   ConversationAccessDeniedError,
   ConversationNotFoundError,
@@ -136,13 +137,19 @@ describe('global error handler - unknown errors', () => {
   });
 
   it('logs the internal error details including stack, method and path', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const spy = jest.spyOn(logger, 'error').mockImplementation(() => undefined);
 
     try {
       const res = await app.request('/api/throw/unknown');
       expect(res.status).toBe(500);
 
-      const logOutput = spy.mock.calls.map((call) => call.map((arg) => String(arg)).join(' '));
+      const logOutput = spy.mock.calls.map((call) =>
+        call
+          .map((arg) =>
+            typeof arg === 'object' && arg !== null ? JSON.stringify(arg) : String(arg),
+          )
+          .join(' '),
+      );
       const combined = logOutput.join('\n');
 
       expect(combined).toContain('GET');

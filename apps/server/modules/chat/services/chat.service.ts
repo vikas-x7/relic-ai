@@ -1,5 +1,6 @@
 import { getPrisma } from 'db';
 import { AppError } from '../../../errors/AppError';
+import { logger, redactError } from '../../../lib/logger';
 import type { AnswerCitation } from '../../../agent/citations/citation.types';
 import { saveMessageCitations } from '../../../agent/citations/citation.service';
 import { extractMemoriesFromExchange } from '../../../agent/memory/memory.extractor';
@@ -159,7 +160,7 @@ export async function createUserMessageWithReply(
       await persistExtractedMemories(userId, extraction.memories);
     }
   } catch (error) {
-    console.error('[memory] pipeline failed:', error);
+    logger.error({ err: redactError(error) }, 'Memory pipeline failed');
   }
 
   return { userMessage, assistantMessage, citations: savedCitations };

@@ -1,6 +1,7 @@
 import type { Context } from 'hono';
 import { deleteCookie, getCookie, setCookie } from 'hono/cookie';
 import { env } from '../../../config/env';
+import { logger, redactError } from '../../../lib/logger';
 import type { AppVariables } from '../types/auth.types';
 import {
   ACCESS_COOKIE_NAME,
@@ -159,7 +160,10 @@ export async function handleCallback(c: Context) {
     setAuthCookies(c, access, refresh, refreshTokenMaxAge());
     return c.redirect(`${env.webUrl}/chat`, 302);
   } catch (err) {
-    console.error('[oauth] callback failed:', err);
+    logger.error(
+      { requestId: c.get('requestId') ?? undefined, provider, err: redactError(err) },
+      '[oauth] callback failed',
+    );
     return c.redirect(`${env.webUrl}/auth?auth=error&reason=exchange_failed`, 302);
   }
 }
