@@ -118,19 +118,13 @@ export default function Sidebar({
       >
         <div className="flex h-full w-[270px] flex-col">
           <div className="flex items-center justify-between  ">
-            <div className="flex items-center text-white">
-              <div className="relative h-11 w-11 shrink-0">
-                <Image
-                  src="/images/logo.png"
-                  alt=""
-                  fill
-                  sizes="44px"
-                  priority
-                  className="object-contain"
-                />
+            <div className="flex items-center text-white p-2 px-3.5 gap-1">
+              <div className="  shrink-0 ">
+                <img src="/images/logo.png" alt="" className="w-5" />
               </div>
-              <h1 className="mt-0.5 -ml-2 text-[19px] font-medium tracking-tight">Relic AI</h1>
+              <h1 className="text-[20px] font-semibold tracking-[-1px]">Relic AI</h1>
             </div>
+
             <button
               onClick={() => setIsOpen(false)}
               className="rounded-[5px] p-1 text-white/40 transition-colors hover:bg-[#0099FF] cursor-pointer hover:text-white mr-2"
@@ -159,11 +153,11 @@ export default function Sidebar({
 
           <div className="mt-4 flex-1 overflow-y-auto px-2 pb-4 ">
             <div className="space-y">
-              <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px] font-light text-white/80 flex items-center gap-1">
+              <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px]  text-white/80 flex items-center gap-1 font-medium">
                 Pinned
                 <IoIosArrowForward size={10} />
               </p>
-              <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px] font-light text-white/80 flex items-center gap-1">
+              <p className="sticky top-0 z-10 mb-2  px-3 py-1 text-[13px]  text-white/80 flex items-center gap-1 font-medium">
                 Recent conversation
                 <IoIosArrowForward size={10} />
               </p>
@@ -211,7 +205,7 @@ export default function Sidebar({
                         key={chat.id}
                         onMouseEnter={handleMouseEnter}
                         aria-current={isActive ? 'page' : undefined}
-                        className={`group relative z-10 flex w-full cursor-pointer items-center rounded-[2px] px-2 py-1 text-sm transition-colors ${
+                        className={`group relative z-10 flex w-full font-medium cursor-pointer items-center rounded-[2px] px-2 py-1 text-sm transition-colors ${
                           isActive ? 'bg-[#242424] text-white' : 'text-gray-300 hover:text-white'
                         }`}
                       >

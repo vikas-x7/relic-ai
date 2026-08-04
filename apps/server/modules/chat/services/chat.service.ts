@@ -1,4 +1,5 @@
 import { getPrisma } from 'db';
+import { AppError } from '../../../errors/AppError';
 import type { AnswerCitation } from '../../../agent/citations/citation.types';
 import { saveMessageCitations } from '../../../agent/citations/citation.service';
 import { extractMemoriesFromExchange } from '../../../agent/memory/memory.extractor';
@@ -8,16 +9,24 @@ import { runChatGraph } from '../../../agent/orchestration/chat.graph';
 import type { HistoryMessage } from '../../../agent/state/chat.state';
 import type { MessageRoleValue } from '../types/chat.types';
 
-export class ConversationNotFoundError extends Error {
+export class ConversationNotFoundError extends AppError {
   constructor() {
-    super('Conversation not found');
+    super({
+      message: 'Conversation not found',
+      statusCode: 404,
+      errorCode: 'CONVERSATION_NOT_FOUND',
+    });
     this.name = 'ConversationNotFoundError';
   }
 }
 
-export class ConversationAccessDeniedError extends Error {
+export class ConversationAccessDeniedError extends AppError {
   constructor() {
-    super('Access denied');
+    super({
+      message: 'Access denied',
+      statusCode: 403,
+      errorCode: 'CONVERSATION_ACCESS_DENIED',
+    });
     this.name = 'ConversationAccessDeniedError';
   }
 }

@@ -52,8 +52,16 @@ export default function LoginPage({ error }: LoginPageProps) {
       </div>
       <div className="flex w-full items-center justify-center lg:w-1/2">
         <div className="absolute top-0 left-0 mt-3 ml-3 flex items-center">
-          <img src="https://relicai.in/images/logo.png" alt="" className="h-11 w-11" />
-          <h1 className="-ml-2 text-[1.25rem]">Relic ai</h1>
+          <Image
+            width={1200}
+            height={600}
+            priority
+            src="/images/logo.png"
+            alt=""
+            className="h-5 w-5"
+          />
+
+          <h1 className="ml-[5px] font-medium text-[1.5rem] tracking-[-1px]">Relic ai</h1>
         </div>
         <div className="w-[480px] px-[1.5em]">
           <div className="mb-8 flex flex-col items-center justify-center">
@@ -61,7 +69,7 @@ export default function LoginPage({ error }: LoginPageProps) {
               Welcome to Relic AI
             </h1>
             <p className="mt-1 text-center text-[0.75rem] text-white/60">
-              Your ideas, your nodes, your branches all waiting for you. Sign in to continue.
+              Your ideas, your nodes, your branches all waiting for you Sign in to continue.
             </p>
           </div>
 
