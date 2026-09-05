@@ -8,11 +8,11 @@ const Footer = () => {
   return (
     <footer
       id="footer"
-      className="font-cabin text-black w-full pt-12 sm:pt-16 md:pt-10 pb-0 flex flex-col justify-between bg-white border-t border-black/10"
+      className="font-cabin text-black w-full pt-12 sm:pt-16 md:pt-10 pb-0 flex flex-col justify-between bg-white border-t border-black/10 px-10 relative"
     >
       <div className="w-full flex-1 flex flex-col justify-between pb-0">
         <div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 pt-4 pb-12 sm:pb-16 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-7 mb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 md:gap-12 pt-4 pb-12 sm:pb-16 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-7 mb-20 border-b border-black/10">
             <div className="space-y-4 sm:col-span-2 md:col-span-2">
               <div className="flex items-center gap-1 select-none">
                 <img
@@ -155,11 +155,13 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="w-full overflow-hidden leading-none border-b-0 pb-0 mb-0">
-          <h1 className="text-[17vw] sm:text-[18vw] md:text-[21.3vw] text-[#d5d5d5] font-bold overflow-hidden tracking-[-7px] sm:tracking-[-20px] md:tracking-[-40px] ml-[-4px] sm:ml-[-10px] leading-[0.72] sm:leading-[0.72] md:leading-[0.72] whitespace-nowrap select-none px-1 translate-y-[2%] block mb-0 pb-0">
-            Relicaicanvas ai
+        <div className="w-full overflow-hidden leading-none border-b-0 pb-0 mb-0 text-center">
+          <h1 className="text-[17vw] sm:text-[18vw] md:text-[17.3vw] text-[#292929] font-bold overflow-hidden tracking-[-7px] sm:tracking-[-20px] md:tracking-[-20px] ml-[-4px] sm:ml-[-10px] leading-[0.72] sm:leading-[0.72] md:leading-[0.72] whitespace-nowrap select-none px-1 translate-y-[2%] block mb-0 pb-0 px-10">
+            TRYRELICAI
           </h1>
         </div>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent via-white/10 to-white/10" />
       </div>
     </footer>
   );
