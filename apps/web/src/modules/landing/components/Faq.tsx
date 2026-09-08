@@ -57,9 +57,9 @@ function AccordionItem({
   return (
     <div
       onClick={onToggle}
-      className="flex flex-col justify-center py-4 sm:py-6 lg:py-8 border-b border-dashed border-black/10 hover:bg-black/5 cursor-pointer transition-colors px-5 "
+      className="flex flex-col justify-center py-4 sm:py-6 lg:py-6  border-dashed border-black/10 hover:bg-black/5 cursor-pointer transition-colors px-5 border mt-1"
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start justify-between gap-4 ">
         <h3 className="text-sm sm:text-base font-medium text-[#111]">{item.q}</h3>
       </div>
       <div
@@ -84,7 +84,7 @@ export default function FAQ() {
 
   return (
     <section id="faq" className="w-full text-[#111] font-cabin   scroll-mt-[40rem] mt-30">
-      <div className="flex justify-between items-start px-4 sm:px-24 py-20">
+      <div className="flex justify-between items-start px-4 sm:px-20 py-20">
         <div>
           <h2 className="text-3xl sm:text-5xl leading-tight tracking-[-1.5px] sm:tracking-[-3px] font-medium mb-2">
             Frequently Asked Questions

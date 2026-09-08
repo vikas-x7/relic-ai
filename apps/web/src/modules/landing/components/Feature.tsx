@@ -23,17 +23,20 @@ export default function Feature() {
   return (
     <section className="w-full text-black">
       <div className="px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
-        <div className="max-w-3xl border-l border-dashed border-black/20 pl-4 sm:pl-8 md:pl-12 py-4 sm:py-29">
+        <div className="max-w-[50rem] border-l border-dashed border-black/20 pl-4 sm:pl-8 md:pl-12 py-4 sm:py-20">
           <div className="flex items-center gap-3 text-black/70 py-4">
             <span className=" text-[10px] sm:text-[14px] tracking-[-0.05px] uppercase text-black">
               Statistics
             </span>
           </div>
 
-          <h2 className="text-[18px] tracking-[-0.5px] leading-6  sm:text-2xl md:text-[32px] text-black/90 sm:leading-relaxed md:leading-9 mb-8 sm:mb-10 font-cabin sm:tracking-[-0.5px] sm:tracking-[-1.5px] font-medium">
+          <h2 className="text-[18px] tracking-[-0.5px] leading-6  sm:text-2xl md:text-[36px] text-black/90 sm:leading-relaxed md:leading-10 mb-8 sm:mb-5 font-cabin sm:tracking-[-0.5px] sm:tracking-[-1.5px] font-medium">
             Build a connected knowledge graph of conversations track single thought on an infinite
-            canvas.
           </h2>
+          <p className="mb-6">
+            Dolor sit amet consectetur adipisicing elit. Minima ipsa maxime possimus id rem
+            voluptatibus velit quos libero saep
+          </p>
 
           <button className="flex items-stretch w-fit group hover:opacity-80 transition-opacity cursor-pointer">
             <div className="bg-[#0a0a0a] p-1.5 sm:px-3 sm:p-3 border border-black/80 flex items-center justify-center">

@@ -32,7 +32,7 @@ export default function MovingHanding() {
         }
       `}</style>
 
-      <section className="w-full overflow-hidden border-y border-dashed border-black/20 py-3 sm:py-6 sm:py-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-16 sm:mt-24 md:mt-30">
+      <section className="w-full overflow-hidden border-y border-dashed border-black/20 py-3 sm:py-6 sm:py-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 mt-16 sm:mt-24 md:mt-10">
         <div className="relative overflow-hidden">
           <div className="animate-marquee-loop">
             {[0, 1].map((group) => (
@@ -46,10 +46,10 @@ export default function MovingHanding() {
                     <img
                       src={item.src}
                       alt={group === 0 ? `${item.name}-logo` : ''}
-                      className="h-4 sm:h-6 w-auto max-w-full object-contain"
+                      className="h-4 sm:h-8 w-auto max-w-full object-contain"
                     />
 
-                    <span className="ml-3 text-[13px] sm:text-[16px] font-medium tracking-tight text-black md:text-[15px]">
+                    <span className="ml-3 text-[13px] sm:text-[16px] font-medium tracking-tight text-black md:text-[19px]">
                       {item.name}
                     </span>
                   </div>
