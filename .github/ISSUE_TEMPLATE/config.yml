@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/vikas-x7/relic-ai/blob/main/.github/SECURITY.md
+    about: Do not open a public issue for security bugs — see the private reporting channel.
+  - name: Contribution guide
+    url: https://github.com/vikas-x7/relic-ai/blob/main/.github/CONTRIBUTING.md
+    about: Local setup, code conventions, commit format, and the pull request process.
+  - name: Code of Conduct
+    url: https://github.com/vikas-x7/relic-ai/blob/main/.github/CODE_OF_CONDUCT.md
+    about: What is expected of everyone participating in this project.
